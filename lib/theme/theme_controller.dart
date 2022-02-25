@@ -1,3 +1,4 @@
+import 'package:book_tracker/config/palette.dart';
 import 'package:flutter/material.dart';
 
 final themeController = ThemeController.instance;
@@ -18,14 +19,16 @@ class ThemeController with ChangeNotifier {
   }
 
   final _lightThemeData = ThemeData(
-    backgroundColor: Colors.white,
-    primaryColor: Colors.lightBlueAccent,
-    scaffoldBackgroundColor: Colors.orangeAccent,
+    backgroundColor: Palette.backgroundLight,
+    primaryColor: Palette.primaryLight,
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: TextButton.styleFrom(
+        backgroundColor: Palette.primaryLight,
+      ),
+    ),
     textTheme: const TextTheme(
-      headline1: TextStyle(color: Colors.black),
-      headline2: TextStyle(color: Colors.black),
-      bodyText1: TextStyle(color: Colors.black),
-      bodyText2: TextStyle(color: Colors.black),
+      headline1: TextStyle(color: Palette.titleLight),
+      subtitle1: TextStyle(color: Palette.subtitleLight),
     ),
   );
 

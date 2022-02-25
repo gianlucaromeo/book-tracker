@@ -19,13 +19,12 @@ class _OnboardingPageState extends State<OnboardingPage> {
     super.dispose();
   }
 
-
-  final _bottomContainerHeight = 80.0;
   @override
   Widget build(BuildContext context) {
+    const _bottomContainerHeight = 80.0;
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.only(bottom: _bottomContainerHeight),
+        padding: const EdgeInsets.only(bottom: _bottomContainerHeight),
         child: PageView(
           controller: _pageController,
           onPageChanged: (index) {

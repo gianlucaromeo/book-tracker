@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:book_tracker/config/general_settings.dart';
+import 'package:book_tracker/screen/choose_language_screen.dart';
 import 'package:book_tracker/screen/onboarding_screen.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -33,10 +34,8 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        Provider<LocaleProvider>(create: (context) => LocaleProvider(),),
-      ],
+    return ChangeNotifierProvider(
+      create: (context) => LocaleProvider(),
       builder: (context, child) {
         final localeProvider = Provider.of<LocaleProvider>(context);
         return MaterialApp(
@@ -53,7 +52,7 @@ class _MyAppState extends State<MyApp> {
             GlobalCupertinoLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
           ],
-          home: const OnboardingPage(),
+          home: const ChooseLanguagePage(),
         );
       },
     );
