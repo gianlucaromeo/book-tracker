@@ -38,6 +38,9 @@ dependencies:
   # State management
   provider: ^6.0.2
 
+  # Bottom page indicator
+  smooth_page_indicator: ^1.0.0+2
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
