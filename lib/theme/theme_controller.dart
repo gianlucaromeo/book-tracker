@@ -4,8 +4,8 @@ final themeController = ThemeController.instance;
 
 class ThemeController with ChangeNotifier {
 
-  ThemeController._privateConstructor();
-  static final ThemeController _instance = ThemeController._privateConstructor();
+  ThemeController._(); // Private constructor to make class Singleton
+  static final ThemeController _instance = ThemeController._();
   static ThemeController get instance => _instance;
 
   bool _isDarkTheme = false;
