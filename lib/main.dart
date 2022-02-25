@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:book_tracker/config/general_settings.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:book_tracker/provider/locale_provider.dart';
@@ -22,6 +23,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  
   @override
   void initState() {
     themeController.addListener(() {setState(() {});});
@@ -35,14 +37,14 @@ class _MyAppState extends State<MyApp> {
         Provider<LocaleProvider>(create: (context) => LocaleProvider(),),
       ],
       builder: (context, child) {
-        final provider = Provider.of<LocaleProvider>(context);
+        final localeProvider = Provider.of<LocaleProvider>(context);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Flutter Demo',
+          title: GeneralSettings.appTitle,
           theme: themeController.lightThemeData,
           darkTheme: themeController.darkThemeData,
           themeMode: themeController.currentThemeMode,
-          locale: provider.currentLocale,
+          locale: localeProvider.currentLocale,
           supportedLocales: L10n.supportedLocales,
           localizationsDelegates: const [
             AppLocalizations.delegate,
@@ -50,59 +52,10 @@ class _MyAppState extends State<MyApp> {
             GlobalCupertinoLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
           ],
-          home: const MyHomePage(title: 'Flutter Demo Home Page'),
+          home: const Text('hello'),
         );
       },
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              AppLocalizations.of(context)!.language,
-            ),
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () =>  _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
-    );
-  }
-}
