@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:book_tracker/config/general_settings.dart';
+import 'package:book_tracker/screen/onboarding_screen.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:book_tracker/provider/locale_provider.dart';
@@ -52,7 +53,7 @@ class _MyAppState extends State<MyApp> {
             GlobalCupertinoLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
           ],
-          home: const Text('hello'),
+          home: const OnboardingPage(),
         );
       },
     );
