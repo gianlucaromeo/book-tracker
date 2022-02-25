@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:book_tracker/provider/locale_provider.dart';
 import 'package:flutter/material.dart';
@@ -13,21 +14,34 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({Key? key}) : super(key: key);
 
   @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    themeController.addListener(() {setState(() {});});
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => LocaleProvider(),
+    return MultiProvider(
+      providers: [
+        Provider<LocaleProvider>(create: (context) => LocaleProvider(),),
+      ],
       builder: (context, child) {
         final provider = Provider.of<LocaleProvider>(context);
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Flutter Demo',
-          theme: ThemeData(
-            primarySwatch: Colors.blue,
-          ),
+          theme: themeController.lightThemeData,
+          darkTheme: themeController.darkThemeData,
+          themeMode: themeController.currentThemeMode,
           locale: provider.currentLocale,
           supportedLocales: L10n.supportedLocales,
           localizationsDelegates: const [
@@ -85,7 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: () =>  _incrementCounter,
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
