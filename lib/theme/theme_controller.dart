@@ -1,3 +1,4 @@
+import 'package:book_tracker/config/general_settings.dart';
 import 'package:book_tracker/config/palette.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +19,10 @@ class ThemeController with ChangeNotifier {
     notifyListeners();
   }
 
+  static final _fontFamily = GeneralSettings.textStyle.fontFamily;
+
   final _lightThemeData = ThemeData(
+    fontFamily: _fontFamily,
     backgroundColor: Palette.backgroundLight,
     primaryColor: Palette.primaryLight,
     elevatedButtonTheme: ElevatedButtonThemeData(
@@ -33,6 +37,7 @@ class ThemeController with ChangeNotifier {
   );
 
   final _darkThemeData = ThemeData(
+    fontFamily: _fontFamily,
     backgroundColor: Colors.black,
     primaryColor: Colors.red,
     scaffoldBackgroundColor: Colors.blue,
