@@ -1,4 +1,10 @@
 {
   "language": "Italiano",
-  "hello": "Ciao {username}"
+  "hello": "Ciao {username}",
+  "english": "Inglese",
+  "italian": "Italiano",
+  "chooseLanguage": "Seleziona una lingua",
+  "chooseLanguageWelcome": "Benvenuto",
+  "chooseLanguageTitle": "Book Tracker",
+  "chooseLanguageNext": "Continua"
 }

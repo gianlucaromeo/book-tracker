@@ -4,6 +4,35 @@
     "description": "The default language"
   },
 
+  "english": "English",
+  "@english": {
+    "description": "The name of the language English"
+  },
+  "italian": "Italian",
+  "@italian": {
+    "description": "The name of the language Italian"
+  },
+
+  "chooseLanguage": "Choose a language",
+  "@chooseLanguage": {
+    "description": "A message to choose a language"
+  },
+
+  "chooseLanguageWelcome": "Welcome",
+  "@chooseLanguageWelcome": {
+    "description": "A welcome text"
+  },
+
+  "chooseLanguageTitle": "Book Tracker",
+  "@chooseLanguageTitle": {
+    "description": "A title for the Welcome page"
+  },
+
+  "chooseLanguageNext": "Next",
+  "@chooseLanguageNext": {
+    "description": "The text of the next-button "
+  },
+
   "hello": "Hello {username}",
   "@hello": {
     "description": "A welcome message to the user",
