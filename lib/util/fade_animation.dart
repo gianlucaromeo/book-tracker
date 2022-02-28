@@ -1,18 +1,33 @@
 import 'package:flutter/material.dart';
 
+class FadeInAnimation extends FadeAnimation {
+  FadeInAnimation({Key? key, required int milliseconds, required Widget child})
+      : super(
+            key: key,
+            opacityFrom: 0.0,
+            opacityTo: 1.0,
+            milliseconds: milliseconds,
+            child: child);
+}
+
 class FadeAnimation extends StatefulWidget {
 
-  late double _opacityFrom; // The opacity to modify
-  late double _opacityTo;
-  late Duration _duration;
-  late Widget _child;
+  late final double _opacityFrom; // The opacity to modify
+  late final double _opacityTo;
+  late final Duration _duration;
+  late final Widget _child;
 
-
-  FadeAnimation({Key? key, required double opacityFrom, required double opacityTo, required Widget child, required Duration duration}) : super(key: key) {
+  FadeAnimation(
+      {Key? key,
+      required double opacityFrom,
+      required double opacityTo,
+      required Widget child,
+      required int milliseconds})
+      : super(key: key) {
     _opacityFrom = opacityFrom;
     _opacityTo = opacityTo;
     _child = child;
-    _duration = duration;
+    _duration = Duration(milliseconds: milliseconds);
   }
 
   @override
@@ -21,11 +36,12 @@ class FadeAnimation extends StatefulWidget {
 
 class _FadeAnimationState extends State<FadeAnimation> {
 
+  late double _opacity = widget._opacityFrom;
+
   _changeOpacity() {
     Future.delayed(widget._duration, () {
       setState(() {
-        widget._opacityFrom = widget._opacityTo;
-        _changeOpacity();
+        _opacity = widget._opacityTo;
       });
     });
   }
@@ -39,10 +55,9 @@ class _FadeAnimationState extends State<FadeAnimation> {
   @override
   Widget build(BuildContext context) {
     return AnimatedOpacity(
-      opacity: widget._opacityFrom,
+      opacity: _opacity,
       duration: widget._duration,
       child: widget._child,
     );
   }
-
 }

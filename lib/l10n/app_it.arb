@@ -6,5 +6,17 @@
   "chooseLanguage": "Seleziona una lingua",
   "chooseLanguageWelcome": "Benvenuto",
   "chooseLanguageTitle": "Book Tracker",
-  "chooseLanguageNext": "Continua"
+  "chooseLanguageNext": "Continua",
+  "onboardingTitle1": "Tieni traccia delle tue letture.",
+  "onboardingSecondaryTitle1": "Cerca qualsiasi libro",
+  "onboardingSubtitle1": "Già letto?\nLo stai leggendo proprio ora?..",
+  "onboardingTitle2": "Controlla le tue statistiche",
+  "onboardingSecondaryTitle2": "Il modo più semplice per tenere traccia dei tuoi libri.",
+  "onboardingSubtitle2": "Filtra per mesi, settimane, autori e molto molto altro!",
+  "onboardingTitle3": "Iniziamo?",
+  "onboardingSecondaryTitle3": "Cerca qualsiasi libro e aggiungilo alla tua lista.",
+  "onboardingSubtitle3": "Potrai riguardare questo tutorial in qualsiasi momento dalle tue Impostazioni.",
+  "skipOnboarding": "SKIP",
+  "nextOnboarding": "AVANTI",
+  "letsStartOnboarding": "CONTINUA"
 }

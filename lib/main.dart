@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:book_tracker/config/general_settings.dart';
 import 'package:book_tracker/screen/choose_language_screen.dart';
+import 'package:book_tracker/screen/onboarding_screen.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:book_tracker/provider/locale_provider.dart';
@@ -38,11 +39,20 @@ class _MyAppState extends State<MyApp> {
       builder: (context, child) {
         final localeProvider = Provider.of<LocaleProvider>(context);
         return MaterialApp(
+
           debugShowCheckedModeBanner: false,
           title: GeneralSettings.appTitle,
+
+          routes: {
+            '/choose_language_page': (context) =>  const ChooseLanguagePage(),
+            '/onboarding_page': (context) => const OnboardingPage(),
+          },
+          initialRoute: '/choose_language_page',
+
           theme: themeController.lightThemeData,
           darkTheme: themeController.darkThemeData,
           themeMode: themeController.currentThemeMode,
+
           locale: localeProvider.currentLocale,
           supportedLocales: L10n.supportedLocales,
           localizationsDelegates: const [
@@ -51,7 +61,9 @@ class _MyAppState extends State<MyApp> {
             GlobalCupertinoLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
           ],
-          home: SafeArea(child: const ChooseLanguagePage()),
+
+          //home: SafeArea(child: const ChooseLanguagePage()),
+
         );
       },
     );
