@@ -37,6 +37,9 @@ dependencies:
   firebase_auth: ^3.3.9
   firebase_core: ^1.13.1
 
+  # Google Sign-in
+  google_sign_in: ^5.2.4
+
   # Internationalization and localization
   intl: ^0.17.0
 
@@ -57,6 +60,12 @@ dependencies:
 
   # Animations
   animations: ^2.0.2
+
+  # Font Awesome
+  font_awesome_flutter: ^9.2.0
+
+  # Email Validator
+  email_validator: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -99,6 +108,7 @@ flutter:
     - assets/onboarding/onboarding_search_books.json # TODO
     - assets/onboarding/onboarding_first.json
     - assets/onboarding/onboarding_ready_to_start.json
+    - assets/authentication/forgot_password.json
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

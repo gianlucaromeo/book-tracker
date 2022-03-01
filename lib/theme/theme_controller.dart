@@ -25,6 +25,24 @@ class ThemeController with ChangeNotifier {
     fontFamily: _fontFamily,
     backgroundColor: Palette.backgroundLight,
     primaryColor: Palette.primaryLight,
+    // Custom TextField
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20.0),
+      ),
+    ),
+    // Custom Button
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        minimumSize: const Size.fromHeight(50.0),
+        textStyle: const TextStyle(fontSize: 20.0),
+        backgroundColor: Colors.blueAccent,
+        primary: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.0),
+        ),
+      ),
+    ),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: TextButton.styleFrom(
         backgroundColor: Palette.primaryLight,
