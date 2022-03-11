@@ -4,11 +4,9 @@ import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../main.dart';
-import '../provider/google_sign_in_provider.dart';
 import '../util/fade_animation.dart';
 
 class SignUpForm extends StatefulWidget {
@@ -20,6 +18,8 @@ class SignUpForm extends StatefulWidget {
 }
 
 class _SignUpFormState extends State<SignUpForm> {
+
+  late final AppLocalizations _l10n;
   final formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -35,6 +35,8 @@ class _SignUpFormState extends State<SignUpForm> {
 
   @override
   Widget build(BuildContext context) {
+    const int _milliseconds = 100;
+    _l10n = AppLocalizations.of(context)!;
     return Center(
       child: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 50.0),
@@ -44,33 +46,50 @@ class _SignUpFormState extends State<SignUpForm> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
 
+
+              // -- Go To Login
+              FadeInAnimation(
+                milliseconds: 500,
+                child: _buildGoToLoginText(),
+              ),
+              TransparentDivider.h(15.0),
+
+
               // -- Title
-              FadeInAnimation(child: _buildTitle(), milliseconds: 500,),
-
-
+              FadeInAnimation(
+                child: _buildTitle(),
+                milliseconds: _milliseconds,
+              ),
               TransparentDivider.h(30.0),
 
               // -- Email Field
-              FadeInAnimation(child: _buildEmailField(), milliseconds: 500,),
-
-
-              TransparentDivider.h(22.0),
+              FadeInAnimation(
+                child: _buildEmailField(),
+                milliseconds: _milliseconds,
+              ),
+              TransparentDivider.h(10.0),
 
               // -- Password Field
-              FadeInAnimation(child: _buildPasswordField(
-                  _passwordController, 'Password', _passwordValidator), milliseconds: 500,),
-
-              TransparentDivider.h(22.0),
+              FadeInAnimation(
+                child: _buildPasswordField(
+                    _passwordController, _l10n.signUpFormPasswordLabelText, _passwordValidator),
+                milliseconds: _milliseconds,
+              ),
+              TransparentDivider.h(10.0),
 
               // -- Confirm Password Field
-              FadeInAnimation(child: _buildPasswordField(_confirmPasswordController,
-                  'Confirm Password', _confirmPasswordValidator), milliseconds: 500,),
-
-              TransparentDivider.h(22.0),
+              FadeInAnimation(
+                child: _buildPasswordField(_confirmPasswordController,
+                    _l10n.signUpFormConfirmPasswordLabelText, _confirmPasswordValidator),
+                milliseconds: _milliseconds,
+              ),
+              TransparentDivider.h(18.0),
 
               // -- Sign Up with Email Button
-              FadeInAnimation(child: _buildSignUpButton(), milliseconds: 500,),
-
+              FadeInAnimation(
+                child: _buildSignUpButton(),
+                milliseconds: _milliseconds,
+              ),
 
               const Divider(
                 height: 40,
@@ -78,21 +97,35 @@ class _SignUpFormState extends State<SignUpForm> {
               ),
 
               // -- Sign In with Google Button
-              FadeInAnimation(child: const GoogleSignInButton(), milliseconds: 500,),
-
-
+              FadeInAnimation(
+                child: const GoogleSignInButton(),
+                milliseconds: _milliseconds,
+              ),
               TransparentDivider.h(22.0),
 
               // -- Go to Login Page
-              FadeInAnimation(child: _buildGoToLoginPage(context), milliseconds: 500,),
-
-
+              FadeInAnimation(
+                child: _buildGoToLoginPage(context),
+                milliseconds: _milliseconds,
+              ),
             ],
           ),
         ),
       ),
     );
   }
+
+  Align _buildGoToLoginText() => Align(
+        alignment: Alignment.centerLeft,
+        child: TextButton.icon(
+          onPressed: widget.onClickedSignIn,
+          icon: const Icon(Icons.arrow_back),
+          label: Text(
+            _l10n.signUpFormGoToLoginText,
+            style: const TextStyle(fontSize: 19.0),
+          ),
+        ),
+      );
 
   RichText _buildGoToLoginPage(BuildContext context) {
     return RichText(
@@ -101,11 +134,11 @@ class _SignUpFormState extends State<SignUpForm> {
           fontSize: 20.0,
           color: Theme.of(context).textTheme.subtitle1!.color,
         ),
-        text: 'Already have an account? ',
+        text: _l10n.signUpFormAlreadyHaveAnAccount,
         children: [
           TextSpan(
             recognizer: TapGestureRecognizer()..onTap = widget.onClickedSignIn,
-            text: 'Login',
+            text: _l10n.signUpFormLoginText,
             style: TextStyle(
               decoration: TextDecoration.underline,
               color: Theme.of(context).colorScheme.primary,
@@ -128,9 +161,9 @@ class _SignUpFormState extends State<SignUpForm> {
         Icons.arrow_right_alt,
         size: 32.0,
       ),
-      label: const Text(
-        'Sign Up',
-        style: TextStyle(
+      label: Text(
+        _l10n.signUpFormSignUpButtonText,
+        style: const TextStyle(
           fontSize: 24.0,
         ),
       ),
@@ -143,22 +176,22 @@ class _SignUpFormState extends State<SignUpForm> {
       controller: _emailController,
       cursorColor: Colors.white,
       textInputAction: TextInputAction.next,
-      decoration: const InputDecoration(
-        labelText: 'Email',
+      decoration: InputDecoration(
+        labelText: _l10n.signUpFormEmailLabelText,
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (email) => email != null && !EmailValidator.validate(email)
-          ? 'Enter a valid email'
+          ? _l10n.signUpFormEmailErrorText
           : null,
     );
   }
 
   Align _buildTitle() {
-    return const Align(
+    return Align(
       alignment: Alignment.centerLeft,
       child: Text(
-        'Sign Up',
-        style: TextStyle(
+        _l10n.signUpFormTitle,
+        style: const TextStyle(
           fontSize: 32.0,
           letterSpacing: 2,
           fontWeight: FontWeight.bold,
@@ -184,12 +217,12 @@ class _SignUpFormState extends State<SignUpForm> {
 
   String? _passwordValidator(password) =>
       password != null && password.length < 6
-          ? 'Must contain at least 6 characters'
+          ? _l10n.signUpFormPasswordLengthError
           : null;
 
   String? _confirmPasswordValidator(confirmPassword) =>
       confirmPassword != _passwordController.text.trim()
-          ? 'Passwords dont match'
+          ? _l10n.signUpFormPasswordsDontMatchError
           : null;
 
   Future signUp() async {

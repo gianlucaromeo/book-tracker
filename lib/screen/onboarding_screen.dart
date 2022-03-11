@@ -1,6 +1,8 @@
 import 'package:book_tracker/config/palette.dart';
+import 'package:book_tracker/config/shared_prefs.dart';
 import 'package:book_tracker/constants/onboarding_sections_data.dart';
-import 'package:book_tracker/screen/login_form.dart';
+import 'package:book_tracker/constants/routes.dart';
+import 'package:book_tracker/main.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -129,7 +131,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       toolbarHeight: 80.0,
       leading: IconButton(
         onPressed: () {
-          Navigator.popAndPushNamed(context, '/choose_language_page');
+          Navigator.of(context).popAndPushNamed(Routes.chooseLanguageRouteName);
         },
         icon: const Icon(
           Icons.arrow_back,
@@ -153,8 +155,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
             ),
           ),
           onPressed: () {
-            Navigator.of(context).pushReplacementNamed('/auth_page');
-          },
+            Navigator.of(context).pushNamedAndRemoveUntil(
+                Routes.authenticationPageRouteName, (route) => false);
+            prefs.setBool(SharedPrefsSettings.showTutorialPref, false);
+            },
           style: TextButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),

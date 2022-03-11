@@ -1,7 +1,8 @@
-import 'package:book_tracker/config/palette.dart';
-import 'package:book_tracker/screen/login_form.dart';
-import 'package:book_tracker/screen/signup_form.dart';
-import 'package:book_tracker/screen/verify_email_screen.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:book_tracker/util/app_bar_util.dart';
+import 'package:book_tracker/widget/login_form.dart';
+import 'package:book_tracker/widget/signup_form.dart';
+import 'package:book_tracker/widget/verify_email_form.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,15 @@ class _AuthPageState extends State<AuthPage> {
     });
   }
 
+  AppBar _buildAppBar() {
+    return AppBarUtil.buildAppBar(
+      toolbarHeight: 130.0,
+      elevation: 0.0,
+      centerTitle: true,
+      text: AppLocalizations.of(context)!.authPageTitle,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -38,10 +48,7 @@ class _AuthPageState extends State<AuthPage> {
                 child: Text('Error'), // TODO
               );
             } else if (snap.hasData) {
-              return const Center(
-                child:
-                    VerifyEmailPage(), // Check if already verified and pushes new route
-              );
+              return const VerifyEmailForm();
             } else {
               return isLogin
                   ? LoginForm(onSignUpClicked: toggle)
@@ -51,28 +58,5 @@ class _AuthPageState extends State<AuthPage> {
         ),
       ),
     );
-  }
-
-  AppBar _buildAppBar() {
-    return AppBar(
-        toolbarHeight: 130.0,
-        elevation: 0.0,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(60.0),
-          bottomRight: Radius.circular(60.0),
-          ),
-        ),
-        backgroundColor: Palette.primaryLight,
-        centerTitle: true,
-        title: const Text(
-          'Authentication',
-          style: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 27.0,
-            letterSpacing: 1,
-          ),
-        ),
-      );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:book_tracker/config/palette.dart';
 import 'package:book_tracker/main.dart';
+import 'package:book_tracker/util/app_bar_util.dart';
 import 'package:book_tracker/util/fade_animation.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:email_validator/email_validator.dart';
@@ -35,26 +36,29 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+
+              // -- Title
               TransparentDivider.h10(),
               FadeInAnimation(child: _buildTitle(), milliseconds: 500,),
 
+              // -- Subtitle
               TransparentDivider.h(10.0),
               FadeInAnimation(child: _buildSubtitle(), milliseconds: 500,),
 
-
+              // -- Email Field
               TransparentDivider.h(20.0),
               FadeInAnimation(child: _buildEmailField(), milliseconds: 500,),
 
-
+              // -- Reset Password Button
               TransparentDivider.h(20.0),
               FadeInAnimation(child: _buildResetPasswordButton(), milliseconds: 500,),
 
-
+              // -- Lottie Animation
               TransparentDivider.h(20.0),
-
               Expanded(
                 child: FadeInAnimation(child: Lottie.asset('assets/authentication/forgot_password.json'), milliseconds: 500,),
               ),
+              
             ],
           ),
         ),
@@ -82,7 +86,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     return const Align(
       alignment: Alignment.centerLeft,
       child: Text(
-        'An email be sent to recover your password.',
+        'An email will be sent to recover your password.',
         style: TextStyle(
           fontSize: 18.0,
         ),
@@ -147,29 +151,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   }
 
   AppBar _buildAppBar() {
-    return AppBar(
+    return AppBarUtil.buildAppBar(
       toolbarHeight: 130.0,
       elevation: 0.0,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(60.0),
-          bottomRight: Radius.circular(60.0),
-        ),
-      ),
-      backgroundColor: Palette.primaryLight,
       centerTitle: true,
-      title: const Text(
-        'Password Recovery',
-        style: TextStyle(
-          fontWeight: FontWeight.w600,
-          fontSize: 27.0,
-          letterSpacing: 1,
-        ),
-      ),
-      iconTheme: const IconThemeData(
-        size: 40.0,
-        color: Colors.white,
-      ),
+      text: 'Authentication',
     );
   }
 }

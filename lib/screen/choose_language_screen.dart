@@ -1,7 +1,4 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:book_tracker/config/palette.dart';
-import 'package:book_tracker/l10n/l10n.dart';
-import 'package:book_tracker/provider/locale_provider.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/fade_animation.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
@@ -9,7 +6,6 @@ import 'package:book_tracker/widget/language_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lottie/lottie.dart';
-import 'package:provider/provider.dart';
 
 class ChooseLanguagePage extends StatefulWidget {
   final String _languagesAssetName =
@@ -22,6 +18,7 @@ class ChooseLanguagePage extends StatefulWidget {
 }
 
 class _ChooseLanguagePageState extends State<ChooseLanguagePage> {
+
   @override
   void initState() {
     super.initState();
@@ -29,11 +26,6 @@ class _ChooseLanguagePageState extends State<ChooseLanguagePage> {
 
   @override
   Widget build(BuildContext context) {
-    final _currentLocale = Provider.of<LocaleProvider>(context).currentLocale;
-    final _supportedLocalesNames = [
-      AppLocalizations.of(context)!.english,
-      AppLocalizations.of(context)!.italian,
-    ];
 
     return SafeArea(
       child: Scaffold(

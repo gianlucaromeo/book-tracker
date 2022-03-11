@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../provider/google_sign_in_provider.dart';
 
@@ -23,9 +24,9 @@ class GoogleSignInButton extends StatelessWidget {
         FontAwesomeIcons.google,
         color: Colors.red,
       ),
-      label: const Text(
-        'Sign in with Google',
-        style: TextStyle(
+      label: Text(
+        AppLocalizations.of(context)!.signInWithGoogleButtonText,
+        style: const TextStyle(
           fontSize: 20.0,
           color: Colors.black,
           fontWeight: FontWeight.w300,

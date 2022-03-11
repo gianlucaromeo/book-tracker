@@ -1,3 +1,4 @@
+import 'package:book_tracker/constants/routes.dart';
 import 'package:book_tracker/provider/locale_provider.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
@@ -65,9 +66,7 @@ class LanguagePicker extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
         ),
       ),
-      onPressed: () {
-        Navigator.pushReplacementNamed(context, '/onboarding_page');
-      },
+      onPressed: () => Navigator.of(context).pushNamed(Routes.onboardingPageRouteName),
     );
   }
 

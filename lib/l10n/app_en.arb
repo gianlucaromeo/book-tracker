@@ -94,6 +94,106 @@
     "description": "Text for the Let's start Onboarding button"
   },
 
+  "authPageTitle": "Authentication",
+  "@authPageTitle": {
+    "description": "Title of the Authentication Page"
+  },
+
+  "signInWithGoogleButtonText": "Sign in with Google",
+  "@signInWithGoogleButtonText": {
+    "description": "Text for the Sign-In with Google Button"
+  },
+
+  "loginFormTitle": "Login",
+  "@loginFormTitle": {
+    "description": "Title for the Login Form"
+  },
+
+  "loginFormEmailFieldLabelText": "Email",
+  "@loginFormEmailFieldLabelText": {
+    "description": "Email label text for the Email field in Login Form"
+  },
+
+  "loginFormPasswordFieldLabelText": "Password",
+  "@loginFormPasswordFieldLabelText": {
+    "description": "Password label text for the Password field in Login Form"
+  },
+
+  "loginFormSignInButtonText": "Sign In",
+  "@loginFormSignInButtonText": {
+    "description": "Text for the Sign In button in Login Form"
+  },
+
+  "loginFormForgotPasswordText": "Forgot Password?",
+  "@loginFormForgotPasswordText": {
+    "description": "Text for the Forgot Password link"
+  },
+
+  "loginFormNoAccount": "No account? ",
+  "@loginFormNoAccount": {
+    "description": "No account? Text"
+  },
+
+  "loginFormSignUpText": "Sign Up",
+  "@loginFormSignUpText": {
+    "description": "Sign Up link in Login Form"
+  },
+
+  "signUpFormGoToLoginText": "Login",
+  "@signUpFormGoToLoginText": {
+    "description": "Go To Login Text for the SignUp Form"
+  },
+
+  "signUpFormTitle": "Sign Up",
+  "@signUpFormTitle": {
+    "description": "Sign Up Form title"
+  },
+
+  "signUpFormEmailLabelText": "E-mail",
+  "@signUpFormEmailLabelText": {
+    "description": "Email Field Label Text for Sign Up Form"
+  },
+
+  "signUpFormEmailErrorText": "Enter a valid Email",
+  "@signUpFormEmailErrorText": {
+    "description": "Invalid Email error description"
+  },
+
+  "signUpFormPasswordLabelText": "Password",
+  "@signUpFormPasswordLabelText": {
+    "description": "Password Field Label Text for Sign Up Form"
+  },
+
+  "signUpFormConfirmPasswordLabelText": "Confirm",
+  "@signUpFormConfirmPasswordLabelText": {
+    "description": "Confirm Password Field Label Text for Sign Up Form"
+  },
+
+  "signUpFormSignUpButtonText": "Sign Up",
+  "@signUpFormSignUpButtonText": {
+    "description": "Text for the Sign Up button in Sign Up Form"
+  },
+
+  "signUpFormAlreadyHaveAnAccount": "Already have an account? ",
+  "@signUpFormAlreadyHaveAnAccount": {
+    "description": "Already have an account? Text"
+  },
+
+  "signUpFormLoginText": "Login",
+  "@signUpFormLoginText": {
+    "description": "Login link in Sign Up Form"
+  },
+
+  "signUpFormPasswordLengthError": "Must contain at least 6 characters",
+  "@signUpFormPasswordLengthError": {
+    "description": "Password length error"
+  },
+
+  "signUpFormPasswordsDontMatchError": "Passwords don't match",
+  "@signUpFormPasswordsDontMatchError": {
+    "description": "Passwords don't match error"
+  },
+
   "hello": "Hello {username}",
   "@hello": {
     "description": "A welcome message to the user",
