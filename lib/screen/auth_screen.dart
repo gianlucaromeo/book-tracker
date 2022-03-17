@@ -1,3 +1,4 @@
+import 'package:book_tracker/screen/user_pages/user_screen.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:book_tracker/util/app_bar_util.dart';
 import 'package:book_tracker/widget/login_form.dart';
@@ -14,11 +15,12 @@ class AuthPage extends StatefulWidget {
 }
 
 class _AuthPageState extends State<AuthPage> {
-  bool isLogin = true;
+  bool isLoginForm = true;
+  bool userLoggedIn = false;
 
   void toggle() {
     setState(() {
-      isLogin = !isLogin;
+      isLoginForm = !isLoginForm;
     });
   }
 
@@ -34,29 +36,33 @@ class _AuthPageState extends State<AuthPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        appBar: _buildAppBar(),
-        body: StreamBuilder<User?>(
-          stream: FirebaseAuth.instance.authStateChanges(),
-          builder: (context, snap) {
-            if (snap.connectionState == ConnectionState.waiting) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            } else if (snap.hasError) {
-              return const Center(
-                child: Text('Error'), // TODO
-              );
-            } else if (snap.hasData) {
-              return const VerifyEmailForm();
-            } else {
-              return isLogin
-                  ? LoginForm(onSignUpClicked: toggle)
-                  : SignUpForm(onClickedSignIn: toggle);
-            }
-          },
-        ),
+      child: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snap) {
+          if (snap.connectionState == ConnectionState.waiting) {
+            return const Scaffold(body: CircularProgressIndicator(),);
+          } else if (snap.hasError) {
+            return const Center(
+              child: Text('Error'), // TODO
+            );
+          } else if (snap.hasData) {
+            return const VerifyEmailForm();
+          } else {
+            return Scaffold(
+              appBar: _buildAppBar(),
+              body: isLoginForm
+                  ? Scaffold(body:LoginForm(onSignUpClicked: toggle))
+                  : Scaffold(body: SignUpForm(onClickedSignIn: toggle)),
+            );
+          }
+        },
       ),
     );
+  }
+
+  bool userEmailVerified() {
+    print('CHECK EMAIL: ' +
+        (FirebaseAuth.instance.currentUser!.emailVerified ? 'OK' : "NO"));
+    return FirebaseAuth.instance.currentUser!.emailVerified;
   }
 }

@@ -18,7 +18,7 @@
   "onboardingSubtitle3": "Potrai riguardare questo tutorial in qualsiasi momento dalle tue Impostazioni.",
   "skipOnboarding": "SKIP",
   "nextOnboarding": "AVANTI",
-  "letsStartOnboarding": "CONTINUA",
+  "letsStartOnboarding": "Iniziamo!",
   "authPageTitle": "Autenticazione",
   "signInWithGoogleButtonText": "Accedi tramite Google",
   "loginFormTitle": "Login",
@@ -38,5 +38,9 @@
   "signUpFormConfirmPasswordLabelText": "Conferma Password",
   "signUpFormSignUpButtonText": "Registrati",
   "signUpFormAlreadyHaveAnAccount": "Hai già un account? ",
-  "signUpFormLoginText": "Accedi!"
+  "signUpFormLoginText": "Accedi!",
+  "bottomNavBarItemLabelHome": "Home",
+  "bottomNavBarItemLabelMyBooks": "Libreria",
+  "bottomNavBarItemLabelSearch": "Cerca",
+  "bottomNavBarItemLabelTracker": "Tracker"
 }

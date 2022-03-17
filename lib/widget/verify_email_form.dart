@@ -1,11 +1,12 @@
 import 'dart:async';
 
 import 'package:book_tracker/config/palette.dart';
+import 'package:book_tracker/constants/routes.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-import '../screen/home_screen.dart';
+import '../screen/user_pages/user_screen.dart';
 
 class VerifyEmailForm extends StatefulWidget {
   const VerifyEmailForm({Key? key}) : super(key: key);
@@ -63,7 +64,7 @@ class _VerifyEmailFormState extends State<VerifyEmailForm> {
   @override
   Widget build(BuildContext context) {
     if (isEmailVerified) {
-      return const HomePage();
+      return const UserPage();
     }
     return Center(
       child: SingleChildScrollView(
@@ -93,7 +94,7 @@ class _VerifyEmailFormState extends State<VerifyEmailForm> {
           borderRadius: BorderRadius.circular(20.0),
         ),
       ),
-      icon: Icon(Icons.arrow_back, color: Colors.white, size: 40.0,),
+      icon: const Icon(Icons.arrow_back, color: Colors.white, size: 40.0,),
       label: const Text(
         'Back to Login',
         style: TextStyle(fontSize: 24.0),
@@ -143,4 +144,6 @@ class _VerifyEmailFormState extends State<VerifyEmailForm> {
       ),
     );
   }
+
+
 }

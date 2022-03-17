@@ -5,6 +5,6 @@ class GeneralSettings {
 
   static const String appTitle = 'Book Tracker';
 
-  static final TextStyle textStyle = GoogleFonts.montserrat();
+  static final TextStyle textStyle = GoogleFonts.montserrat();//GoogleFonts.montserrat();
 
 }

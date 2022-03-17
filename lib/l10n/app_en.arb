@@ -194,6 +194,26 @@
     "description": "Passwords don't match error"
   },
 
+  "bottomNavBarItemLabelHome": "Home",
+  "@bottomNavBarItemLabelHome": {
+    "description": "The label for the Bottom Nav Bar Item HOME"
+  },
+
+  "bottomNavBarItemLabelMyBooks": "My Books",
+  "@bottomNavBarItemLabelMyBooks": {
+    "description": "The label for the Bottom Nav Bar Item MY BOOKS"
+  },
+
+  "bottomNavBarItemLabelSearch": "Search",
+  "@bottomNavBarItemLabelSearch": {
+    "description": "The label for the Bottom Nav Bar Item SEARCH"
+  },
+
+  "bottomNavBarItemLabelTracker": "Tracker",
+  "@bottomNavBarItemLabelTracker": {
+    "description": "The label for the Bottom Nav Bar Item TRACKER"
+  },
+
   "hello": "Hello {username}",
   "@hello": {
     "description": "A welcome message to the user",
