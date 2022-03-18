@@ -1,3 +1,4 @@
+import 'package:book_tracker/config/general_settings.dart';
 import 'package:book_tracker/config/palette.dart';
 import 'package:book_tracker/constants/bottom_nav_bar_data.dart';
 import 'package:book_tracker/screen/user_pages/user_home_page.dart';
@@ -12,7 +13,6 @@ import 'package:provider/provider.dart';
 import '../../provider/google_sign_in_provider.dart';
 
 class UserPage extends StatefulWidget {
-
   const UserPage({Key? key}) : super(key: key);
 
   @override
@@ -20,7 +20,6 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-
   List<Widget> userPages = const [
     UserHomePage(),
     UserMyBooksPage(),
@@ -28,7 +27,7 @@ class _UserPageState extends State<UserPage> {
     UserTrackerPage()
   ];
 
-  int _currentIndex = 0;
+  int _currentIndex = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +35,8 @@ class _UserPageState extends State<UserPage> {
 
     return Scaffold(
       appBar: _buildAppBar(user, context),
+      resizeToAvoidBottomInset:
+          false, // to avoid overflow when keyboard shows up
       body: Container(
         alignment: Alignment.topCenter,
         color: Colors.white,
@@ -48,9 +49,8 @@ class _UserPageState extends State<UserPage> {
   BottomNavigationBar _buildBottomNavigationBar() {
     return BottomNavigationBar(
       iconSize: 31.0,
-      backgroundColor: Palette.primaryLight,
-      selectedItemColor: Colors.orange,
-      unselectedItemColor: Palette.lightGrayLight,
+      backgroundColor: Colors.white60,
+      selectedItemColor: Colors.black,
       currentIndex: _currentIndex,
       onTap: (index) => setState(() {
         _currentIndex = index;
@@ -61,25 +61,48 @@ class _UserPageState extends State<UserPage> {
 
   AppBar _buildAppBar(User user, BuildContext context) {
     return AppBar(
-      title: Text('${user.displayName ?? user.email}'),
+      title: _currentIndex == 0
+          ? Text(
+              //'${user.displayName ?? user.email}',
+              'Book Tracker',
+              style: TextStyle(
+                fontFamily: GeneralSettings.textStyle.fontFamily,
+              ),
+            )
+          : const Text(''),
       toolbarHeight: 80.0,
       elevation: 0.0,
-      backgroundColor: Palette.primaryLight,
+      backgroundColor: Colors.white,
+      titleTextStyle: const TextStyle(color: Colors.black, fontSize: 23),
       centerTitle: true,
-      leading: const Icon(Icons.menu),
+      leading: const Padding(
+        padding: EdgeInsets.only(left: 20.0),
+        child: Icon(
+          Icons.menu,
+          color: Colors.black,
+          size: 36,
+        ),
+      ),
       actions: [
-        IconButton(
-          onPressed: () {
-            final String providerId = user.providerData[0].providerId;
-            if (providerId == 'google.com') {
-              final provider =
-                  Provider.of<GoogleSignInProvider>(context, listen: false);
-              provider.logout();
-            } else {
-              FirebaseAuth.instance.signOut();
-            }
-          },
-          icon: const Icon(Icons.logout),
+        Padding(
+          padding: const EdgeInsets.only(right: 20.0),
+          child: IconButton(
+            onPressed: () {
+              final String providerId = user.providerData[0].providerId;
+              if (providerId == 'google.com') {
+                final provider =
+                    Provider.of<GoogleSignInProvider>(context, listen: false);
+                provider.logout();
+              } else {
+                FirebaseAuth.instance.signOut();
+              }
+            },
+            icon: const Icon(
+              Icons.logout,
+              color: Colors.black,
+              size: 36,
+            ),
+          ),
         ),
         TransparentDivider.w(10.0),
       ],
