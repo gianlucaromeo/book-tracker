@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../l10n/l10n.dart';
+import '../../../../l10n/l10n.dart';
 
 class LanguagePicker extends StatelessWidget {
   const LanguagePicker({Key? key}) : super(key: key);
@@ -66,7 +66,8 @@ class LanguagePicker extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
         ),
       ),
-      onPressed: () => Navigator.of(context).pushNamed(Routes.onboardingPageRouteName),
+      onPressed: () =>
+          Navigator.of(context).pushNamed(Routes.onboardingPageRouteName),
     );
   }
 
@@ -75,15 +76,20 @@ class LanguagePicker extends StatelessWidget {
     return DropdownButton(
       value: _currentLanguageName,
       borderRadius: BorderRadius.circular(20.0),
-      dropdownColor: Colors.white,
-      style: TextStyle(
-        color: Colors.grey.shade600,
+      //dropdownColor: Colors.white,
+      style: const TextStyle(
+        //color: Colors.grey.shade600,
         fontSize: 21.0,
       ),
       items: _supportedLanguagesNames.map((languageName) {
         return DropdownMenuItem(
           value: languageName,
-          child: Text(languageName),
+          child: Text(
+            languageName,
+            style:
+                // black text for light theme and vice versa
+                TextStyle(color: Theme.of(context).textTheme.titleLarge!.color),
+          ),
           onTap: () {
             Provider.of<LocaleProvider>(context, listen: false).setLocale(
                 L10n.getLocaleFromLanguageName(languageName, context));

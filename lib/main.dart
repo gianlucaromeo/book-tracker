@@ -1,14 +1,12 @@
-import 'dart:io';
-
-import 'package:book_tracker/config/general_settings.dart';
-import 'package:book_tracker/config/shared_prefs.dart';
+import 'package:book_tracker/config/general.dart';
+import 'package:book_tracker/config/shared_preferences.dart';
 import 'package:book_tracker/constants/routes.dart';
 import 'package:book_tracker/provider/google_sign_in_provider.dart';
-import 'package:book_tracker/screen/auth_screen.dart';
-import 'package:book_tracker/screen/choose_language_screen.dart';
-import 'package:book_tracker/screen/forgot_password_screen.dart';
-import 'package:book_tracker/screen/user_pages/user_screen.dart';
-import 'package:book_tracker/screen/onboarding_screen.dart';
+import 'package:book_tracker/features/authentication/authentication_page.dart';
+import 'package:book_tracker/features/choose_language/choose_language_page.dart';
+import 'package:book_tracker/features/authentication/forgot_password_page.dart';
+import 'package:book_tracker/features/logged_user/logged_user_page.dart';
+import 'package:book_tracker/features/onboarding/onboarding_page.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -38,13 +36,11 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   @override
   void initState() {
     themeController.addListener(() {
       setState(() {});
     });
-    //getPrefs();
     super.initState();
   }
 
@@ -57,7 +53,9 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ListenableProvider<LocaleProvider>(create: (_) => LocaleProvider()),
-        ListenableProvider<GoogleSignInProvider>(create: (_) => GoogleSignInProvider(),),
+        ListenableProvider<GoogleSignInProvider>(
+          create: (_) => GoogleSignInProvider(),
+        ),
       ],
       child: const BookTrackerApp(),
     );
@@ -72,19 +70,25 @@ class BookTrackerApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localeProvider = Provider.of<LocaleProvider>(context);
-    final bool showTutorial = prefs.getBool(SharedPrefsSettings.showTutorialPref) ?? true;
+    final bool showTutorial =
+        prefs.getBool(SharedPrefsSettings.showTutorialPref) ?? true;
     return MaterialApp(
       title: GeneralSettings.appTitle,
       debugShowCheckedModeBanner: false,
       navigatorKey: navigatorKey,
       routes: {
-        Routes.chooseLanguageRouteName: (context) => const ChooseLanguagePage(),
+        Routes.chooseLanguagePageRouteName: (context) =>
+            const ChooseLanguagePage(),
         Routes.onboardingPageRouteName: (context) => const OnboardingPage(),
-        Routes.authenticationPageRouteName: (context) => const AuthPage(),
+        Routes.authenticationPageRouteName: (context) =>
+            const AuthenticationPage(),
         Routes.homePageRouteName: (context) => const UserPage(),
-        Routes.forgotPasswordPageRouteName: (context) => const ForgotPasswordPage(),
+        Routes.forgotPasswordPageRouteName: (context) =>
+            const ForgotPasswordPage(),
       },
-      initialRoute: showTutorial ? Routes.chooseLanguageRouteName : Routes.authenticationPageRouteName, //
+      initialRoute: showTutorial
+          ? Routes.chooseLanguagePageRouteName
+          : Routes.authenticationPageRouteName, //
       theme: themeController.lightThemeData,
       darkTheme: themeController.darkThemeData,
       themeMode: themeController.currentThemeMode,

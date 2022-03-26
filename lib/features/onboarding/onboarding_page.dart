@@ -1,13 +1,14 @@
 import 'package:book_tracker/config/palette.dart';
-import 'package:book_tracker/config/shared_prefs.dart';
-import 'package:book_tracker/constants/onboarding_sections_data.dart';
+import 'package:book_tracker/config/shared_preferences.dart';
+import 'package:book_tracker/features/onboarding/data/sections_data.dart';
 import 'package:book_tracker/constants/routes.dart';
 import 'package:book_tracker/main.dart';
+import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../widget/onboarding_section.dart';
+import 'widgets/onboarding_section.dart';
 
 class OnboardingPage extends StatefulWidget {
   const OnboardingPage({Key? key}) : super(key: key);
@@ -29,14 +30,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
   @override
   Widget build(BuildContext context) {
     final onboardingSections =
-        OnboardingSectionsData.getSections(context).toList();
+        OnboardingSectionsData.getOnboardingSections(context);
     return SafeArea(
       child: Scaffold(
-        appBar: _buildAppBar(context),
-        body: _buildBody(onboardingSections),
+        appBar: buildAppBar(context),
+        body: buildBody(onboardingSections),
         bottomSheet: _isLastPage
-            ? _buildLastPageButton(context)
-            : _buildBottomContainer(
+            ? buildLastPageButton(context)
+            : buildBottomContainer(
                 _bottomContainerHeight, onboardingSections, context),
       ),
     );
@@ -45,28 +46,28 @@ class _OnboardingPageState extends State<OnboardingPage> {
   final double _bottomContainerHeight = 80.0;
 
   final TextStyle _bottomButtonTextStyle = const TextStyle(
-    color: Palette.primaryLight,
+    //color: Palette.primaryLight,
     fontSize: 16.0,
     fontWeight: FontWeight.w600,
   );
 
-  Container _buildBody(List<OnboardingSection> onboardingSections) {
+  Container buildBody(List<OnboardingSection> onboardingSections) {
     return Container(
-        padding: EdgeInsets.only(bottom: _bottomContainerHeight),
-        color: Colors.white,
-        child: PageView(
-          controller: _pageController,
-          onPageChanged: (index) {
-            setState(() {
-              _isLastPage = index == onboardingSections.length - 1;
-            });
-          },
-          children: onboardingSections.toList(),
-        ),
-      );
+      padding: EdgeInsets.only(bottom: _bottomContainerHeight),
+      color: Theme.of(context).scaffoldBackgroundColor, // to cover some grey from last animation
+      child: PageView(
+        controller: _pageController,
+        onPageChanged: (index) {
+          setState(() {
+            _isLastPage = index == onboardingSections.length - 1;
+          });
+        },
+        children: onboardingSections,
+      ),
+    );
   }
 
-  Container _buildBottomContainer(double _bottomContainerHeight,
+  Container buildBottomContainer(double _bottomContainerHeight,
       List<OnboardingSection> onboardingSections, BuildContext context) {
     return Container(
       height: _bottomContainerHeight,
@@ -74,15 +75,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          _buildSkipButton(onboardingSections, context),
-          Center(child: _buildPageIndicator(onboardingSections)),
-          _buildNextButton(context),
+          buildSkipButton(onboardingSections, context),
+          Center(child: buildPageIndicator(onboardingSections)),
+          buildNextButton(context),
         ],
       ),
     );
   }
 
-  TextButton _buildNextButton(BuildContext context) {
+  TextButton buildNextButton(BuildContext context) {
     return TextButton(
       onPressed: () => _pageController.nextPage(
         duration: const Duration(milliseconds: 500),
@@ -95,14 +96,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
     );
   }
 
-  SmoothPageIndicator _buildPageIndicator(
+  SmoothPageIndicator buildPageIndicator(
       List<OnboardingSection> onboardingSections) {
     return SmoothPageIndicator(
       controller: _pageController,
       count: onboardingSections.length,
       effect: const SwapEffect(
-        dotColor: Palette.grayLight,
-        activeDotColor: Palette.primaryLight,
+        //dotColor: Palette.grayLight, // TODO
+        //activeDotColor: Palette.primaryLight, // TODO
       ),
       onDotClicked: (index) => _pageController.animateToPage(
         index,
@@ -112,7 +113,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     );
   }
 
-  TextButton _buildSkipButton(
+  TextButton buildSkipButton(
       List<OnboardingSection> onboardingSections, BuildContext context) {
     return TextButton(
       onPressed: () =>
@@ -124,27 +125,28 @@ class _OnboardingPageState extends State<OnboardingPage> {
     );
   }
 
-  AppBar _buildAppBar(BuildContext context) {
+  AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.white,
-      elevation: 0.0,
-      toolbarHeight: 80.0,
+      //backgroundColor: Theme.of(context).bottomAppBarColor,//Colors.white,
+      //elevation: 0.0,
+      //toolbarHeight: 80.0,
       leading: IconButton(
         onPressed: () {
-          Navigator.of(context).popAndPushNamed(Routes.chooseLanguageRouteName);
+          Navigator.of(context)
+              .popAndPushNamed(Routes.chooseLanguagePageRouteName);
         },
-        icon: const Icon(
+        icon: Icon(
           Icons.arrow_back,
-          color: Palette.primaryLight,
+          //color: Theme.of(context).primaryColor, // TODO
           size: 38.0,
         ),
       ),
     );
   }
 
-  _buildLastPageButton(BuildContext context) {
+  Container buildLastPageButton(BuildContext context) {
     return Container(
-      color: Colors.white,
+      //color: Theme.of(context).backgroundColor,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: TextButton(
@@ -158,13 +160,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
             Navigator.of(context).pushNamedAndRemoveUntil(
                 Routes.authenticationPageRouteName, (route) => false);
             prefs.setBool(SharedPrefsSettings.showTutorialPref, false);
-            },
+          },
           style: TextButton.styleFrom(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
             ),
-            primary: Colors.white,
-            backgroundColor: Palette.primaryLight,
+            //primary: colors.white,
+            //backgroundColor: Palette.primaryLight,
             minimumSize: const Size.fromHeight(80.0),
           ),
         ),

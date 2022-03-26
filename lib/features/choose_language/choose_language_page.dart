@@ -2,7 +2,7 @@ import 'package:book_tracker/config/palette.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/fade_animation.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
-import 'package:book_tracker/widget/language_picker.dart';
+import 'package:book_tracker/features/choose_language/widgets/language_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lottie/lottie.dart';
@@ -31,7 +31,7 @@ class _ChooseLanguagePageState extends State<ChooseLanguagePage> {
       child: Scaffold(
         body: Container(
           alignment: Alignment.center,
-          color: Palette.backgroundLight,
+          //color: Palette.backgroundLight,
           child: Column(
             children: [
               // -- Top Container
@@ -93,7 +93,7 @@ class _ChooseLanguagePageState extends State<ChooseLanguagePage> {
     return Container(
       height: 130.0,
       decoration: BoxDecoration(
-        color: themeController.lightThemeData.primaryColor,
+        //color: Palette.primaryLight,
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(20.0),
           bottomRight: Radius.circular(20.0),
@@ -106,7 +106,7 @@ class _ChooseLanguagePageState extends State<ChooseLanguagePage> {
           child: Text(
             AppLocalizations.of(context)!.chooseLanguageWelcome,
             style: const TextStyle(
-              color: Colors.white,
+              //color: Colors.white,
               letterSpacing: 1,
               fontSize: 29,
               fontWeight: FontWeight.w500,

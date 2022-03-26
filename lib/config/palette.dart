@@ -9,6 +9,7 @@ class Palette {
   static const Color tertiaryLight = Color.fromRGBO(47, 74, 151, 1.0); // Hover, active, focus
   static const Color grayLight = Color.fromRGBO(189, 201, 217, 1.0); // To give visual height, accents, background
   static const Color lightGrayLight = Color.fromRGBO(243, 240, 247, 1.0); // To give visual height, accents, background
+  static const Color appBarBackgroundLight = tertiaryLight; // To give visual height, accents, background
 
   static const Color backgroundLight = Colors.white;
   static const Color titleLight = Colors.black;

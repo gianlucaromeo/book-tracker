@@ -1,6 +1,5 @@
-import 'package:book_tracker/config/palette.dart';
 import 'package:book_tracker/main.dart';
-import 'package:book_tracker/util/app_bar_util.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:book_tracker/util/fade_animation.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:email_validator/email_validator.dart';
@@ -27,8 +26,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
     return Scaffold(
-      appBar: _buildAppBar(),
+      appBar: AppBar(
+        title: Text(
+          l10n.authPageTitle,
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(50.0),
         child: Form(
@@ -70,7 +74,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   TextFormField _buildEmailField() {
     return TextFormField(
       controller: emailController,
-      cursorColor: Colors.blueAccent,
+      //cursorColor: Colors.blueAccent,
       textInputAction: TextInputAction.done,
       decoration: const InputDecoration(
         labelText: 'Email',
@@ -150,12 +154,5 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     }
   }
 
-  AppBar _buildAppBar() {
-    return AppBarUtil.buildAppBar(
-      toolbarHeight: 130.0,
-      elevation: 0.0,
-      centerTitle: true,
-      text: 'Authentication',
-    );
-  }
+
 }

@@ -69,12 +69,12 @@
     "description": "The main title for the third Onboarding Section"
   },
 
-  "onboardingSecondaryTitle3": "Let's go!",
+  "onboardingSecondaryTitle3": "You can always watch this tutorial from your Settings.",
   "@onboardingSecondaryTitle3": {
     "description": "The secondary title for the third Onboarding Section"
   },
 
-  "onboardingSubtitle3": "You can always watch this tutorial from your Settings.",
+  "onboardingSubtitle3": "Let's go!",
   "@onboardingSubtitle3": {
     "description": "The subtitle for the third Onboarding Section"
   },

@@ -1,13 +1,13 @@
 import 'package:book_tracker/util/transparent_divider.dart';
-import 'package:book_tracker/widget/google_sign_in_button.dart';
+import 'package:book_tracker/features/authentication/widgets/google_sign_in_button.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../main.dart';
-import '../util/fade_animation.dart';
+import '../../../main.dart';
+import '../../../util/fade_animation.dart';
 
 class SignUpForm extends StatefulWidget {
   final VoidCallback onClickedSignIn;
@@ -132,7 +132,7 @@ class _SignUpFormState extends State<SignUpForm> {
       text: TextSpan(
         style: TextStyle(
           fontSize: 20.0,
-          color: Theme.of(context).textTheme.subtitle1!.color,
+          //color: Theme.of(context).textTheme.subtitle1!.color,
         ),
         text: _l10n.signUpFormAlreadyHaveAnAccount,
         children: [
@@ -141,7 +141,7 @@ class _SignUpFormState extends State<SignUpForm> {
             text: _l10n.signUpFormLoginText,
             style: TextStyle(
               decoration: TextDecoration.underline,
-              color: Theme.of(context).colorScheme.primary,
+             // color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ],
@@ -174,7 +174,7 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField _buildEmailField() {
     return TextFormField(
       controller: _emailController,
-      cursorColor: Colors.white,
+      //cursorColor: Colors.white,
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         labelText: _l10n.signUpFormEmailLabelText,
@@ -204,7 +204,7 @@ class _SignUpFormState extends State<SignUpForm> {
       String labelText, String? Function(String?) validator) {
     return TextFormField(
       controller: _controller,
-      cursorColor: Colors.white,
+      //cursorColor: Colors.white,
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         labelText: labelText,

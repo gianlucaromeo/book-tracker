@@ -7,7 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../provider/google_sign_in_provider.dart';
 import 'google_sign_in_button.dart';
 
 class LoginForm extends StatefulWidget {
@@ -101,7 +100,7 @@ class _LoginFormState extends State<LoginForm> {
       text: TextSpan(
         style: TextStyle(
           fontSize: 20.0,
-          color: Theme.of(context).textTheme.subtitle1!.color,
+          //color: Theme.of(context).textTheme.subtitle1!.color,
         ),
         text: _l10n.loginFormNoAccount,
         children: [
@@ -110,7 +109,7 @@ class _LoginFormState extends State<LoginForm> {
             text: _l10n.loginFormSignUpText,
             style: TextStyle(
               decoration: TextDecoration.underline,
-              color: Theme.of(context).colorScheme.primary,
+              //color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ],
@@ -125,7 +124,7 @@ class _LoginFormState extends State<LoginForm> {
         _l10n.loginFormForgotPasswordText,
         style: TextStyle(
           decoration: TextDecoration.underline,
-          color: Theme.of(context).colorScheme.primary,
+          //color: Theme.of(context).colorScheme.primary,
           fontSize: 20.0,
         ),
       ),
@@ -158,7 +157,7 @@ class _LoginFormState extends State<LoginForm> {
   TextField _buildPasswordField() {
     return TextField(
       controller: _passwordController,
-      cursorColor: Colors.green,
+      //cursorColor: Colors.green,
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         labelText: _l10n.loginFormPasswordFieldLabelText,
@@ -170,7 +169,7 @@ class _LoginFormState extends State<LoginForm> {
   TextField _buildEmailField() {
     return TextField(
       controller: _emailController,
-      cursorColor: Colors.red,
+      //cursorColor: Colors.red,
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         labelText: _l10n.loginFormEmailFieldLabelText,
