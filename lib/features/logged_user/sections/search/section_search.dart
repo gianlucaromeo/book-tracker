@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_found.dart';
 import 'package:flutter/material.dart';
@@ -15,8 +16,6 @@ class UserSectionSearch extends StatefulWidget {
 }
 
 class _UserSectionSearchState extends State<UserSectionSearch> {
-  final double _padding = 20.0;
-
   final _textController = TextEditingController();
   String _bookToFind = '';
 
@@ -28,47 +27,37 @@ class _UserSectionSearchState extends State<UserSectionSearch> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.all(_padding),
+      padding: const EdgeInsets.all(AppPadding.defaultPadding),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildTextField(),
+          buildSearchTextField(),
           TransparentDivider.h(30.0),
           _bookToFind.isEmpty
-              ? _buildSuggestionsSection()
-              : _buildListOfBooks(),
+              ? const Padding(
+                  padding: EdgeInsets.all(10.0),
+                  child: Text('Some text here.'),
+                )
+              : buildListOfBooks(),
         ],
       ),
     );
   }
 
-  Expanded _buildSuggestionsSection() {
-    return Expanded(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildSuggestionsTitle(),
-          TransparentDivider.h(30.0),
-          _buildSuggestionsBooks(),
-        ],
-      ),
-    );
-  }
-
-  Expanded _buildListOfBooks() {
+  Expanded buildListOfBooks() {
     return Expanded(
       child: Center(
         child: Container(
-          color: Colors.white,
+          color: Colors.transparent,
           child: FutureBuilder(
               future: _findBooks(),
               builder: (BuildContext context,
                   AsyncSnapshot<http.Response> snapshot) {
                 switch (snapshot.connectionState) {
                   case ConnectionState.none:
-                    return const Text('None');
+                    return const Text(
+                        'Please check your connection and try again');
                   case ConnectionState.waiting:
                     return const CircularProgressIndicator();
                   default:
@@ -81,11 +70,12 @@ class _UserSectionSearchState extends State<UserSectionSearch> {
                         return const Text('No Items');
                       } else {
                         return ListView.builder(
-                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          //padding: const EdgeInsets.symmetric(horizontal: 10.0),
                           itemCount: books['items'].length,
                           itemBuilder: (BuildContext context, int index) {
                             return BookFound(
-                              book: Book.fromJSON(books['items'][index], BookStatus.noStatus),
+                              book: Book.fromJSON(
+                                  books['items'][index], BookStatus.noStatus),
                             );
                           },
                         );
@@ -98,40 +88,7 @@ class _UserSectionSearchState extends State<UserSectionSearch> {
     );
   }
 
-  SizedBox _buildSuggestionsBooks() {
-    return SizedBox(
-      height: 250,
-      child: ListView(
-        scrollDirection: Axis.horizontal,
-        children: [
-          for (int i = 0; i < 7; i++)
-            Padding(
-              padding: const EdgeInsets.only(right: 10.0),
-              child: Container(
-                height: 240,
-                width: 200,
-                decoration: BoxDecoration(
-                  color: Colors.blueAccent,
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-              ),
-            ),
-        ],
-      ),
-    );
-  }
-
-  Text _buildSuggestionsTitle() {
-    return const Text(
-      'Books for you',
-      style: TextStyle(
-        fontSize: 24.0,
-        fontWeight: FontWeight.bold,
-      ),
-    );
-  }
-
-  TextField _buildTextField() {
+  TextField buildSearchTextField() {
     return TextField(
       controller: _textController,
       onChanged: (newText) {
@@ -139,19 +96,13 @@ class _UserSectionSearchState extends State<UserSectionSearch> {
           _bookToFind = newText;
         });
       },
-      style: const TextStyle(color: Colors.black),
+      //style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
         hintText: ' Search books',
-        hintStyle: TextStyle(
-          color: Colors.grey.withOpacity(0.6),
-        ),
-        prefixIcon: Icon(
+        prefixIcon: const Icon(
           Icons.search,
-          color: Colors.grey.withOpacity(0.7),
           size: 27,
         ),
-        fillColor: Colors.white,
-        hoverColor: Colors.white,
         enabledBorder: OutlineInputBorder(
             borderRadius: const BorderRadius.all(Radius.circular(13.0)),
             borderSide:

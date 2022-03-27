@@ -1,5 +1,8 @@
+import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/constants/routes.dart';
+import 'package:book_tracker/features/authentication/login_signup_common/sizes.dart';
 import 'package:book_tracker/main.dart';
+import 'package:book_tracker/theme/text_styles.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:book_tracker/util/fade_animation.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
@@ -19,7 +22,6 @@ class LoginForm extends StatefulWidget {
 }
 
 class _LoginFormState extends State<LoginForm> {
-
   late final AppLocalizations _l10n;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
@@ -33,83 +35,58 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    const int _milliseconds = 100;
     _l10n = AppLocalizations.of(context)!;
     return Center(
       child: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 50.0),
+        padding:
+            const EdgeInsets.symmetric(horizontal: AppPadding.defaultPadding),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-
-            // - Title
-            FadeInAnimation(
-              child: _buildTitle(),
-              milliseconds: _milliseconds,
+            // ! ONLY FOR DEBUG
+            ElevatedButton(
+              onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil(
+                  Routes.chooseLanguagePageRouteName, (route) => false),
+              child: const Text('Show Tutorial'),
             ),
+            // TITLE
+            buildTitle(),
             TransparentDivider.h(20.0),
-
-            // -- Email Field
-            FadeInAnimation(
-              child: _buildEmailField(),
-              milliseconds: _milliseconds,
-            ),
+            // EMAIL FIELD
+            buildEmailField(),
             TransparentDivider.h10(),
-
-            // -- Password
-            FadeInAnimation(
-              child: _buildPasswordField(),
-              milliseconds: _milliseconds,
-            ),
+            // PASSWORD FIELD
+            buildPasswordField(),
             TransparentDivider.h(20.0),
-
-            // Sign-in Button
-            FadeInAnimation(
-              child: _buildSignInButton(),
-              milliseconds: _milliseconds,
-            ),
+            // SIGN-IN BUTTON
+            buildSignInButton(),
             const Divider(thickness: 1, height: 30.0),
-
-            // -- Sign-in with Google
-            FadeInAnimation(
-              child: const GoogleSignInButton(),
-              milliseconds: _milliseconds,
-            ),
+            // GOOGLE SIGN-IN BUTTON
+            const GoogleSignInButton(),
             TransparentDivider.h(20.0),
-
-            // -- Forgot Password
-            FadeInAnimation(
-              child: _buildForgotPassword(context),
-              milliseconds: _milliseconds,
-            ),
+            // FORGOT PASSWORD LINK
+            buildForgotPasswordLink(context),
             TransparentDivider.h(20.0),
-
-            // -- No Account ? Sign Up
-            FadeInAnimation(
-              child: _buildGoToSignUpButton(context),
-              milliseconds: _milliseconds,
-            ),
+            // NO ACCOUNT ? SIGN-UP LINK
+            buildGoToSignUpLink(context),
           ],
         ),
       ),
     );
   }
 
-  RichText _buildGoToSignUpButton(BuildContext context) {
+  RichText buildGoToSignUpLink(BuildContext context) {
     return RichText(
       text: TextSpan(
-        style: TextStyle(
-          fontSize: 20.0,
-          //color: Theme.of(context).textTheme.subtitle1!.color,
-        ),
+        style: TextStyles.switchAuthFormLink,
         text: _l10n.loginFormNoAccount,
         children: [
           TextSpan(
             recognizer: TapGestureRecognizer()..onTap = widget.onSignUpClicked,
             text: _l10n.loginFormSignUpText,
-            style: TextStyle(
+            // No need for this TextStyle to be inside the TextStyles class
+            style: const TextStyle(
               decoration: TextDecoration.underline,
-              //color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ],
@@ -117,47 +94,41 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-
-  GestureDetector _buildForgotPassword(BuildContext context) {
+  GestureDetector buildForgotPasswordLink(BuildContext context) {
     return GestureDetector(
       child: Text(
         _l10n.loginFormForgotPasswordText,
-        style: TextStyle(
-          decoration: TextDecoration.underline,
-          //color: Theme.of(context).colorScheme.primary,
-          fontSize: 20.0,
-        ),
+        style: TextStyles.loginFormForgotPasswordLink,
       ),
-      onTap: () => Navigator.of(context).pushNamed(Routes.forgotPasswordPageRouteName),
+      onTap: () =>
+          Navigator.of(context).pushNamed(Routes.forgotPasswordPageRouteName),
     );
   }
 
-  ElevatedButton _buildSignInButton() {
+  ElevatedButton buildSignInButton() {
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
-        minimumSize: const Size.fromHeight(60.0),
+        minimumSize: const Size.fromHeight(LoginSignUpFormSizes.buttonHeight),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius:
+              BorderRadius.circular(LoginSignUpFormSizes.buttonBorderRadius),
         ),
       ),
       icon: const Icon(
         Icons.lock_open,
-        size: 32.0,
+        size: LoginSignUpFormSizes.buttonIconSize,
       ),
       label: Text(
         _l10n.loginFormSignInButtonText,
-        style: const TextStyle(
-          fontSize: 24.0,
-        ),
+        style: TextStyles.authFormButton,
       ),
-      onPressed: _signIn,
+      onPressed: _doSignIn,
     );
   }
 
-  TextField _buildPasswordField() {
+  TextField buildPasswordField() {
     return TextField(
       controller: _passwordController,
-      //cursorColor: Colors.green,
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         labelText: _l10n.loginFormPasswordFieldLabelText,
@@ -166,10 +137,9 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  TextField _buildEmailField() {
+  TextField buildEmailField() {
     return TextField(
       controller: _emailController,
-      //cursorColor: Colors.red,
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         labelText: _l10n.loginFormEmailFieldLabelText,
@@ -177,21 +147,17 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  Align _buildTitle() {
+  Align buildTitle() {
     return Align(
       alignment: Alignment.centerLeft,
       child: Text(
         _l10n.loginFormTitle,
-        style: const TextStyle(
-          fontSize: 32.0,
-          letterSpacing: 2,
-          fontWeight: FontWeight.bold,
-        ),
+        style: TextStyles.authPageFormTitle,
       ),
     );
   }
 
-  Future _signIn() async {
+  Future _doSignIn() async {
     showDialog(
       context: context,
       barrierDismissible: false,

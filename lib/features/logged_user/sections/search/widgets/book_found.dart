@@ -18,7 +18,7 @@ class _BookFoundState extends State<BookFound> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: Theme.of(context).scaffoldBackgroundColor,
         borderRadius: BorderRadius.circular(0.0),
         boxShadow: [
           BoxShadow(
@@ -29,7 +29,6 @@ class _BookFoundState extends State<BookFound> {
         ],
       ),
       width: double.infinity,
-      //height: 200.0,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Row(
@@ -50,7 +49,6 @@ class _BookFoundState extends State<BookFound> {
     return Container(
       width: 50,
       decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(0.1),
         borderRadius: BorderRadius.circular(10.0),
       ),
       child: IconButton(
@@ -107,13 +105,15 @@ class _BookFoundState extends State<BookFound> {
 
   Container buildImageContainer() {
     return Container(
-      decoration: BoxDecoration(boxShadow: [
-        BoxShadow(
-          color: Colors.grey.withOpacity(0.2),
-          blurRadius: 1,
-          spreadRadius: 1,
-        ),
-      ]),
+      decoration: const BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.transparent,
+            blurRadius: 1,
+            spreadRadius: 1,
+          ),
+        ],
+      ),
       child: Image.network(
         widget._book.imgUrl != ''
             ? widget._book.imgUrl
@@ -142,7 +142,6 @@ class _BookFoundState extends State<BookFound> {
                 onPressed: () {},
                 child: const Text('Aggiungi alla libreria'),
                 style: ElevatedButton.styleFrom(
-                  //primary: Colors.white,
                   elevation: 2.0,
                 ),
               ),

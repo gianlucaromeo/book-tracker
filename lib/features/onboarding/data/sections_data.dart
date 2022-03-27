@@ -36,12 +36,12 @@ class OnboardingSectionsData {
 
     return List.generate(
       data.length,
-      (i) => OnboardingSection(
+      (index) => OnboardingSection(
         model: OnboardingSectionModel(
-          title: data[i][0],
-          subtitle: data[i][1],
-          secondaryTitle: data[i][2],
-          assetName: _assetsNames[i],
+          title: data[index][0],
+          subtitle: data[index][1],
+          secondaryTitle: data[index][2],
+          assetName: _assetsNames[index],
         ),
       ),
     );

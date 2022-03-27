@@ -1,10 +1,10 @@
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:book_tracker/theme/app_bar_theme.dart';
 import 'package:book_tracker/features/authentication/widgets/login_form.dart';
 import 'package:book_tracker/features/authentication/widgets/signup_form.dart';
 import 'package:book_tracker/features/authentication/widgets/verify_email_form.dart';
+import 'package:book_tracker/theme/text_styles.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AuthenticationPage extends StatefulWidget {
   const AuthenticationPage({Key? key}) : super(key: key);
@@ -38,16 +38,20 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
               child: Text('Error'), // TODO add scaffold
             );
           } else if (snap.hasData) {
-            return const VerifyEmailForm(); // TODO add scaffold
+            // * VERIFY EMAIL PAGE
+            return const VerifyEmailPage();
           } else {
+            // * LOGIN OR SIGN-UP PAGE
             return Scaffold(
               appBar: AppBar(
-                  title: Text(
-                AppLocalizations.of(context)!.authPageTitle,
-              )),
+                title: Text(
+                  AppLocalizations.of(context)!.authPageTitle,
+                  style: TextStyles.authPageAppBarTitle,
+                ),
+              ),
               body: showLoginForm
                   ? LoginForm(onSignUpClicked: toggleFormToShow)
-                  : SignUpForm(onClickedSignIn: toggleFormToShow),
+                  : SignUpForm(onSignInClicked: toggleFormToShow),
             );
           }
         },

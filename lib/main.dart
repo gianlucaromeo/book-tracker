@@ -36,14 +36,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  @override
-  void initState() {
-    themeController.addListener(() {
-      setState(() {});
-    });
-    super.initState();
-  }
-
   Future getPrefs() async {
     prefs = await SharedPreferences.getInstance();
   }
@@ -62,10 +54,23 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class BookTrackerApp extends StatelessWidget {
+class BookTrackerApp extends StatefulWidget {
   const BookTrackerApp({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<BookTrackerApp> createState() => _BookTrackerAppState();
+}
+
+class _BookTrackerAppState extends State<BookTrackerApp> {
+  @override
+  void initState() {
+    themeController.addListener(() {
+      setState(() {});
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +94,7 @@ class BookTrackerApp extends StatelessWidget {
       initialRoute: showTutorial
           ? Routes.chooseLanguagePageRouteName
           : Routes.authenticationPageRouteName, //
-      theme: themeController.lightThemeData,
+      theme: themeController.currentThemeData,
       darkTheme: themeController.darkThemeData,
       themeMode: themeController.currentThemeMode,
       locale: localeProvider.currentLocale,

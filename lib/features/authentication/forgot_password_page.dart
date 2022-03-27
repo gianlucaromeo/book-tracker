@@ -1,10 +1,11 @@
+import 'package:book_tracker/features/authentication/login_signup_common/sizes.dart';
 import 'package:book_tracker/main.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:book_tracker/util/fade_animation.dart';
+import 'package:book_tracker/theme/text_styles.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lottie/lottie.dart';
 
 class ForgotPasswordPage extends StatefulWidget {
@@ -17,6 +18,7 @@ class ForgotPasswordPage extends StatefulWidget {
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
+  late final AppLocalizations l10n;
 
   @override
   void dispose() {
@@ -26,43 +28,39 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
+    l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           l10n.authPageTitle,
+          style: TextStyles.authPageAppBarTitle,
         ),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(50.0),
+        padding: const EdgeInsets.all(LoginSignUpFormSizes.buttonBorderRadius),
         child: Form(
           key: formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-
-              // -- Title
+              // TITLE
               TransparentDivider.h10(),
-              FadeInAnimation(child: _buildTitle(), milliseconds: 500,),
-
-              // -- Subtitle
+              buildTitle(),
+              // SUBTITLE
               TransparentDivider.h(10.0),
-              FadeInAnimation(child: _buildSubtitle(), milliseconds: 500,),
-
-              // -- Email Field
+              buildSubtitle(),
+              // EMAIL FIELD
               TransparentDivider.h(20.0),
-              FadeInAnimation(child: _buildEmailField(), milliseconds: 500,),
-
-              // -- Reset Password Button
+              buildEmailField(),
+              // RESET PASSWORD BUTTON
               TransparentDivider.h(20.0),
-              FadeInAnimation(child: _buildResetPasswordButton(), milliseconds: 500,),
-
-              // -- Lottie Animation
+              buildResetPasswordButton(),
+              // LOTTIE ANIMATION
               TransparentDivider.h(20.0),
               Expanded(
-                child: FadeInAnimation(child: Lottie.asset('assets/authentication/forgot_password.json'), milliseconds: 500,),
+                child:
+                    Lottie.asset('assets/authentication/forgot_password.json'),
               ),
-              
             ],
           ),
         ),
@@ -70,70 +68,62 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     );
   }
 
+  buildTitle() {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        l10n.forgotPasswordFormTitle,
+        style: TextStyles.forgotPasswordTitle,
+      ),
+    );
+  }
 
-  TextFormField _buildEmailField() {
+  buildSubtitle() {
+    return Align(
+      alignment: Alignment.centerLeft,
+      child: Text(
+        l10n.forgotPasswordFormSubtitle,
+        style: TextStyles.forgotPasswordSubtitle,
+      ),
+    );
+  }
+
+  buildEmailField() {
     return TextFormField(
       controller: emailController,
-      //cursorColor: Colors.blueAccent,
       textInputAction: TextInputAction.done,
-      decoration: const InputDecoration(
-        labelText: 'Email',
+      decoration: InputDecoration(
+        labelText: l10n.forgotPasswordFormEmailFieldText,
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (email) => email != null && !EmailValidator.validate(email)
-          ? 'Enter a valid email'
+          ? l10n.forgotPasswordFormEmailErrorText
           : null,
     );
   }
 
-  Align _buildSubtitle() {
-    return const Align(
-      alignment: Alignment.centerLeft,
-      child: Text(
-        'An email will be sent to recover your password.',
-        style: TextStyle(
-          fontSize: 18.0,
-        ),
-      ),
-    );
-  }
-
-  Align _buildTitle() {
-    return const Align(
-      alignment: Alignment.centerLeft,
-      child: Text(
-        'Reset Password',
-        style: TextStyle(
-          fontWeight: FontWeight.bold,
-          fontSize: 31.0,
-        ),
-      ),
-    );
-  }
-
-  ElevatedButton _buildResetPasswordButton() {
+  buildResetPasswordButton() {
     return ElevatedButton.icon(
       style: ElevatedButton.styleFrom(
-        minimumSize: const Size.fromHeight(71.0),
+        minimumSize: const Size.fromHeight(LoginSignUpFormSizes.buttonHeight),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
+          borderRadius:
+              BorderRadius.circular(LoginSignUpFormSizes.buttonBorderRadius),
         ),
       ),
       icon: const Icon(
         Icons.email_outlined,
-        size: 32.0,
+        size: LoginSignUpFormSizes.buttonIconSize,
       ),
-      label: const Text(
-        'Reset Password',
-        style: TextStyle(
-          fontSize: 20.0,
-        ),
+      label: Text(
+        l10n.forgotPasswordFormResetButton,
+        style: TextStyles.authFormButton,
       ),
-      onPressed: resetPassword,
+      onPressed: _doResetPassword,
     );
   }
 
-  Future resetPassword() async {
+  Future _doResetPassword() async {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -153,6 +143,4 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       Navigator.of(context).pop();
     }
   }
-
-
 }

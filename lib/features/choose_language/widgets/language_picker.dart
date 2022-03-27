@@ -1,11 +1,11 @@
-import 'package:book_tracker/constants/routes.dart';
+import 'package:book_tracker/features/choose_language/components/next_button.dart';
+import 'package:book_tracker/l10n/l10n.dart';
 import 'package:book_tracker/provider/locale_provider.dart';
+import 'package:book_tracker/theme/text_styles.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../../../l10n/l10n.dart';
+import 'package:provider/provider.dart';
 
 class LanguagePicker extends StatelessWidget {
   const LanguagePicker({Key? key}) : super(key: key);
@@ -21,82 +21,69 @@ class LanguagePicker extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        // -- Title
-        Text(
-          l10n.chooseLanguage,
-          style: const TextStyle(
-            fontSize: 22.0,
-            fontWeight: FontWeight.w500,
-          ),
+        buildTitle(l10n),
+        buildDropdownMenu(
+          currentLanguageName,
+          supportedLanguagesNames,
+          context,
         ),
-
-        // -- Dropdown Menu
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Icon(Icons.language),
-            TransparentDivider.w10(),
-            Expanded(
-              child: _buildDropdownButton(
-                  currentLanguageName, supportedLanguagesNames, context),
-            ),
-          ],
-        ),
-
-        // -- Next Button
-        Align(
-          child: _buildNextButton(context, l10n),
-          alignment: Alignment.centerRight,
-        ),
+        buildNextButton(l10n),
       ],
     );
   }
 
-  ElevatedButton _buildNextButton(BuildContext context, AppLocalizations l10n) {
-    return ElevatedButton(
-      child: Text(
-        l10n.chooseLanguageNext,
-        style: const TextStyle(
-          fontSize: 19.0,
-        ),
-      ),
-      style: TextButton.styleFrom(
-        fixedSize: const Size.fromHeight(50.0),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-      onPressed: () =>
-          Navigator.of(context).pushNamed(Routes.onboardingPageRouteName),
+  Text buildTitle(AppLocalizations l10n) {
+    return Text(
+      l10n.chooseLanguage,
+      style: TextStyles.languagePickerTitle,
     );
   }
 
-  DropdownButton<String> _buildDropdownButton(String _currentLanguageName,
-      List<String> _supportedLanguagesNames, BuildContext context) {
-    return DropdownButton(
-      value: _currentLanguageName,
-      borderRadius: BorderRadius.circular(20.0),
-      //dropdownColor: Colors.white,
-      style: const TextStyle(
-        //color: Colors.grey.shade600,
-        fontSize: 21.0,
-      ),
-      items: _supportedLanguagesNames.map((languageName) {
-        return DropdownMenuItem(
-          value: languageName,
-          child: Text(
-            languageName,
-            style:
-                // black text for light theme and vice versa
-                TextStyle(color: Theme.of(context).textTheme.titleLarge!.color),
-          ),
-          onTap: () {
-            Provider.of<LocaleProvider>(context, listen: false).setLocale(
-                L10n.getLocaleFromLanguageName(languageName, context));
-          },
-        );
-      }).toList(),
-      onChanged: (_) {},
+  Align buildNextButton(AppLocalizations l10n) {
+    return Align(
+      child: NextButton(l10n),
+      alignment: Alignment.centerRight,
     );
   }
+
+  /// Row with both an icon and a dropdown button.
+  Row buildDropdownMenu(
+    String currentLanguageName,
+    List<String> supportedLanguagesNames,
+    BuildContext context,
+  ) =>
+      Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.language),
+          TransparentDivider.w(15.0),
+          Expanded(
+            child: buildDropdownButton(
+                currentLanguageName, supportedLanguagesNames, context),
+          ),
+        ],
+      );
+
+  DropdownButton<String> buildDropdownButton(
+    String currentLanguageName,
+    List<String> supportedLanguagesNames,
+    BuildContext context,
+  ) =>
+      DropdownButton(
+        itemHeight: 70.0,
+        value: currentLanguageName,
+        borderRadius: BorderRadius.circular(10.0),
+        style: TextStyles.languagePickerDropdownButton,
+        items: supportedLanguagesNames.map((languageName) {
+          return DropdownMenuItem(
+            value: languageName,
+            child: Text(languageName),
+            onTap: () {
+              Provider.of<LocaleProvider>(context, listen: false).setLocale(
+                  L10n.getLocaleFromLanguageName(languageName, context));
+            },
+          );
+        }).toList(),
+        onChanged: (_) {},
+      );
 }

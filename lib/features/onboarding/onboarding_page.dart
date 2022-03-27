@@ -1,12 +1,12 @@
-import 'package:book_tracker/config/palette.dart';
 import 'package:book_tracker/config/shared_preferences.dart';
-import 'package:book_tracker/features/onboarding/data/sections_data.dart';
 import 'package:book_tracker/constants/routes.dart';
+import 'package:book_tracker/features/onboarding/data/sections_data.dart';
 import 'package:book_tracker/main.dart';
+import 'package:book_tracker/theme/text_styles.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'widgets/onboarding_section.dart';
 
@@ -21,6 +21,8 @@ class _OnboardingPageState extends State<OnboardingPage> {
   final PageController _pageController = PageController();
   bool _isLastPage = false;
 
+  static const double _bottomContainerHeight = 80.0;
+
   @override
   void dispose() {
     _pageController.dispose();
@@ -34,7 +36,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     return SafeArea(
       child: Scaffold(
         appBar: buildAppBar(context),
-        body: buildBody(onboardingSections),
+        body: buildPageViewContainer(onboardingSections),
         bottomSheet: _isLastPage
             ? buildLastPageButton(context)
             : buildBottomContainer(
@@ -43,18 +45,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
     );
   }
 
-  final double _bottomContainerHeight = 80.0;
-
-  final TextStyle _bottomButtonTextStyle = const TextStyle(
-    //color: Palette.primaryLight,
-    fontSize: 16.0,
-    fontWeight: FontWeight.w600,
-  );
-
-  Container buildBody(List<OnboardingSection> onboardingSections) {
+  Container buildPageViewContainer(List<OnboardingSection> onboardingSections) {
     return Container(
       padding: EdgeInsets.only(bottom: _bottomContainerHeight),
-      color: Theme.of(context).scaffoldBackgroundColor, // to cover some grey from last animation
+      color: Theme.of(context)
+          .scaffoldBackgroundColor, // to cover some grey from last animation
       child: PageView(
         controller: _pageController,
         onPageChanged: (index) {
@@ -91,7 +86,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
       ),
       child: Text(
         AppLocalizations.of(context)!.nextOnboarding,
-        style: _bottomButtonTextStyle,
+        style: TextStyles.onboardingBottomButton,
       ),
     );
   }
@@ -102,9 +97,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
       controller: _pageController,
       count: onboardingSections.length,
       effect: const SwapEffect(
-        //dotColor: Palette.grayLight, // TODO
-        //activeDotColor: Palette.primaryLight, // TODO
-      ),
+          //dotColor: Palette.grayLight, // TODO
+          //activeDotColor: Palette.primaryLight, // TODO
+          ),
       onDotClicked: (index) => _pageController.animateToPage(
         index,
         duration: const Duration(milliseconds: 500),
@@ -120,16 +115,14 @@ class _OnboardingPageState extends State<OnboardingPage> {
           _pageController.jumpToPage(onboardingSections.length - 1),
       child: Text(
         AppLocalizations.of(context)!.skipOnboarding,
-        style: _bottomButtonTextStyle,
+        style: TextStyles.onboardingBottomButton,
       ),
     );
   }
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      //backgroundColor: Theme.of(context).bottomAppBarColor,//Colors.white,
-      //elevation: 0.0,
-      //toolbarHeight: 80.0,
+      backgroundColor: Colors.transparent,
       leading: IconButton(
         onPressed: () {
           Navigator.of(context)
@@ -137,7 +130,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
         },
         icon: Icon(
           Icons.arrow_back,
-          //color: Theme.of(context).primaryColor, // TODO
+          color: themeController.currentThemeMode == ThemeMode.light
+              ? Colors.black
+              : Colors.white,
           size: 38.0,
         ),
       ),
@@ -146,15 +141,13 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   Container buildLastPageButton(BuildContext context) {
     return Container(
-      //color: Theme.of(context).backgroundColor,
+      color: Theme.of(context).primaryColor.withOpacity(0.2),
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: TextButton(
           child: Text(
             AppLocalizations.of(context)!.letsStartOnboarding,
-            style: const TextStyle(
-              fontSize: 24.0,
-            ),
+            style: TextStyles.onboardingLastPageButton,
           ),
           onPressed: () {
             Navigator.of(context).pushNamedAndRemoveUntil(
@@ -165,9 +158,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
             ),
-            //primary: colors.white,
-            //backgroundColor: Palette.primaryLight,
-            minimumSize: const Size.fromHeight(80.0),
+            minimumSize: const Size.fromHeight(_bottomContainerHeight),
           ),
         ),
       ),

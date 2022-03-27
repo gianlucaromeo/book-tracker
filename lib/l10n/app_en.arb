@@ -194,6 +194,51 @@
     "description": "Passwords don't match error"
   },
 
+  "forgotPasswordFormTitle": "Reset password",
+  "@forgotPasswordTitle": {
+    "description": "Forgot Password Form Title"
+  },
+
+  "forgotPasswordFormSubtitle": "An email will be sent to recover your password",
+  "@forgotPasswordFormSubtitle": {
+    "description": "Forgot Password Form Subtitle"
+  },
+
+  "forgotPasswordFormEmailFieldText": "Email",
+  "@forgotPasswordFormEmailFieldText": {
+    "description": "Forgot Password Email field Text"
+  },
+
+  "forgotPasswordFormEmailErrorText": "Please enter a valid email.",
+  "@forgotPasswordFormEmailErrorText": {
+    "description": "Forgot Password Email error message"
+  },
+
+  "forgotPasswordFormResetButton": "Reset Password",
+  "@forgotPasswordFormResetButton": {
+    "description": "Forgot Password - Reset Password Button"
+  },
+
+  "confirmEmailFormTitle": "Verification",
+  "@confirmEmailFormTitle": {
+    "description": "Confirm Email Form Title"
+  },
+
+  "confirmEmailFormSubtitle": "A verification email has been sent to your email",
+  "@confirmEmailFormSubtitle": {
+    "description": "Confirm Email Form Subtitle"
+  },
+
+  "confirmEmailFormResendButton": "Resend Email",
+  "@confirmEmailFormResendButton": {
+    "description": "Confirm Email Form Resend Button"
+  },
+
+  "confirmEmailFormBackToLoginButton": "Back to Login",
+  "@confirmEmailFormBackToLoginButton": {
+    "description": "Confirm Email Form Back to Login Button"
+  },
+
   "bottomNavBarItemLabelHome": "Home",
   "@bottomNavBarItemLabelHome": {
     "description": "The label for the Bottom Nav Bar Item HOME"

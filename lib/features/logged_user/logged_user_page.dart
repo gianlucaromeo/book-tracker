@@ -4,6 +4,7 @@ import 'package:book_tracker/features/logged_user/sections/home/section_home.dar
 import 'package:book_tracker/features/logged_user/sections/library/section_library.dart';
 import 'package:book_tracker/features/logged_user/sections/search/section_search.dart';
 import 'package:book_tracker/features/logged_user/sections/tracker/section_tracker.dart';
+import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -19,17 +20,16 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List<Widget> userPages = const [
+  List<Widget> userSections = const [
     UserSectionHome(),
     UserSectionMyBooks(),
     UserSectionSearch(),
     UserSectionTracker()
   ];
 
-  int _currentIndex = 2;
+  int _currentSectionIndex = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -37,15 +37,14 @@ class _UserPageState extends State<UserPage> {
 
     return Scaffold(
       key: _scaffoldKey,
-      appBar: _buildAppBar(user, context),
+      appBar: buildAppBar(user, context),
       resizeToAvoidBottomInset:
           false, // to avoid overflow when keyboard shows up
       body: Container(
         alignment: Alignment.topCenter,
-        color: Colors.white,
-        child: userPages[_currentIndex],
+        child: userSections[_currentSectionIndex],
       ),
-      bottomNavigationBar: _buildBottomNavigationBar(),
+      bottomNavigationBar: buildBottomNavigationBar(),
       drawer: Drawer(
         child: ListView(
           // Important: Remove any padding from the ListView.
@@ -53,16 +52,16 @@ class _UserPageState extends State<UserPage> {
           children: [
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.blue,
-              ),
+                  //color: Colors.blue,
+                  ),
               child: Text('Drawer Header'),
             ),
             ListTile(
-              title: const Text('Item 1'),
+              title: const Text('Change Theme'),
               onTap: () {
                 // Update the state of the app.
                 // ...
-                Navigator.of(context).pop();
+                themeController.toggleTheme();
               },
             ),
             ListTile(
@@ -79,39 +78,30 @@ class _UserPageState extends State<UserPage> {
     );
   }
 
-  BottomNavigationBar _buildBottomNavigationBar() {
+  BottomNavigationBar buildBottomNavigationBar() {
     return BottomNavigationBar(
       iconSize: 31.0,
-      backgroundColor: Colors.white60,
-      selectedItemColor: Colors.black,
-      currentIndex: _currentIndex,
+      currentIndex: _currentSectionIndex,
       onTap: (index) => setState(() {
-        _currentIndex = index;
+        _currentSectionIndex = index;
       }),
       items: BottomNavBarData.getItems(context),
     );
   }
 
-  AppBar _buildAppBar(User user, BuildContext context) {
+  AppBar buildAppBar(User user, BuildContext context) {
     return AppBar(
-      title: _currentIndex == 0
-          ? Text(
-              //'${user.displayName ?? user.email}',
-              'Book Tracker',
-              style: TextStyle(
-                fontFamily: GeneralSettings.textStyle.fontFamily,
-              ),
-            )
-          : const Text(''),
-      toolbarHeight: 80.0,
-      elevation: 0.0,
-      backgroundColor: Colors.white,
-      titleTextStyle: const TextStyle(color: Colors.black, fontSize: 23),
-      centerTitle: true,
+      title: Text(
+        'Book tracker', //${user.displayName ?? user.email}',
+        style: TextStyle(
+          fontFamily: GeneralSettings.textStyle.fontFamily,
+          fontSize: 23.0,
+        ),
+      ),
       leading: Padding(
         padding: const EdgeInsets.only(left: 20.0),
         child: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.black, size: 36),
+          icon: const Icon(Icons.menu, size: 36),
           onPressed: () => _scaffoldKey.currentState!.openDrawer(),
         ),
       ),
@@ -131,7 +121,6 @@ class _UserPageState extends State<UserPage> {
             },
             icon: const Icon(
               Icons.logout,
-              color: Colors.black,
               size: 36,
             ),
           ),
