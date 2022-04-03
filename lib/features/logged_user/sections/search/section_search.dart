@@ -1,12 +1,10 @@
 import 'dart:convert';
-
-import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_found.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-import '../../models/book.dart';
+import '../../models/google_book.dart';
 
 class UserSectionSearch extends StatefulWidget {
   const UserSectionSearch({Key? key}) : super(key: key);
@@ -21,27 +19,24 @@ class _UserSectionSearchState extends State<UserSectionSearch> {
 
   Future<http.Response> _findBooks() {
     return http.get(Uri.parse(
-        'https://www.googleapis.com/books/v1/volumes?q=$_bookToFind&maxResults=8')); // TODO
+        'https://www.googleapis.com/books/v1/volumes?q=$_bookToFind&maxResults=8&orerBy=relevance')); // TODO
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(AppPadding.defaultPadding),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          buildSearchTextField(),
-          TransparentDivider.h(30.0),
-          _bookToFind.isEmpty
-              ? const Padding(
-                  padding: EdgeInsets.all(10.0),
-                  child: Text('Some text here.'),
-                )
-              : buildListOfBooks(),
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        buildSearchTextField(),
+        TransparentDivider.h(30.0),
+        _bookToFind.isEmpty
+            ? const Padding(
+                padding: EdgeInsets.all(10.0),
+                child: Text('Some text here.'),
+              )
+            : buildListOfBooks(),
+      ],
     );
   }
 
@@ -57,7 +52,8 @@ class _UserSectionSearchState extends State<UserSectionSearch> {
                 switch (snapshot.connectionState) {
                   case ConnectionState.none:
                     return const Text(
-                        'Please check your connection and try again');
+                      'Please check your connection and try again',
+                    );
                   case ConnectionState.waiting:
                     return const CircularProgressIndicator();
                   default:
@@ -74,8 +70,8 @@ class _UserSectionSearchState extends State<UserSectionSearch> {
                           itemCount: books['items'].length,
                           itemBuilder: (BuildContext context, int index) {
                             return BookFound(
-                              book: Book.fromJSON(
-                                  books['items'][index], BookStatus.noStatus),
+                              book: GoogleBookModel.fromJSON(
+                                  books['items'][index]),
                             );
                           },
                         );
@@ -96,7 +92,6 @@ class _UserSectionSearchState extends State<UserSectionSearch> {
           _bookToFind = newText;
         });
       },
-      //style: const TextStyle(color: Colors.black),
       decoration: InputDecoration(
         hintText: ' Search books',
         prefixIcon: const Icon(

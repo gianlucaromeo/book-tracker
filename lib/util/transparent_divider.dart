@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
+/// Utility class to create horizontal or vertical transparent spaces using SizedBox
 class TransparentDivider {
-
   /* Divider - WIDTH */
 
   /// Sized Box whose width is determined by the argument width
@@ -18,7 +18,6 @@ class TransparentDivider {
     );
   }
 
-
   /* Divider - HEIGHT */
 
   /// Sized Box whose height is determined by the argument height
@@ -34,5 +33,4 @@ class TransparentDivider {
       height: 10.0,
     );
   }
-
 }

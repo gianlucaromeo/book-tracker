@@ -1,11 +1,13 @@
-import 'package:book_tracker/features/logged_user/models/book.dart';
+import 'package:book_tracker/features/logged_user/models/google_book.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class BookFound extends StatefulWidget {
-  late final Book _book;
+  late final GoogleBookModel _book;
 
-  BookFound({Key? key, required Book book}) : super(key: key) {
+  BookFound({Key? key, required GoogleBookModel book}) : super(key: key) {
     _book = book;
   }
 
@@ -85,7 +87,7 @@ class _BookFoundState extends State<BookFound> {
 
   Text buildBookAuthors() {
     return Text(
-      widget._book.author,
+      widget._book.authors.toString(),
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
     );
@@ -93,7 +95,7 @@ class _BookFoundState extends State<BookFound> {
 
   Text buildBookTitle() {
     return Text(
-      widget._book.title,
+      widget._book.title ?? 'NO TITLE',
       maxLines: 2,
       overflow: TextOverflow.ellipsis,
       style: const TextStyle(
@@ -115,9 +117,8 @@ class _BookFoundState extends State<BookFound> {
         ],
       ),
       child: Image.network(
-        widget._book.imgUrl != ''
-            ? widget._book.imgUrl
-            : 'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png',
+        widget._book.imageUrl ??
+            'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png',
         width: 70,
         height: 100,
       ),
@@ -135,11 +136,12 @@ class _BookFoundState extends State<BookFound> {
             buildBookTitle(),
             TransparentDivider.h(6.0),
             buildBookAuthors(),
+            Text(widget._book.toString()),
             TransparentDivider.h(20.0),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 40.0),
               child: OutlinedButton(
-                onPressed: () {},
+                onPressed: _addBookToUserCollection,
                 child: const Text('Aggiungi alla libreria'),
                 style: ElevatedButton.styleFrom(
                   elevation: 2.0,
@@ -149,4 +151,12 @@ class _BookFoundState extends State<BookFound> {
           ],
         ),
       );
+
+  Future _addBookToUserCollection() async {
+    final books = FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .collection('books');
+    await books.add(widget._book.toJson());
+  }
 }

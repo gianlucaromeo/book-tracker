@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppBarUtil {
-  static const double _radius = 50.0;
+  static const double _radius = 0.0; // 50.0;
   static get introAppBarTheme => AppBarTheme(
         //color: Colors.transparent,
         toolbarHeight: 100.0,
