@@ -1,6 +1,15 @@
-abstract class BookStatus {}
+typedef Json = Map<String, dynamic>;
 
-class BookStatusNone extends BookStatus {}
+abstract class BookStatus {
+  Json toJson();
+}
+
+class BookStatusNone extends BookStatus {
+  @override
+  Json toJson() => {
+        "status": "none",
+      };
+}
 
 class BookStatusRead extends BookStatus {
   DateTime? dateStart;
@@ -15,4 +24,14 @@ class BookStatusRead extends BookStatus {
     this.comments,
     this.savedPages,
   });
+
+  @override
+  Json toJson() => {
+        "status": "read",
+        "dateStart": dateStart.toString(),
+        "dateEnd": dateEnd.toString(),
+        "rating": rating,
+        "comments": comments,
+        "savedPages": savedPages,
+      };
 }

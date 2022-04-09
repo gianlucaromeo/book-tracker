@@ -72,7 +72,7 @@ class _BookReadInputContainerState extends State<BookReadInputContainer> {
       bookStatus: BookStatusRead(
         dateStart: dateRange?.start,
         dateEnd: dateRange?.end,
-        rating: rating != -1 ? rating : null,
+        rating: rating != -1 ? rating + 1 : null,
       ),
     );
     BooksRepository.addBook(newBook);

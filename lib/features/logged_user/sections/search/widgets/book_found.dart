@@ -134,7 +134,7 @@ class _BookFoundState extends State<BookFound> {
 
   Text buildBookAuthors() {
     return Text(
-      widget._book.authors.toString(),
+      widget._book.authors?.toString() ?? '',
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
     );
@@ -183,7 +183,7 @@ class _BookFoundState extends State<BookFound> {
             buildBookTitle(),
             TransparentDivider.h(6.0),
             buildBookAuthors(),
-            Text(widget._book.toString()),
+            Text(widget._book.toJson().toString()),
             TransparentDivider.h(20.0),
             // * Add the right container from the user choice.
             // ! Change

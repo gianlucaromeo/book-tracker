@@ -70,7 +70,7 @@ class _UserSectionSearchState extends State<UserSectionSearch> {
                           itemCount: books['items'].length,
                           itemBuilder: (BuildContext context, int index) {
                             return BookFound(
-                              book: GoogleBookModel.fromJSON(
+                              book: GoogleBookModel.fromJson(
                                   books['items'][index]),
                             );
                           },
