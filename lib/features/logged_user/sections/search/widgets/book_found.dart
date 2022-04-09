@@ -1,7 +1,6 @@
-import 'package:book_tracker/features/logged_user/models/google_book.dart';
+import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/status_input_containers/book_read_input.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class BookFound extends StatefulWidget {
@@ -16,6 +15,12 @@ class BookFound extends StatefulWidget {
 }
 
 class _BookFoundState extends State<BookFound> {
+  bool showActions = false;
+  toggleShowActions() {
+    showActions = !showActions;
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,17 +35,69 @@ class _BookFoundState extends State<BookFound> {
           )
         ],
       ),
-      width: double.infinity,
+      //width: double.infinity,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
-        child: Row(
+        child: Column(
           children: [
-            // -- Book Image
-            buildImageContainer(),
-            // -- Title and Author
-            buildListTileTitleAndAuthor(),
-            // -- Action Button
-            buildListTileButton(context)
+            Row(
+              children: [
+                // -- Book Image
+                buildImageContainer(),
+                // -- Title and Author
+                buildListTileTitleAndAuthor(),
+                // -- Action Button
+                buildListTileButton(context)
+              ],
+            ),
+            if (showActions)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  for (int i = 0; i < 2; i++)
+                    // ADD READ BUTTON
+                    OutlinedButton(
+                      onPressed: () => showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(50.0),
+                          ),
+                        ),
+                        builder: (context) => buildSheet(),
+                      ), //_addBookStatusRead,
+                      child: const Text('Already Read'),
+                      style: ElevatedButton.styleFrom(
+                        elevation: 2.0,
+                      ),
+                    ),
+                ],
+              ),
+            if (showActions)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  for (int i = 0; i < 2; i++)
+                    // ADD READ BUTTON
+                    OutlinedButton(
+                      onPressed: () => showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(50.0),
+                          ),
+                        ),
+                        builder: (context) => buildSheet(),
+                      ), //_addBookStatusRead,
+                      child: const Text('Already Read'),
+                      style: ElevatedButton.styleFrom(
+                        elevation: 2.0,
+                      ),
+                    ),
+                ],
+              ),
           ],
         ),
       ),
@@ -50,21 +107,11 @@ class _BookFoundState extends State<BookFound> {
   Container buildListTileButton(BuildContext context) {
     return Container(
       width: 50,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
-      ),
       child: IconButton(
-        onPressed: () => showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.vertical(
-              top: Radius.circular(50.0),
-            ),
-          ),
-          builder: (context) => buildSheet(),
-        ),
-        icon: const Icon(Icons.add),
+        onPressed: () => toggleShowActions(),
+        icon: showActions
+            ? const Icon(Icons.arrow_drop_up)
+            : const Icon(Icons.arrow_drop_down),
       ),
     );
   }
@@ -138,25 +185,10 @@ class _BookFoundState extends State<BookFound> {
             buildBookAuthors(),
             Text(widget._book.toString()),
             TransparentDivider.h(20.0),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 40.0),
-              child: OutlinedButton(
-                onPressed: _addBookToUserCollection,
-                child: const Text('Aggiungi alla libreria'),
-                style: ElevatedButton.styleFrom(
-                  elevation: 2.0,
-                ),
-              ),
-            )
+            // * Add the right container from the user choice.
+            // ! Change
+            BookReadInputContainer(bookData: widget._book),
           ],
         ),
       );
-
-  Future _addBookToUserCollection() async {
-    final books = FirebaseFirestore.instance
-        .collection('users')
-        .doc(FirebaseAuth.instance.currentUser!.uid)
-        .collection('books');
-    await books.add(widget._book.toJson());
-  }
 }

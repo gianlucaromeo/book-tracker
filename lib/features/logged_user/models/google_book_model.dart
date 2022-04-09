@@ -1,3 +1,10 @@
+//import 'package:json_annotation/json_annotation.dart';
+
+typedef JSON = Map<String, dynamic>;
+
+//part 'google_book_model.g.dart';
+
+//@JsonSerializable()
 class GoogleBookModel {
   /// Book id for Google Books API.
   /// Useful to fetch more information if required.
@@ -19,7 +26,7 @@ class GoogleBookModel {
 
   GoogleBookModel();
 
-  GoogleBookModel.fromJSON(Map<String, dynamic> json) {
+  GoogleBookModel.fromJSON(JSON json) {
     id = json['id'];
 
     final info = json['volumeInfo'];
@@ -77,9 +84,5 @@ class GoogleBookModel {
     String info4 =
         '\nRatings count: $ratingsCount\nImage url: $imageUrl\nLanguage: $language\nMain category: $mainCategory';
     return 'INFO\n$info1'; // $info2 $info3 $info4';
-  }
-
-  Map<String, dynamic> toJson() {
-    return {'info': toString()};
   }
 }
