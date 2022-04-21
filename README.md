@@ -1,2 +1,2 @@
 # book-tracker
-Easly keep track of the books you read!
+A Cross-platform app to keep track of the books you have read, are currently reading and more.
