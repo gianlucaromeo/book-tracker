@@ -10,10 +10,10 @@ BookStatusRead _$BookStatusReadFromJson(Map<String, dynamic> json) =>
     BookStatusRead(
       dateStart: json['dateStart'] == null
           ? null
-          : DateTime.parse(json['dateStart'] as String),
+          : DateTime.tryParse(json['dateStart'] as String),
       dateEnd: json['dateEnd'] == null
           ? null
-          : DateTime.parse(json['dateEnd'] as String),
+          : DateTime.tryParse(json['dateEnd'] as String),
       rating: json['rating'] as int?,
       comment: json['comment'] as String?,
       liked: json['liked'] as bool?,
