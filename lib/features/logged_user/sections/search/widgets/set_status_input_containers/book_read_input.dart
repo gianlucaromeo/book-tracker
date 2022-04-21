@@ -1,6 +1,6 @@
 import 'package:book_tracker/features/logged_user/models/book_model.dart';
-import 'package:book_tracker/features/logged_user/models/books_status.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
+import 'package:book_tracker/features/logged_user/models/book_status/book_status_read.dart';
 import 'package:book_tracker/features/logged_user/repository/books_repository.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +21,9 @@ class _BookReadInputContainerState extends State<BookReadInputContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      decoration: BoxDecoration(
+        color: Colors.red,
+      ),
       child: Column(
         children: [
           // DATE RANGE PICKER

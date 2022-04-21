@@ -4,4 +4,5 @@ class Routes {
   static const String authenticationPageRouteName = '/authentication_page';
   static const String homePageRouteName = '/home_page';
   static const String forgotPasswordPageRouteName = '/forgot_password_page';
+  // static const String addBookPage = '/add_book_page'; // should pass GoogleBookModel
 }

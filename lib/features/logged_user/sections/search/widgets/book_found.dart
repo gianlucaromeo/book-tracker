@@ -1,13 +1,16 @@
+import 'package:book_tracker/constants/routes.dart';
+import 'package:book_tracker/features/logged_user/data/book_status_data.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
-import 'package:book_tracker/features/logged_user/sections/search/widgets/status_input_containers/book_read_input.dart';
+import 'package:book_tracker/features/logged_user/sections/search/add_book_page.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/set_status_input_containers/book_read_input.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
 class BookFound extends StatefulWidget {
-  late final GoogleBookModel _book;
+  late final GoogleBookModel googleBookModel;
 
   BookFound({Key? key, required GoogleBookModel book}) : super(key: key) {
-    _book = book;
+    googleBookModel = book;
   }
 
   @override
@@ -20,6 +23,8 @@ class _BookFoundState extends State<BookFound> {
     showActions = !showActions;
     setState(() {});
   }
+
+  final booksStatusTypes = BookStatusType.values.toList();
 
   @override
   Widget build(BuildContext context) {
@@ -42,76 +47,24 @@ class _BookFoundState extends State<BookFound> {
           children: [
             Row(
               children: [
-                // -- Book Image
+                // BOOK IMAGE
                 buildImageContainer(),
-                // -- Title and Author
+                // TITLE AND AUTHORS
                 buildListTileTitleAndAuthor(),
-                // -- Action Button
-                buildListTileButton(context)
+                // ADD BOOK BUTTON
+                IconButton(
+                  onPressed: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) =>
+                          AddBookPage(googleBookModel: widget.googleBookModel),
+                    ),
+                  ),
+                  icon: const Icon(Icons.add),
+                ),
               ],
             ),
-            if (showActions)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  for (int i = 0; i < 2; i++)
-                    // ADD READ BUTTON
-                    OutlinedButton(
-                      onPressed: () => showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(50.0),
-                          ),
-                        ),
-                        builder: (context) => buildSheet(),
-                      ), //_addBookStatusRead,
-                      child: const Text('Already Read'),
-                      style: ElevatedButton.styleFrom(
-                        elevation: 2.0,
-                      ),
-                    ),
-                ],
-              ),
-            if (showActions)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  for (int i = 0; i < 2; i++)
-                    // ADD READ BUTTON
-                    OutlinedButton(
-                      onPressed: () => showModalBottomSheet(
-                        context: context,
-                        isScrollControlled: true,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(50.0),
-                          ),
-                        ),
-                        builder: (context) => buildSheet(),
-                      ), //_addBookStatusRead,
-                      child: const Text('Already Read'),
-                      style: ElevatedButton.styleFrom(
-                        elevation: 2.0,
-                      ),
-                    ),
-                ],
-              ),
           ],
         ),
-      ),
-    );
-  }
-
-  Container buildListTileButton(BuildContext context) {
-    return Container(
-      width: 50,
-      child: IconButton(
-        onPressed: () => toggleShowActions(),
-        icon: showActions
-            ? const Icon(Icons.arrow_drop_up)
-            : const Icon(Icons.arrow_drop_down),
       ),
     );
   }
@@ -134,7 +87,7 @@ class _BookFoundState extends State<BookFound> {
 
   Text buildBookAuthors() {
     return Text(
-      widget._book.authors?.toString() ?? '',
+      widget.googleBookModel.volumeInfo?.authors?.toString() ?? '',
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
     );
@@ -142,7 +95,7 @@ class _BookFoundState extends State<BookFound> {
 
   Text buildBookTitle() {
     return Text(
-      widget._book.title ?? 'NO TITLE',
+      widget.googleBookModel.volumeInfo?.title ?? 'NO TITLE',
       maxLines: 2,
       overflow: TextOverflow.ellipsis,
       style: const TextStyle(
@@ -164,31 +117,11 @@ class _BookFoundState extends State<BookFound> {
         ],
       ),
       child: Image.network(
-        widget._book.imageUrl ??
+        widget.googleBookModel.volumeInfo?.imageUrl ??
             'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png',
         width: 70,
         height: 100,
       ),
     );
   }
-
-  Widget buildSheet() => Container(
-        padding: const EdgeInsets.all(20.0),
-        //height: MediaQuery.of(context).size.height - 300,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            buildImageContainer(),
-            TransparentDivider.h(20.0),
-            buildBookTitle(),
-            TransparentDivider.h(6.0),
-            buildBookAuthors(),
-            Text(widget._book.toJson().toString()),
-            TransparentDivider.h(20.0),
-            // * Add the right container from the user choice.
-            // ! Change
-            BookReadInputContainer(bookData: widget._book),
-          ],
-        ),
-      );
 }

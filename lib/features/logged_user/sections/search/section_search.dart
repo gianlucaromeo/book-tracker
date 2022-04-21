@@ -1,10 +1,9 @@
 import 'dart:convert';
+import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_found.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-
-import '../../models/google_book_model.dart';
 
 class UserSectionSearch extends StatefulWidget {
   const UserSectionSearch({Key? key}) : super(key: key);
