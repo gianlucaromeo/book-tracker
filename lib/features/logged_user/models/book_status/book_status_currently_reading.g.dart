@@ -11,18 +11,17 @@ BookStatusCurrentlyReading _$BookStatusCurrentlyReadingFromJson(
     BookStatusCurrentlyReading(
       dateStart: json['dateStart'] == null
           ? null
-          : DateTime.parse(json['dateStart'] as String),
-      comments: (json['comments'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
-      savedPages:
-          (json['savedPages'] as List<dynamic>?)?.map((e) => e as int).toList(),
+          : DateTime.tryParse(json['dateStart'] as String),
+      rating: json['rating'] as int?,
+      comment: json['comment'] as String?,
+      liked: json['liked'] as bool?,
     );
 
 Map<String, dynamic> _$BookStatusCurrentlyReadingToJson(
         BookStatusCurrentlyReading instance) =>
     <String, dynamic>{
       'dateStart': instance.dateStart?.toIso8601String(),
-      'comments': instance.comments,
-      'savedPages': instance.savedPages,
+      'rating': instance.rating,
+      'comment': instance.comment,
+      'liked': instance.liked,
     };

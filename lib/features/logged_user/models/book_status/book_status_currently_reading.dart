@@ -7,13 +7,15 @@ part 'book_status_currently_reading.g.dart';
 class BookStatusCurrentlyReading extends BookStatus {
   final String status = "currentlyReading";
   DateTime? dateStart;
-  List<String>? comments;
-  List<int>? savedPages;
+  int? rating; // 1 to 5
+  String? comment;
+  bool? liked;
 
   BookStatusCurrentlyReading({
     this.dateStart,
-    this.comments,
-    this.savedPages,
+    this.rating,
+    this.comment,
+    this.liked,
   });
 
   factory BookStatusCurrentlyReading.fromJson(Map<String, dynamic> json) =>

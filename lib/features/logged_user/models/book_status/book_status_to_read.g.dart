@@ -10,10 +10,12 @@ BookStatusToRead _$BookStatusToReadFromJson(Map<String, dynamic> json) =>
     BookStatusToRead(
       dateStart: json['dateStart'] == null
           ? null
-          : DateTime.parse(json['dateStart'] as String),
+          : DateTime.tryParse(json['dateStart'] as String),
+      sendNotification: json['sendNotification'] as bool?,
     );
 
 Map<String, dynamic> _$BookStatusToReadToJson(BookStatusToRead instance) =>
     <String, dynamic>{
       'dateStart': instance.dateStart?.toIso8601String(),
+      'sendNotification': instance.sendNotification,
     };
