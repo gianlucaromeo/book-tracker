@@ -1,5 +1,4 @@
 import 'package:book_tracker/features/logged_user/models/book_status/book_status.dart';
-import 'package:book_tracker/features/logged_user/models/book_status/book_status_none.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 
@@ -13,16 +12,13 @@ class BookModel {
   /// The status of this book for the reader:
   /// - Read
   /// - ToRead
-  /// - ReadButNotLike
   /// - CurrentlyReading
-  /// - WillNeverRead
-  /// - None
   late BookStatus bookStatus;
 
   BookModel({required this.bookData, required this.bookStatus});
 
   BookModel.statusNone({required this.bookData}) {
-    bookStatus = BookStatusNone();
+    bookStatus = BookStatus();
   }
 
   factory BookModel.fromJson(Map<String, dynamic> json) =>

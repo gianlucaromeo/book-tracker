@@ -10,7 +10,7 @@ BookStatusToRead _$BookStatusToReadFromJson(Map<String, dynamic> json) =>
     BookStatusToRead(
       dateStart: json['dateStart'] == null
           ? null
-          : DateTime.tryParse(json['dateStart'] as String),
+          : DateTime.parse(json['dateStart'] as String),
     );
 
 Map<String, dynamic> _$BookStatusToReadToJson(BookStatusToRead instance) =>

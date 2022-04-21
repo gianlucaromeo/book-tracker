@@ -15,11 +15,8 @@ BookStatusRead _$BookStatusReadFromJson(Map<String, dynamic> json) =>
           ? null
           : DateTime.parse(json['dateEnd'] as String),
       rating: json['rating'] as int?,
-      comments: (json['comments'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
-      savedPages:
-          (json['savedPages'] as List<dynamic>?)?.map((e) => e as int).toList(),
+      comment: json['comment'] as String?,
+      liked: json['liked'] as bool?,
     );
 
 Map<String, dynamic> _$BookStatusReadToJson(BookStatusRead instance) =>
@@ -27,6 +24,6 @@ Map<String, dynamic> _$BookStatusReadToJson(BookStatusRead instance) =>
       'dateStart': instance.dateStart?.toIso8601String(),
       'dateEnd': instance.dateEnd?.toIso8601String(),
       'rating': instance.rating,
-      'comments': instance.comments,
-      'savedPages': instance.savedPages,
+      'comment': instance.comment,
+      'liked': instance.liked,
     };

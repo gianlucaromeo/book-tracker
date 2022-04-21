@@ -10,18 +10,11 @@ class BookStatusRead extends BookStatus {
   DateTime? dateStart;
   DateTime? dateEnd;
   int? rating; // 1 to 5
-  List<String>? comments;
-  List<int>? savedPages;
+  String? comment;
+  bool? liked;
 
-  // ! TODO : Add Like/Dislike
-
-  BookStatusRead({
-    this.dateStart,
-    this.dateEnd,
-    this.rating,
-    this.comments,
-    this.savedPages,
-  });
+  BookStatusRead(
+      {this.dateStart, this.dateEnd, this.rating, this.comment, this.liked});
 
   factory BookStatusRead.fromJson(Map<String, dynamic> json) =>
       _$BookStatusReadFromJson(json);
