@@ -1,9 +1,6 @@
-import 'package:book_tracker/constants/routes.dart';
 import 'package:book_tracker/features/logged_user/data/book_status_data.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
 import 'package:book_tracker/features/logged_user/sections/search/add_book_page.dart';
-import 'package:book_tracker/features/logged_user/sections/search/widgets/set_status_input_containers/book_read_input.dart';
-import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
 class BookFound extends StatefulWidget {

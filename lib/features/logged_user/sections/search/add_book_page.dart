@@ -1,6 +1,5 @@
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/set_status_button.dart';
-import 'package:book_tracker/features/logged_user/sections/search/widgets/set_status_input_containers/book_read_input.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +31,6 @@ class _AddBookPageState extends State<AddBookPage> {
             TransparentDivider.h(20.0),
             buildButtonsListView(),
             TransparentDivider.h(20.0),
-            BookReadInputContainer(bookData: widget.googleBookModel),
           ],
         ),
       ),
