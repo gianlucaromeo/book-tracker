@@ -18,4 +18,5 @@ Map<String, dynamic> _$BookStatusToReadToJson(BookStatusToRead instance) =>
     <String, dynamic>{
       'dateStart': instance.dateStart?.toIso8601String(),
       'sendNotification': instance.sendNotification,
+      'type': instance.type,
     };

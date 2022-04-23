@@ -1,5 +1,10 @@
 import 'dart:convert';
+import 'package:book_tracker/config/borders.dart';
+import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/popular_books_list_view.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/trending_books_list_view.dart';
+import 'package:book_tracker/theme/text_styles.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_found.dart';
 import 'package:flutter/material.dart';
@@ -30,9 +35,20 @@ class _UserSectionSearchState extends State<UserSectionSearch> {
         buildSearchTextField(),
         TransparentDivider.h(30.0),
         _bookToFind.isEmpty
-            ? const Padding(
-                padding: EdgeInsets.all(10.0),
-                child: Text('Some text here.'),
+            ? Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child: Column(
+                      children: [
+                        const TrendingBooksListView(),
+                        TransparentDivider.h(40.0),
+                        const PopularBooksListView(),
+                      ],
+                    ),
+                  ),
+                ),
               )
             : buildListOfBooks(),
       ],
@@ -83,7 +99,7 @@ class _UserSectionSearchState extends State<UserSectionSearch> {
     );
   }
 
-  TextField buildSearchTextField() {
+  buildSearchTextField() {
     return TextField(
       controller: _textController,
       onChanged: (newText) {
@@ -91,31 +107,53 @@ class _UserSectionSearchState extends State<UserSectionSearch> {
           _bookToFind = newText;
         });
       },
+      style: TextStyles.searchBookFieldHintText,
       decoration: InputDecoration(
-        hintText: ' Search books',
-        prefixIcon: const Icon(
-          Icons.search,
-          size: 27,
-        ),
+        contentPadding: const EdgeInsets.all(AppPadding.defaultPadding),
+        hintText: 'Search...',
+        /* =========  BORDERS ========= */
         enabledBorder: OutlineInputBorder(
-            borderRadius: const BorderRadius.all(Radius.circular(13.0)),
+            borderRadius: const BorderRadius.all(
+                Radius.circular(AppBorders.defaultBorderRadius)),
             borderSide:
                 BorderSide(color: Colors.grey.withOpacity(0.1), width: 4)),
         focusedBorder: OutlineInputBorder(
-            borderRadius: const BorderRadius.all(Radius.circular(13.0)),
+            borderRadius: const BorderRadius.all(
+                Radius.circular(AppBorders.defaultBorderRadius)),
             borderSide: BorderSide(color: Colors.grey.withOpacity(0.2))),
         border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(Radius.circular(13.0)),
+          borderRadius:
+              BorderRadius.all(Radius.circular(AppBorders.defaultBorderRadius)),
         ),
-        suffixIcon: IconButton(
-          onPressed: () {
-            _textController.clear();
-            setState(() {
-              _bookToFind = '';
-            });
-          },
-          icon: const Icon(Icons.clear),
+        /* ========= END BORDERS ========= */
+        /* ========= PREFIX / SUFFIX ICONS ========= */
+        prefixIcon: Padding(
+          padding: const EdgeInsets.all(AppPadding.defaultPadding / 2),
+          child: Icon(
+            Icons.search,
+            size: 40,
+            color: Theme.of(context).iconTheme.color!.withOpacity(0.2),
+          ),
         ),
+        suffixIcon: Padding(
+          padding: const EdgeInsets.only(
+              bottom: AppPadding.defaultPadding / 2 - 5, // ! TO CENTER
+              right: AppPadding.defaultPadding / 2),
+          child: IconButton(
+            onPressed: () {
+              _textController.clear();
+              setState(() {
+                _bookToFind = '';
+              });
+            },
+            icon: Icon(
+              Icons.clear_rounded,
+              size: 40,
+              color: Theme.of(context).iconTheme.color!.withOpacity(0.2),
+            ),
+          ),
+        ),
+        /* ========= END PREFIX / SUFFIX ICONS ========= */
       ),
     );
   }

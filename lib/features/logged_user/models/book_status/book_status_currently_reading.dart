@@ -5,7 +5,7 @@ part 'book_status_currently_reading.g.dart';
 
 @JsonSerializable()
 class BookStatusCurrentlyReading extends BookStatus {
-  final String status = "currentlyReading";
+  final String type = "currently reading";
   DateTime? dateStart;
   int? rating; // 1 to 5
   String? comment;

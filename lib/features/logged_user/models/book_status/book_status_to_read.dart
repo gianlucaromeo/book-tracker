@@ -5,6 +5,7 @@ part 'book_status_to_read.g.dart';
 
 @JsonSerializable()
 class BookStatusToRead extends BookStatus {
+  final String type = "to read";
   DateTime? dateStart;
   bool? sendNotification;
 

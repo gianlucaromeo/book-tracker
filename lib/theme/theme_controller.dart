@@ -1,6 +1,5 @@
 import 'package:book_tracker/config/general.dart';
 import 'package:book_tracker/config/palette.dart';
-import 'package:book_tracker/theme/app_bar_theme.dart';
 import 'package:flutter/material.dart';
 
 final themeController = ThemeController.instance;
@@ -28,7 +27,7 @@ class ThemeController with ChangeNotifier {
       seedColor: Palette.tertiaryLight,
       brightness: Brightness.light,
     ),
-    appBarTheme: AppBarUtil.introAppBarTheme,
+    //appBarTheme: AppBarUtil.introAppBarTheme,
     useMaterial3: true,
   );
 
@@ -38,7 +37,7 @@ class ThemeController with ChangeNotifier {
       seedColor: Colors.blue[900]!,
       brightness: Brightness.dark,
     ),
-    appBarTheme: AppBarUtil.introAppBarTheme, // TODO
+    //appBarTheme: AppBarUtil.introAppBarTheme, // TODO
     useMaterial3: true,
   );
 

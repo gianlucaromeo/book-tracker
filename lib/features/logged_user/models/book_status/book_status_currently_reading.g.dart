@@ -24,4 +24,5 @@ Map<String, dynamic> _$BookStatusCurrentlyReadingToJson(
       'rating': instance.rating,
       'comment': instance.comment,
       'liked': instance.liked,
+      'type': instance.type,
     };

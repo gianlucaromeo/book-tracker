@@ -6,6 +6,7 @@ import 'package:book_tracker/features/logged_user/sections/home/section_home.dar
 import 'package:book_tracker/features/logged_user/sections/library/section_library.dart';
 import 'package:book_tracker/features/logged_user/sections/search/section_search.dart';
 import 'package:book_tracker/features/logged_user/sections/tracker/section_tracker.dart';
+import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -65,24 +66,28 @@ class _UserPageState extends State<UserPage> {
   }
 
   AppBar buildAppBar(User user, BuildContext context) {
+    Color iconColor = themeController.currentThemeMode == ThemeMode.dark
+        ? Colors.white
+        : Colors.black;
+    const iconSize = 50.0;
     return AppBar(
-      title: Text(
-        'Book tracker', //${user.displayName ?? user.email}',
-        style: TextStyle(
-          fontFamily: GeneralSettings.textStyle.fontFamily,
-          fontSize: 23.0,
-        ),
-      ),
+      backgroundColor: Colors.transparent,
+      toolbarHeight: 80.0,
+      elevation: 0.0,
       leading: Padding(
-        padding: const EdgeInsets.only(left: 20.0),
+        padding: const EdgeInsets.only(left: AppPadding.defaultPadding - 10),
         child: IconButton(
-          icon: const Icon(Icons.menu, size: 36),
+          icon: Icon(
+            Icons.menu,
+            size: iconSize,
+            color: iconColor,
+          ),
           onPressed: () => _scaffoldKey.currentState!.openDrawer(),
         ),
       ),
       actions: [
         Padding(
-          padding: const EdgeInsets.only(right: 20.0),
+          padding: const EdgeInsets.only(right: AppPadding.defaultPadding),
           child: IconButton(
             onPressed: () {
               final String providerId = user.providerData[0].providerId;
@@ -94,9 +99,10 @@ class _UserPageState extends State<UserPage> {
                 FirebaseAuth.instance.signOut();
               }
             },
-            icon: const Icon(
-              Icons.logout,
-              size: 36,
+            icon: Icon(
+              Icons.notifications_none_outlined,
+              size: iconSize,
+              color: iconColor,
             ),
           ),
         ),

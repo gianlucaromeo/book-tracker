@@ -44,6 +44,8 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
             // * LOGIN OR SIGN-UP PAGE
             return Scaffold(
               appBar: AppBar(
+                toolbarHeight: 80.0,
+                centerTitle: true,
                 title: Text(
                   AppLocalizations.of(context)!.authPageTitle,
                   style: TextStyles.authPageAppBarTitle,

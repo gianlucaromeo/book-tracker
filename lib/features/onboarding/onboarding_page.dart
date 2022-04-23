@@ -123,18 +123,25 @@ class _OnboardingPageState extends State<OnboardingPage> {
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: Colors.transparent,
+      toolbarHeight: 80.0,
+      elevation: 0.0,
       leading: IconButton(
         onPressed: () {
           Navigator.of(context)
               .popAndPushNamed(Routes.chooseLanguagePageRouteName);
         },
         icon: Icon(
-          Icons.arrow_back,
+          Icons.arrow_back_rounded,
           color: themeController.currentThemeMode == ThemeMode.light
               ? Colors.black
               : Colors.white,
-          size: 38.0,
+          size: 50.0,
         ),
+      ),
+      titleTextStyle: const TextStyle(
+        fontWeight: FontWeight.w500,
+        fontSize: 27.0,
+        letterSpacing: 1,
       ),
     );
   }

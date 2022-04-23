@@ -1,6 +1,8 @@
+import 'package:book_tracker/constants/routes.dart';
 import 'package:book_tracker/features/authentication/login_signup_common/sizes.dart';
 import 'package:book_tracker/main.dart';
 import 'package:book_tracker/theme/text_styles.dart';
+import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -31,9 +33,17 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
     l10n = AppLocalizations.of(context)!;
     return Scaffold(
       appBar: AppBar(
+        toolbarHeight: 80.0,
+        centerTitle: true,
         title: Text(
           l10n.authPageTitle,
           style: TextStyles.authPageAppBarTitle,
+        ),
+        iconTheme: IconThemeData(
+          color: themeController.currentThemeMode == ThemeMode.light
+              ? Colors.black
+              : Colors.white,
+          size: 50.0,
         ),
       ),
       body: Padding(

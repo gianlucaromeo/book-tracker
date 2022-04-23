@@ -1,3 +1,5 @@
+import 'package:book_tracker/config/borders.dart';
+import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/logged_user/data/book_status_data.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
 import 'package:book_tracker/features/logged_user/sections/search/add_book_page.dart';
@@ -21,23 +23,14 @@ class _BookFoundState extends State<BookFound> {
     setState(() {});
   }
 
-  final booksStatusTypes = BookStatusType.values.toList();
+  //final booksStatusTypes = BookStatusType.values.toList();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: Theme.of(context).scaffoldBackgroundColor,
-        borderRadius: BorderRadius.circular(0.0),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 1,
-          )
-        ],
       ),
-      //width: double.infinity,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Column(
@@ -56,7 +49,10 @@ class _BookFoundState extends State<BookFound> {
                           AddBookPage(googleBookModel: widget.googleBookModel),
                     ),
                   ),
-                  icon: const Icon(Icons.add),
+                  icon: const Icon(
+                    Icons.arrow_right,
+                    size: 40.0,
+                  ),
                 ),
               ],
             ),
@@ -69,13 +65,16 @@ class _BookFoundState extends State<BookFound> {
   Expanded buildListTileTitleAndAuthor() {
     return Expanded(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        padding:
+            const EdgeInsets.symmetric(horizontal: AppPadding.defaultPadding),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             buildBookTitle(),
             buildBookAuthors(),
+            if (widget.googleBookModel.volumeInfo?.averageRating != null)
+              Icon(Icons.star)
           ],
         ),
       ),
@@ -83,10 +82,26 @@ class _BookFoundState extends State<BookFound> {
   }
 
   Text buildBookAuthors() {
+    String authors = '';
+    final bookAuthors = widget.googleBookModel.volumeInfo?.authors;
+    if (bookAuthors != null) {
+      for (int i = 0; i < bookAuthors.length; i++) {
+        final currentAuthor = bookAuthors[i];
+        if (i != bookAuthors.length - 2 && i != 0) {
+          authors += ', ';
+        }
+        authors += currentAuthor;
+      }
+    }
     return Text(
-      widget.googleBookModel.volumeInfo?.authors?.toString() ?? '',
+      authors,
       maxLines: 1,
       overflow: TextOverflow.ellipsis,
+      style: TextStyle(
+        color: Theme.of(context).textTheme.subtitle1!.color!.withOpacity(0.5),
+        fontWeight: FontWeight.w500,
+        fontSize: 16.0,
+      ),
     );
   }
 
@@ -97,27 +112,33 @@ class _BookFoundState extends State<BookFound> {
       overflow: TextOverflow.ellipsis,
       style: const TextStyle(
         fontWeight: FontWeight.w600,
-        fontSize: 16.0,
+        fontSize: 19.0,
       ),
     );
   }
 
   Container buildImageContainer() {
     return Container(
-      decoration: const BoxDecoration(
+      width: 80,
+      height: 110,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(AppBorders.defaultBorderRadius / 2),
         boxShadow: [
           BoxShadow(
-            color: Colors.transparent,
-            blurRadius: 1,
-            spreadRadius: 1,
+            color: Theme.of(context).shadowColor.withOpacity(0.1),
+            offset: const Offset(5, 5),
+            blurRadius: 4,
+            spreadRadius: 0,
           ),
         ],
       ),
-      child: Image.network(
-        widget.googleBookModel.volumeInfo?.imageUrl ??
-            'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png',
-        width: 70,
-        height: 100,
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(AppBorders.defaultBorderRadius / 2),
+        child: Image.network(
+          widget.googleBookModel.volumeInfo?.imageUrl ??
+              'https://user-images.githubusercontent.com/24848110/33519396-7e56363c-d79d-11e7-969b-09782f5ccbab.png',
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }

@@ -76,7 +76,7 @@ class TextStyles {
         //color: _detectColor(),
         letterSpacing: 1,
         fontWeight: FontWeight.w400,
-        fontSize: 22.0,
+        fontSize: 24.0,
       );
 
   static get signupFormGoToLoginTopLink => const TextStyle(fontSize: 19.0);
@@ -122,5 +122,17 @@ class TextStyles {
         fontSize: 24.0,
       );
   /* END AUTHENTICATION PAGE */
+
+  /* SEARCH PAGE */
+  static get searchBookFieldHintText => const TextStyle(
+        fontSize: 19.0,
+      );
+
+  static get searchPageTrendingBooksTitle => const TextStyle(
+        fontSize: 28.0,
+        fontWeight: FontWeight.bold,
+      );
+  static get searchPagePopularBooksTitle => searchPageTrendingBooksTitle;
+  /* END SEARCH PAGE */
 
 }
