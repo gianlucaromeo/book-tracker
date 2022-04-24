@@ -2,6 +2,7 @@ import 'package:book_tracker/config/general.dart';
 import 'package:book_tracker/config/shared_preferences.dart';
 import 'package:book_tracker/constants/routes.dart';
 import 'package:book_tracker/features/logged_user/sections/search/add_book_page.dart';
+import 'package:book_tracker/features/logged_user/sections/search/add_book_status_page.dart';
 import 'package:book_tracker/provider/google_sign_in_provider.dart';
 import 'package:book_tracker/features/authentication/authentication_page.dart';
 import 'package:book_tracker/features/choose_language/choose_language_page.dart';

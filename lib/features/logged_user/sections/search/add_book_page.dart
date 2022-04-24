@@ -1,10 +1,15 @@
 import 'package:book_tracker/config/borders.dart';
 import 'package:book_tracker/config/padding.dart';
+import 'package:book_tracker/constants/routes.dart';
+import 'package:book_tracker/features/logged_user/models/book_status/book_status.dart';
+import 'package:book_tracker/features/logged_user/models/book_status/book_status_currently_reading.dart';
+import 'package:book_tracker/features/logged_user/models/book_status/book_status_to_read.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
-import 'package:book_tracker/features/logged_user/sections/search/widgets/set_status_button.dart';
+import 'package:book_tracker/features/logged_user/sections/search/add_book_status_page.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:book_tracker/features/logged_user/models/book_status/book_status_read.dart';
 
 class AddBookPage extends StatefulWidget {
   final GoogleBookModel googleBookModel;
@@ -137,16 +142,19 @@ class _AddBookPageState extends State<AddBookPage> {
         Icons.done,
         "Read",
         Colors.green.withOpacity(opacity),
+        BookStatusRead(),
       ], // READ
       [
         Icons.timelapse,
         "Currently reading",
-        Colors.orange.withOpacity(opacity)
+        Colors.orange.withOpacity(opacity),
+        BookStatusCurrentlyReading(),
       ], // CURRENTLY READING
       [
         Icons.calendar_today,
         "To read",
         Colors.pink.withOpacity(opacity),
+        BookStatusToRead(),
       ], // TO READ
     ];
 
@@ -168,7 +176,14 @@ class _AddBookPageState extends State<AddBookPage> {
                     color: buttonsData[i][2] as Color,
                     child: InkWell(
                       //splashColor: Colors.green, // splash color
-                      onTap: () {}, // button pressed
+                      onTap: () => Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => AddBookStatusPage(
+                            googleBookModel: widget.googleBookModel,
+                            bookStatus: buttonsData[i][3] as BookStatus,
+                          ),
+                        ),
+                      ),
                       child: SizedBox(
                         width: 80,
                         height: 80,

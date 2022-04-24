@@ -1,4 +1,3 @@
-import 'package:book_tracker/config/general.dart';
 import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/logged_user/data/bottom_nav_bar_data.dart';
 import 'package:book_tracker/features/logged_user/drawer/drawer.dart';
