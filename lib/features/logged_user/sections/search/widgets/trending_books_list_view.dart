@@ -1,5 +1,5 @@
 import 'package:book_tracker/config/padding.dart';
-import 'package:book_tracker/theme/text_styles.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/book_image.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
@@ -13,11 +13,16 @@ class TrendingBooksListView extends StatelessWidget {
       children: [
         Text(
           'Trending Books',
-          style: TextStyles.searchPageTrendingBooksTitle,
+          style: TextStyle(
+            fontSize: Theme.of(context).textTheme.headlineSmall!.fontSize,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 1,
+          ),
         ),
-        TransparentDivider.h(15.0),
+        TransparentDivider.h(20.0),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
+          physics: const BouncingScrollPhysics(),
           child: Row(
             children: [
               for (int i = 0; i < 10; i++)
@@ -29,7 +34,12 @@ class TrendingBooksListView extends StatelessWidget {
                     width: 110.0,
                     child: Column(
                       children: [
-                        const Expanded(child: const Placeholder()),
+                        const Expanded(
+                            child: BookImage(
+                          imageUrl:
+                              'https://m.media-amazon.com/images/I/41gr3r3FSWL.jpg',
+                          size: BookImageSize.trendingBook,
+                        )),
                         TransparentDivider.h(10.0),
                         Text('Book Title $i'),
                       ],

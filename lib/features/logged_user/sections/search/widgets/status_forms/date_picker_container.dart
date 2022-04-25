@@ -18,8 +18,8 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 130.0,
-      width: 230.0,
+      //height: 100.0,
+      //width: 200.0,
       decoration: BoxDecoration(
         color: themeController.currentThemeMode == ThemeMode.dark
             ? Colors.black
@@ -44,7 +44,7 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
               widget.title,
               maxLines: 2,
               style: TextStyle(
-                  fontSize: 20.0, color: Colors.black.withOpacity(0.5)),
+                  fontSize: 18.0, color: Colors.black.withOpacity(0.3)),
             ),
             TransparentDivider.h(15.0),
             RichText(
@@ -59,7 +59,7 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
                 style: TextStyle(
                   color: Theme.of(context).textTheme.titleMedium!.color,
                   //decoration: TextDecoration.underline,
-                  fontSize: 25.0,
+                  fontSize: 21.0,
                 ),
                 recognizer: TapGestureRecognizer()..onTap = pickDate,
               ),

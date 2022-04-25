@@ -1,3 +1,4 @@
+import 'package:book_tracker/features/logged_user/models/book_status/book_status_type.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 import 'book_status.dart';
@@ -6,7 +7,7 @@ part 'book_status_read.g.dart';
 
 @JsonSerializable()
 class BookStatusRead extends BookStatus {
-  final String type = "read";
+  final BookStatusType type = BookStatusType.read;
   DateTime? dateStart;
   DateTime? dateEnd;
   int? rating; // 1 to 5

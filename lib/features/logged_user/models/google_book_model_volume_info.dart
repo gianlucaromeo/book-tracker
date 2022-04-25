@@ -23,4 +23,19 @@ class GoogleBookModelVolumeInfo {
       _$GoogleBookModelVolumeInfoFromJson(json);
 
   Map<String, dynamic> toJson() => _$GoogleBookModelVolumeInfoToJson(this);
+
+  /* UTIL */
+  String get authorsAsString {
+    String authorsToString = '';
+    if (authors != null) {
+      for (int i = 0; i < authors!.length; i++) {
+        final currentAuthor = authors![i];
+        if (i != authors!.length - 2 && i != 0) {
+          authorsToString += ', ';
+        }
+        authorsToString += currentAuthor;
+      }
+    }
+    return authorsToString;
+  }
 }

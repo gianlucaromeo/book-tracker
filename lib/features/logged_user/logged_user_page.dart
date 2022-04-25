@@ -5,8 +5,6 @@ import 'package:book_tracker/features/logged_user/sections/home/section_home.dar
 import 'package:book_tracker/features/logged_user/sections/library/section_library.dart';
 import 'package:book_tracker/features/logged_user/sections/search/section_search.dart';
 import 'package:book_tracker/features/logged_user/sections/tracker/section_tracker.dart';
-import 'package:book_tracker/theme/theme_controller.dart';
-import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -38,75 +36,53 @@ class _UserPageState extends State<UserPage> {
 
     return Scaffold(
       key: _scaffoldKey,
-      appBar: buildAppBar(user, context),
-      resizeToAvoidBottomInset:
-          false, // to avoid overflow when keyboard shows up
+      appBar: buildAppBar(user),
+      // to avoid overflow when keyboard shows up:
+      resizeToAvoidBottomInset: false,
       body: Container(
+        padding: const EdgeInsets.fromLTRB(AppPadding.defaultPadding,
+            AppPadding.defaultPadding, AppPadding.defaultPadding, 0),
         alignment: Alignment.topCenter,
-        child: Padding(
-          padding: const EdgeInsets.all(AppPadding.defaultPadding),
-          child: userSections[_currentSectionIndex],
-        ),
+        child: userSections[_currentSectionIndex],
       ),
       bottomNavigationBar: buildBottomNavigationBar(),
       drawer: const AppDrawer(),
     );
   }
 
-  BottomNavigationBar buildBottomNavigationBar() {
-    return BottomNavigationBar(
-      iconSize: 31.0,
-      currentIndex: _currentSectionIndex,
-      onTap: (index) => setState(() {
-        _currentSectionIndex = index;
-      }),
-      items: BottomNavBarData.getItems(context),
-    );
-  }
+  buildBottomNavigationBar() => BottomNavigationBar(
+        currentIndex: _currentSectionIndex,
+        onTap: (index) => setState(() {
+          _currentSectionIndex = index;
+        }),
+        items: BottomNavBarData.items,
+      );
 
-  AppBar buildAppBar(User user, BuildContext context) {
-    Color iconColor = themeController.currentThemeMode == ThemeMode.dark
-        ? Colors.white
-        : Colors.black;
-    const iconSize = 50.0;
-    return AppBar(
-      backgroundColor: Colors.transparent,
-      toolbarHeight: 80.0,
-      elevation: 0.0,
-      leading: Padding(
-        padding: const EdgeInsets.only(left: AppPadding.defaultPadding - 10),
-        child: IconButton(
-          icon: Icon(
-            Icons.menu,
-            size: iconSize,
-            color: iconColor,
-          ),
-          onPressed: () => _scaffoldKey.currentState!.openDrawer(),
-        ),
-      ),
-      actions: [
-        Padding(
-          padding: const EdgeInsets.only(right: AppPadding.defaultPadding),
+  buildAppBar(User user) => AppBar(
+        leading: Padding(
+          padding: const EdgeInsets.only(left: AppPadding.defaultPadding - 10),
           child: IconButton(
-            onPressed: () {
-              final String providerId = user.providerData[0].providerId;
-              if (providerId == 'google.com') {
-                final provider =
-                    Provider.of<GoogleSignInProvider>(context, listen: false);
-                provider.logout();
-              } else {
-                FirebaseAuth.instance.signOut();
-              }
-            },
-            icon: Icon(
-              Icons.notifications_none_outlined,
-              size: iconSize,
-              color: iconColor,
+            icon: const Icon(Icons.menu),
+            onPressed: () => _scaffoldKey.currentState!.openDrawer(),
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: AppPadding.defaultPadding),
+            child: IconButton(
+              onPressed: () {
+                final String providerId = user.providerData[0].providerId;
+                if (providerId == 'google.com') {
+                  final provider =
+                      Provider.of<GoogleSignInProvider>(context, listen: false);
+                  provider.logout();
+                } else {
+                  FirebaseAuth.instance.signOut();
+                }
+              },
+              icon: const Icon(Icons.notifications_none_outlined),
             ),
           ),
-        ),
-        TransparentDivider.w(10.0),
-      ],
-    );
-  }
+        ],
+      );
 }
