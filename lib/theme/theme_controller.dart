@@ -1,5 +1,6 @@
 import 'package:book_tracker/config/general.dart';
 import 'package:book_tracker/config/palette.dart';
+import 'package:book_tracker/theme/dark_theme_data.dart';
 import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:flutter/material.dart';
 
@@ -10,7 +11,7 @@ class ThemeController with ChangeNotifier {
   static final ThemeController _instance = ThemeController._();
   static ThemeController get instance => _instance;
 
-  bool _isDarkTheme = false;
+  bool _isDarkTheme = true;
 
   bool get isDarkTheme => _isDarkTheme;
 
@@ -22,30 +23,8 @@ class ThemeController with ChangeNotifier {
     notifyListeners();
   }
 
-  static final _fontFamily = GeneralSettings.textStyle.fontFamily;
-
-  final _lightThemeData = ThemeData(
-    fontFamily: _fontFamily,
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: Palette.primaryLight,
-      brightness: Brightness.light,
-    ),
-    //appBarTheme: AppBarUtil.introAppBarTheme,
-    useMaterial3: true,
-  );
-
-  final _darkThemeData = ThemeData(
-    fontFamily: _fontFamily,
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: Colors.blue[900]!,
-      brightness: Brightness.dark,
-    ),
-    //appBarTheme: AppBarUtil.introAppBarTheme, // TODO
-    useMaterial3: true,
-  );
-
   ThemeData get lightThemeData => LightThemeData.themeData; // _lightThemeData;
-  ThemeData get darkThemeData => _darkThemeData;
+  ThemeData get darkThemeData => DarkThemeData.themeData; //_darkThemeData;
   ThemeData get currentThemeData =>
       _isDarkTheme ? darkThemeData : lightThemeData;
 }

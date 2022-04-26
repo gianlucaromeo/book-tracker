@@ -5,6 +5,7 @@ import 'package:book_tracker/features/logged_user/sections/home/section_home.dar
 import 'package:book_tracker/features/logged_user/sections/library/section_library.dart';
 import 'package:book_tracker/features/logged_user/sections/search/section_search.dart';
 import 'package:book_tracker/features/logged_user/sections/tracker/section_tracker.dart';
+import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +30,14 @@ class _UserPageState extends State<UserPage> {
   ];
 
   int _currentSectionIndex = 2;
+
+  @override
+  void initState() {
+    super.initState();
+    themeController.addListener(() {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +77,8 @@ class _UserPageState extends State<UserPage> {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: AppPadding.defaultPadding),
+            padding:
+                const EdgeInsets.only(right: AppPadding.defaultPadding - 10),
             child: IconButton(
               onPressed: () {
                 final String providerId = user.providerData[0].providerId;

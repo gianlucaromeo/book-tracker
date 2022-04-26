@@ -15,23 +15,23 @@ class SearchTextField extends StatefulWidget with ChangeNotifier {
 }
 
 class _SearchTextFieldState extends State<SearchTextField> {
-  static final _border = OutlineInputBorder(
-    borderRadius: const BorderRadius.all(
-      Radius.circular(AppBorders.defaultBorderRadius),
-    ),
-    borderSide: BorderSide(
-      color: themeController.currentThemeMode == ThemeMode.dark
-          ? Colors.grey.withOpacity(0.4)
-          : Colors.grey.withOpacity(0.4),
-    ),
-  );
   static const iconSize = 40.0;
 
   final _textController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final _border = OutlineInputBorder(
+      borderRadius: const BorderRadius.all(
+        Radius.circular(AppBorders.defaultBorderRadius),
+      ),
+      borderSide: BorderSide(
+        color: Theme.of(context).colorScheme.shadow,
+      ),
+    );
+
     final iconColor = Theme.of(context).iconTheme.color!.withOpacity(0.2);
+
     return TextField(
       controller: _textController,
       onChanged: (newText) {

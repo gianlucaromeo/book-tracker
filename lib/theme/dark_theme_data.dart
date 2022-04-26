@@ -1,23 +1,25 @@
 import 'package:book_tracker/config/general.dart';
 import 'package:flutter/material.dart';
 
-class LightThemeData {
-  // MAIN
-  static const Color surface = Color.fromRGBO(46, 53, 81, 1.0);
-  static const Color primary = Color.fromRGBO(80, 122, 240, 1.0);
-  static const Color onPrimary = Color.fromRGBO(243, 240, 247, 1.0);
-  // OTHER
-  static const Color background = Colors.white;
-  static Color selectedChipBackground = primary;
-  static Color unslectedChipBackground = Colors.grey.withOpacity(0.1);
-  static const Color selectedChipText = Colors.white;
-  static const Color unselectedChipText = Colors.black;
+class DarkThemeData {
+  static Color surface = Color.fromRGBO(0, 0, 0, 1.0);
+  static Color primary = Color.fromRGBO(12, 12, 12, 1.0);
+  static Color onPrimary = Colors.grey.withOpacity(0.4);
+  static Color background = primary;
 
-  static const Color appBarIcon = Colors.black;
-  static const Color appBarText = Colors.black;
-  //static const Color bottomNavBarBackground = onPrimary;
-  static Color bottomNavBarUnselectedIcon = surface.withOpacity(0.3);
-  static const Color searchedBookPageBookTitle = Colors.white;
+  static Color selectedChipBackground = Colors.white;
+  static Color selectedChipText = Colors.black;
+  static Color unslectedChipBackground = Colors.grey.withOpacity(0.5);
+  static Color unselectedChipText = Colors.white;
+
+  static Color appBarIcon = Colors.white;
+  static Color appBarText = Colors.white;
+
+  static Color bottomNavBarBackground = Color.fromRGBO(24, 24, 24, 1.0);
+  static Color bottomNavBarUnselectedIcon = Colors.grey;
+  static Color bottomNavBarSelectedIcon = Colors.white;
+
+  static Color searchedBookPageBookTitle = Colors.white;
   static Color searchedBookPageBookAuthors = Colors.white.withOpacity(0.5);
 
   static get themeData => ThemeData(
@@ -34,14 +36,15 @@ class LightThemeData {
           secondary: Colors.blue,
           surface: surface, // AppBar background
           primary: primary, // ElevatedButton Background, OutlinedButton text
+          brightness: Brightness.dark,
           /* OPZIONALI */
-          shadow: Colors.grey.withOpacity(0.4),
+          shadow: Colors.grey.withOpacity(0.2),
+
           /* BRIGHTNESS */
-          brightness: Brightness.light,
         ),
-        useMaterial3: true,
+        // useMaterial3: true,
         /* ==== APP BAR THEME ==== */
-        appBarTheme: const AppBarTheme(
+        appBarTheme: AppBarTheme(
           backgroundColor: background,
           toolbarHeight: 80.0,
           elevation: 0.0,
@@ -65,13 +68,16 @@ class LightThemeData {
           selectedColor: selectedChipBackground,
           elevation: 0.0,
         ),
+
         /* ==== BOTTOM NAVIGATION BAR THEME ==== */
         bottomNavigationBarTheme: BottomNavigationBarThemeData(
           elevation: 0.0,
-          type: BottomNavigationBarType.shifting,
-          selectedIconTheme: const IconThemeData(
+          type: BottomNavigationBarType
+              .fixed, // Otherwise cannot edit backgroundColor
+          backgroundColor: bottomNavBarBackground,
+          selectedIconTheme: IconThemeData(
             size: 40.0,
-            color: primary,
+            color: bottomNavBarSelectedIcon,
           ),
           unselectedIconTheme: IconThemeData(
             size: 40.0,
@@ -82,9 +88,12 @@ class LightThemeData {
         ),
         /* ==== TAB BAR ==== */
         tabBarTheme: TabBarTheme(
-          labelColor: primary,
-          unselectedLabelColor: surface,
-          labelStyle: const TextStyle(color: primary, fontSize: 18),
+          labelColor: Colors.white,
+          unselectedLabelColor: onPrimary,
+          labelStyle: TextStyle(
+            color: primary,
+            fontSize: 18,
+          ),
           unselectedLabelStyle: TextStyle(
             color: Colors.grey.withOpacity(0.3),
             fontSize: 14,

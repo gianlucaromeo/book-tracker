@@ -1,23 +1,82 @@
 import 'package:book_tracker/features/logged_user/models/book_status/book_status.dart';
 import 'package:book_tracker/features/logged_user/models/book_status/book_status_currently_reading.dart';
 import 'package:book_tracker/features/logged_user/models/book_status/book_status_read.dart';
+import 'package:book_tracker/features/logged_user/models/book_status/book_status_to_read.dart';
 import 'package:book_tracker/features/logged_user/models/book_status/book_status_type.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/status_currently_reading_form.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/status_read_form.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/status_to_read_form.dart';
+import 'package:email_validator/email_validator.dart';
+import 'package:flutter/material.dart';
 
 class BookStatusUtil {
-  /// Binds a BookStatusType to an index, in order
-  /// to follow an order for Buttons, Lists, Pages, ...
+  /// List of all the BookStatusTypes
+  static const bookStatusTypes = BookStatusType.values;
+
+  /// Bind BookStatusType to an index, in order to follow an order
   static const bookStatusIndexes = {
     BookStatusType.read: 0,
     BookStatusType.currentlyReading: 1,
     BookStatusType.toRead: 2,
   };
 
-  static getIndex(BookStatus bookStatus) {
+  /// Bind BookStatusType to an IconData
+  static const bookStatusIcons = {
+    BookStatusType.read: Icons.done_outline_rounded,
+    BookStatusType.currentlyReading: Icons.timelapse_outlined,
+    BookStatusType.toRead: Icons.calendar_today_outlined,
+  };
+
+  /// Bind BookStatusType to its Form
+  static final bookStatusForms = {
+    BookStatusType.read: BookStatusReadForm(),
+    BookStatusType.currentlyReading: BookStatusCurrentlyReadingForm(),
+    BookStatusType.toRead: BookStatusToReadForm(),
+  };
+
+  static const _opacity = 0.77;
+
+  /// Bind BookStatusType to its Color
+  static final bookStatusColors = {
+    BookStatusType.read: Colors.green.withOpacity(_opacity),
+    BookStatusType.currentlyReading: Colors.orange.withOpacity(_opacity),
+    BookStatusType.toRead: Colors.pink.withOpacity(_opacity),
+  };
+
+  /// Bind BookStatusType to its BookStatus
+  static final bookStatusFromType = {
+    BookStatusType.read: BookStatusRead(),
+    BookStatusType.currentlyReading: BookStatusCurrentlyReading(),
+    BookStatusType.toRead: BookStatusToRead(),
+  };
+
+  /// Bind BookStatusType to a String
+  static Map<BookStatusType, String> getBookStatusTexts(BuildContext context) {
+    // ! TODO : Change with L10N
+    return {
+      BookStatusType.read: 'Read',
+      BookStatusType.currentlyReading: 'Currently reading',
+      BookStatusType.toRead: 'To read',
+    };
+  }
+
+  static int getIndex(BookStatus bookStatus) {
     if (bookStatus is BookStatusRead) {
       return bookStatusIndexes[BookStatusType.read]!;
     } else if (bookStatus is BookStatusCurrentlyReading) {
       return bookStatusIndexes[BookStatusType.currentlyReading]!;
     }
     return bookStatusIndexes[BookStatusType.toRead]!;
+  }
+
+  static getBookStatusFromForm(Widget form) {
+    if (form is BookStatusReadForm) {
+      return form.getBookStatus();
+    } else if (form is BookStatusToReadForm) {
+      return form.getBookStatus();
+    } else if (form is BookStatusCurrentlyReadingForm) {
+      return form.getBookStatus();
+    }
+    return BookStatus();
   }
 }

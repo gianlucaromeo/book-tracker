@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
 import 'package:book_tracker/features/logged_user/sections/search/util/books_search_util.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_found_tile.dart';
+import 'package:book_tracker/theme/dark_theme_data.dart';
 import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
@@ -50,15 +51,16 @@ class _PopularBooksListViewState extends State<PopularBooksListView> {
                             label: Text(
                               'Fiction $i',
                               style: TextStyle(
-                                  color: selectedChips[i]
-                                      ? themeController.currentThemeMode ==
-                                              ThemeMode.light
-                                          ? LightThemeData.selectedChipText
-                                          : Colors.black
-                                      : themeController.currentThemeMode ==
-                                              ThemeMode.light
-                                          ? LightThemeData.unselectedChipText
-                                          : Colors.white),
+                                color: selectedChips[i]
+                                    ? themeController.currentThemeMode ==
+                                            ThemeMode.light
+                                        ? LightThemeData.selectedChipText
+                                        : DarkThemeData.selectedChipText
+                                    : themeController.currentThemeMode ==
+                                            ThemeMode.light
+                                        ? LightThemeData.unselectedChipText
+                                        : DarkThemeData.unselectedChipText,
+                              ),
                             ),
                             onPressed: () {
                               setState(() {

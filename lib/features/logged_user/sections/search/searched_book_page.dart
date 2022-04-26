@@ -3,6 +3,7 @@ import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/add_status_action_buttons.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_image.dart';
+import 'package:book_tracker/theme/dark_theme_data.dart';
 import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
@@ -27,7 +28,9 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
             // BACKGROUND
             Container(
               height: 250.0,
-              color: themeController.currentThemeData.colorScheme.primary,
+              color: themeController.isDarkTheme
+                  ? DarkThemeData.surface
+                  : LightThemeData.primary,
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -112,10 +115,14 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
   }
 
   buildGenericInfoContainer() {
+    final opacity = themeController.isDarkTheme ? 0.0 : 0.1;
     return Container(
       decoration: BoxDecoration(
-        color: Colors.grey.withOpacity(0.1),
+        color: Colors.grey.withOpacity(opacity),
         borderRadius: BorderRadius.circular(AppBorders.defaultBorderRadius),
+        border: themeController.isDarkTheme
+            ? Border.all(color: Theme.of(context).colorScheme.surface)
+            : null,
       ),
       padding: const EdgeInsets.all(AppPadding.defaultPadding / 2),
       child: Expanded(
@@ -148,6 +155,7 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
   buildDescription() {
     String? description = widget.googleBookModel.volumeInfo?.description;
     if (description != null) {
+      final opacity = themeController.isDarkTheme ? 0.6 : 1.0;
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -159,7 +167,14 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
               physics: const BouncingScrollPhysics(),
               child: Text(
                 description,
-                style: Theme.of(context).textTheme.bodyLarge,
+                style: TextStyle(
+                  fontSize: Theme.of(context).textTheme.bodyLarge!.fontSize,
+                  color: Theme.of(context)
+                      .textTheme
+                      .bodySmall!
+                      .color!
+                      .withOpacity(opacity),
+                ),
               ),
             ),
           ),
@@ -220,8 +235,18 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
   Column buildGenericBookInfo(String title, String subtitle) {
     return Column(
       children: [
-        Text(title, style: Theme.of(context).textTheme.headlineSmall),
-        Text(subtitle, style: Theme.of(context).textTheme.labelLarge),
+        Text(
+          title,
+          style: Theme.of(context).textTheme.headlineSmall,
+        ),
+        Text(
+          subtitle,
+          style: TextStyle(
+            fontSize: Theme.of(context).textTheme.labelLarge!.fontSize,
+            color:
+                Theme.of(context).textTheme.bodySmall!.color!.withOpacity(0.6),
+          ),
+        ),
       ],
     );
   }

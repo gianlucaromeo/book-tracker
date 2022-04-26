@@ -26,5 +26,5 @@ Map<String, dynamic> _$BookStatusReadToJson(BookStatusRead instance) =>
       'rating': instance.rating,
       'comment': instance.comment,
       'liked': instance.liked,
-      'type': instance.type,
+      'type': instance.type.name,
     };

@@ -1,10 +1,9 @@
 import 'package:book_tracker/config/borders.dart';
 import 'package:book_tracker/features/logged_user/models/book_status/book_status.dart';
-import 'package:book_tracker/features/logged_user/models/book_status/book_status_currently_reading.dart';
-import 'package:book_tracker/features/logged_user/models/book_status/book_status_to_read.dart';
-import 'package:book_tracker/features/logged_user/models/book_status/book_status_read.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
 import 'package:book_tracker/features/logged_user/sections/search/add_book_status_page.dart';
+import 'package:book_tracker/features/logged_user/sections/search/util/book_status_util.dart';
+import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
@@ -15,40 +14,35 @@ class AddStatusActionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const opacity = 0.7;
-    final buttonsData = [
-      [
-        Icons.done,
-        "Read",
-        Colors.green.withOpacity(opacity),
-        BookStatusRead(),
-      ], // READ
-      [
-        Icons.timelapse,
-        "Currently reading",
-        Colors.orange.withOpacity(opacity),
-        BookStatusCurrentlyReading(),
-      ], // CURRENTLY READING
-      [
-        Icons.calendar_today,
-        "To read",
-        Colors.pink.withOpacity(opacity),
-        BookStatusToRead(),
-      ], // TO READ
-    ];
+    const icons = BookStatusUtil.bookStatusIcons;
+    final texts = BookStatusUtil.getBookStatusTexts(context);
+    //final colors = BookStatusUtil.bookStatusColors;
+    final statusFromType = BookStatusUtil.bookStatusFromType;
+
+    final color = Theme.of(context).colorScheme.background;
+    final buttonsData = BookStatusUtil.bookStatusTypes
+        .map((status) => [
+              icons[status],
+              texts[status],
+              color, // colors[status],
+              statusFromType[status],
+            ])
+        .toList();
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < buttonsData.length; i++)
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ClipRect(
                 child: Material(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(
-                          AppBorders.defaultBorderRadius)),
+                    borderRadius:
+                        BorderRadius.circular(AppBorders.defaultBorderRadius),
+                  ),
                   color: buttonsData[i][2] as Color,
                   child: InkWell(
                     //splashColor: Colors.green, // splash color
@@ -70,7 +64,9 @@ class AddStatusActionButtons extends StatelessWidget {
                           Icon(
                             buttonsData[i][0] as IconData,
                             size: 50.0,
-                            color: Colors.white,
+                            color: themeController.isDarkTheme
+                                ? Colors.white
+                                : Theme.of(context).colorScheme.primary,
                           ), // icon
                         ],
                       ),
@@ -83,7 +79,13 @@ class AddStatusActionButtons extends StatelessWidget {
                 buttonsData[i][1] as String,
                 maxLines: 2,
                 textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: TextStyle(
+                  fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
+                  //fontWeight: FontWeight.bold,
+                  color: themeController.isDarkTheme
+                      ? Colors.white
+                      : Theme.of(context).colorScheme.primary,
+                ),
               ),
             ],
           ),
