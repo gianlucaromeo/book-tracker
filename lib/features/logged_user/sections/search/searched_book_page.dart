@@ -108,7 +108,7 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
         // IMAGE
         BookImage(
           size: BookImageSize.searchedBook,
-          imageUrl: widget.googleBookModel.volumeInfo?.imageUrl,
+          imageUrl: widget.googleBookModel.volumeInfo?.imageLinks!.thumbnail,
         ),
       ],
     );

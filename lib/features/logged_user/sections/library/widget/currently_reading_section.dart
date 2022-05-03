@@ -1,14 +1,11 @@
-import 'dart:convert';
-
-import 'package:book_tracker/config/padding.dart';
-import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
-import 'package:book_tracker/features/logged_user/sections/search/util/books_search_util.dart';
+import 'package:book_tracker/features/logged_user/models/book_model.dart';
+import 'package:book_tracker/features/logged_user/models/book_status/book_status_type.dart';
+import 'package:book_tracker/features/logged_user/repository/books_repository.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_image.dart';
-import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
-import 'package:http/http.dart' as http;
 
 class BooksCurrentlyReadingSection extends StatefulWidget {
   const BooksCurrentlyReadingSection({Key? key}) : super(key: key);
@@ -32,48 +29,46 @@ class _ReadSectionState extends State<BooksCurrentlyReadingSection> {
           ),
         ),
         TransparentDivider.h(20.0),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          physics: const BouncingScrollPhysics(),
-          child: Row(
-            children: [
-              for (int i = 0; i < 4; i++)
-                FutureBuilder(
-                  future: BookSearchUtil.findBooks('se'),
-                  builder: (context, AsyncSnapshot<http.Response> snap) {
-                    final googleBook = GoogleBookModel.fromJson(
-                        jsonDecode(snap.data!.body)['items'][i]);
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: AppPadding.defaultPadding / 2),
-                      child: snap.connectionState == ConnectionState.waiting
-                          ? const CircularProgressIndicator()
-                          : SizedBox(
-                              //height: 200,
-                              width: 110,
-                              child: Column(
-                                children: [
-                                  BookImage(
-                                    imageUrl: googleBook.volumeInfo!.imageUrl,
-                                    size: BookImageSize.setBookStatus,
-                                  ),
-                                  TransparentDivider.h(10.0),
-                                  Text(
-                                    '${googleBook.volumeInfo!.title}',
-                                    maxLines: 3,
-                                    textAlign: TextAlign.center,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: themeController
-                                        .currentThemeData.textTheme.headline6,
-                                  ),
-                                ],
-                              ),
-                            ),
+        StreamBuilder<QuerySnapshot>(
+          stream: BooksRepository.booksCurrentlyReadingStream(),
+          builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snap) {
+            if (snap.hasData) {
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                physics: const BouncingScrollPhysics(),
+                child: Row(
+                  children: snap.data!.docs.map((bookToReadJson) {
+                    BookModel bookModel =
+                        BookModel.fromJson(bookToReadJson.data() as Json);
+                    print('${bookModel.bookData.volumeInfo!.imageUrl}');
+                    return SizedBox(
+                      //height: 200,
+                      width: 110,
+                      child: Column(
+                        children: [
+                          BookImage(
+                            imageUrl: bookModel.bookData.volumeInfo!.imageUrl,
+                            size: BookImageSize.setBookStatus,
+                          ),
+                          TransparentDivider.h(10.0),
+                          Text(
+                            bookModel.bookData.volumeInfo!.title ??
+                                'No Title', // '${googleBook.volumeInfo!.title}',
+                            maxLines: 3,
+                            textAlign: TextAlign.center,
+                            overflow: TextOverflow.ellipsis,
+                            style: Theme.of(context).textTheme.titleMedium,
+                          ),
+                        ],
+                      ),
                     );
-                  },
+                  }).toList(),
                 ),
-            ],
-          ),
+              );
+            } else {
+              return const CircularProgressIndicator();
+            }
+          },
         ),
       ],
     );

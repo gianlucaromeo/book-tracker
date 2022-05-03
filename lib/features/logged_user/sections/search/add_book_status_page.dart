@@ -162,7 +162,7 @@ class _AddBookStatusPageState extends State<AddBookStatusPage>
       children: [
         BookImage(
           size: BookImageSize.setBookStatus,
-          imageUrl: widget.googleBookModel.volumeInfo?.imageUrl,
+          imageUrl: widget.googleBookModel.volumeInfo?.imageLinks!.thumbnail,
         ),
         TransparentDivider.w(AppPadding.defaultPadding),
         Expanded(

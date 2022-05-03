@@ -27,8 +27,8 @@ class _UserSectionLibraryState extends State<UserSectionLibrary> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: sections
             .map((section) => Padding(
-                  padding: const EdgeInsets.only(
-                      bottom: AppPadding.defaultPadding / 2),
+                  padding:
+                      const EdgeInsets.only(bottom: AppPadding.defaultPadding),
                   child: section,
                 ))
             .toList(),

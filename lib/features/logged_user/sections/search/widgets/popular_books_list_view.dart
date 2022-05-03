@@ -1,13 +1,16 @@
 import 'dart:convert';
 
 import 'package:book_tracker/config/padding.dart';
+import 'package:book_tracker/features/logged_user/models/book_model.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
+import 'package:book_tracker/features/logged_user/repository/books_repository.dart';
 import 'package:book_tracker/features/logged_user/sections/search/util/books_search_util.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_found_tile.dart';
 import 'package:book_tracker/theme/dark_theme_data.dart';
 import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -72,22 +75,23 @@ class _PopularBooksListViewState extends State<PopularBooksListView> {
                   ],
                 ),
               ),
-              for (int i = 0; i < 6; i++)
-                FutureBuilder(
-                  future: BookSearchUtil.findBooks('il'),
-                  builder: (context, AsyncSnapshot<http.Response> snap) =>
-                      snap.connectionState == ConnectionState.waiting
-                          ? const Padding(
-                              padding:
-                                  EdgeInsets.all(AppPadding.defaultPadding),
-                              child: CircularProgressIndicator(),
-                            )
-                          : BookFoundTile(
-                              book: GoogleBookModel.fromJson(
-                                jsonDecode(snap.data!.body)['items'][i],
-                              ),
-                            ),
-                ),
+              StreamBuilder<QuerySnapshot>(
+                stream: BooksRepository.globalPopularBooks(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<QuerySnapshot> snap) {
+                  if (snap.hasData) {
+                    return Column(
+                      children: snap.data!.docs.map((bookToReadJson) {
+                        GoogleBookModel bookModel = GoogleBookModel.fromJson(
+                            bookToReadJson.data() as Json);
+                        return BookFoundTile(book: bookModel);
+                      }).toList(),
+                    );
+                  } else {
+                    return const CircularProgressIndicator();
+                  }
+                },
+              ),
             ],
           ),
         ),

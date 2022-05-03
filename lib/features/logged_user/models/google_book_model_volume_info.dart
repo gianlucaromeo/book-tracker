@@ -1,8 +1,9 @@
+import 'package:book_tracker/features/logged_user/models/google_book_model_volume_info_image_links.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'google_book_model_volume_info.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class GoogleBookModelVolumeInfo {
   String? title;
   List<String>? authors;
@@ -13,6 +14,7 @@ class GoogleBookModelVolumeInfo {
   List<String>? categories;
   num? averageRating; // 1.0 to 5.0
   int? ratingsCount;
+  ImageLinks? imageLinks;
   String? imageUrl; // ~ 128px
   String? language; // ISO 639-1 'fr', 'en', ...
   String? mainCategory; // ! Always null (?)
