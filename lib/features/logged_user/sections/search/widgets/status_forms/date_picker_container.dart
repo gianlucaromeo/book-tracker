@@ -43,7 +43,7 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
             ],
           ),
           child: Padding(
-            padding: const EdgeInsets.all(AppPadding.defaultPadding),
+            padding: const EdgeInsets.all(AppPadding.defaultPadding / 2),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

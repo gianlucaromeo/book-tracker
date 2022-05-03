@@ -64,8 +64,9 @@ class _BookStatusCurrentlyReadingFormState
           dateStartContainer,
           TransparentDivider.h(AppPadding.defaultPadding * 2),
           ratingsContainer,
-          TransparentDivider.h(AppPadding.defaultPadding * 2),
-          likeDislikeIconsContainer,
+          // ! TODO Check if needed
+          //TransparentDivider.h(AppPadding.defaultPadding * 2),
+          //likeDislikeIconsContainer,
         ],
       ),
     );

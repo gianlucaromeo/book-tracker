@@ -2,23 +2,32 @@ import 'package:book_tracker/config/general.dart';
 import 'package:flutter/material.dart';
 
 class DarkThemeData {
-  static Color surface = Color.fromRGBO(0, 0, 0, 1.0);
-  static Color primary = Color.fromRGBO(12, 12, 12, 1.0);
+  static Color surface = const Color.fromRGBO(0, 0, 0, 1.0);
+  static Color primary = const Color.fromRGBO(12, 12, 12, 1.0);
   static Color onPrimary = Colors.grey.withOpacity(0.4);
   static Color background = primary;
+  static Color shadow = Colors.grey.withOpacity(0.2);
 
+  /* CHIP */
   static Color selectedChipBackground = Colors.white;
   static Color selectedChipText = Colors.black;
   static Color unslectedChipBackground = Colors.grey.withOpacity(0.5);
   static Color unselectedChipText = Colors.white;
 
+  /* APP BAR */
+  static Color appBarBackground = primary;
   static Color appBarIcon = Colors.white;
   static Color appBarText = Colors.white;
 
-  static Color bottomNavBarBackground = Color.fromRGBO(24, 24, 24, 1.0);
+  /* BOTTOM NAVIGATION BAR */
+  static Color bottomNavBarBackground = const Color.fromRGBO(24, 24, 24, 1.0);
   static Color bottomNavBarUnselectedIcon = Colors.grey;
   static Color bottomNavBarSelectedIcon = Colors.white;
 
+  /* SCAFFOLD */
+  static Color scaffoldBackgroundColor = background;
+
+  /* SEARCHED BOOK PAGE */
   static Color searchedBookPageBookTitle = Colors.white;
   static Color searchedBookPageBookAuthors = Colors.white.withOpacity(0.5);
 
@@ -27,6 +36,7 @@ class DarkThemeData {
         colorScheme: ColorScheme(
           /* OBBLIGATORI */
           background: background, // SingleChildScrollView Background
+          brightness: Brightness.dark,
           error: Colors.red,
           onSurface: Colors.white, // AppBar title|leading|actions,
           onPrimary: onPrimary, // ElevatedButton Text,
@@ -36,20 +46,18 @@ class DarkThemeData {
           secondary: Colors.blue,
           surface: surface, // AppBar background
           primary: primary, // ElevatedButton Background, OutlinedButton text
-          brightness: Brightness.dark,
           /* OPZIONALI */
-          shadow: Colors.grey.withOpacity(0.2),
-
-          /* BRIGHTNESS */
+          shadow: shadow,
         ),
-        // useMaterial3: true,
         /* ==== APP BAR THEME ==== */
         appBarTheme: AppBarTheme(
-          backgroundColor: background,
+          backgroundColor: appBarBackground,
           toolbarHeight: 80.0,
           elevation: 0.0,
+          centerTitle: true,
           titleTextStyle: TextStyle(
             color: appBarText,
+            fontSize: 19,
           ),
           actionsIconTheme: IconThemeData(
             color: appBarIcon,
@@ -61,7 +69,7 @@ class DarkThemeData {
           ),
         ),
         /* ==== SCAFFOLD THEME ==== */
-        scaffoldBackgroundColor: background,
+        scaffoldBackgroundColor: scaffoldBackgroundColor,
         /* ==== CHIP THEME ==== */
         chipTheme: ChipThemeData(
           backgroundColor: unslectedChipBackground,

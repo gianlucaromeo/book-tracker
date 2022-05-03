@@ -22,14 +22,14 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  List<Widget> userSections = const [
+  final List<Widget> userSections = const [
     UserSectionHome(),
-    UserSectionMyBooks(),
+    UserSectionLibrary(),
     UserSectionSearch(),
     UserSectionTracker()
   ];
 
-  int _currentSectionIndex = 2;
+  int _currentSectionIndex = 1;
 
   @override
   void initState() {
@@ -51,7 +51,7 @@ class _UserPageState extends State<UserPage> {
       body: Container(
         padding: const EdgeInsets.fromLTRB(AppPadding.defaultPadding,
             AppPadding.defaultPadding, AppPadding.defaultPadding, 0),
-        alignment: Alignment.topCenter,
+        alignment: Alignment.topLeft,
         child: userSections[_currentSectionIndex],
       ),
       bottomNavigationBar: buildBottomNavigationBar(),
@@ -68,6 +68,7 @@ class _UserPageState extends State<UserPage> {
       );
 
   buildAppBar(User user) => AppBar(
+        title: _currentSectionIndex == 1 ? Text('Library') : null,
         leading: Padding(
           padding: const EdgeInsets.only(left: AppPadding.defaultPadding - 10),
           child: IconButton(

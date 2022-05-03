@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
 import 'package:book_tracker/features/logged_user/sections/search/util/books_search_util.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_found_tile.dart';
@@ -75,11 +76,17 @@ class _PopularBooksListViewState extends State<PopularBooksListView> {
                 FutureBuilder(
                   future: BookSearchUtil.findBooks('il'),
                   builder: (context, AsyncSnapshot<http.Response> snap) =>
-                      BookFoundTile(
-                    book: GoogleBookModel.fromJson(
-                      jsonDecode(snap.data!.body)['items'][i],
-                    ),
-                  ),
+                      snap.connectionState == ConnectionState.waiting
+                          ? const Padding(
+                              padding:
+                                  EdgeInsets.all(AppPadding.defaultPadding),
+                              child: CircularProgressIndicator(),
+                            )
+                          : BookFoundTile(
+                              book: GoogleBookModel.fromJson(
+                                jsonDecode(snap.data!.body)['items'][i],
+                              ),
+                            ),
                 ),
             ],
           ),

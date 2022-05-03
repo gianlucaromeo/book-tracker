@@ -261,7 +261,7 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
         letterSpacing: 1,
         overflow: TextOverflow.ellipsis,
         color: themeController.currentThemeMode == ThemeMode.dark
-            ? Colors.white.withOpacity(0.8) // TODO
+            ? DarkThemeData.searchedBookPageBookTitle
             : LightThemeData.searchedBookPageBookTitle,
       ),
     );
@@ -274,7 +274,7 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
       overflow: TextOverflow.ellipsis,
       style: TextStyle(
         color: themeController.currentThemeMode == ThemeMode.dark
-            ? Colors.white.withOpacity(0.4) // TODO
+            ? DarkThemeData.searchedBookPageBookAuthors
             : LightThemeData.searchedBookPageBookAuthors,
         fontWeight: FontWeight.w500,
         fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,

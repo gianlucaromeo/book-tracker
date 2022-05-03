@@ -37,14 +37,23 @@ class AddStatusActionButtons extends StatelessWidget {
           Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              // BUTTON
               ClipRect(
                 child: Material(
                   shape: RoundedRectangleBorder(
                     borderRadius:
                         BorderRadius.circular(AppBorders.defaultBorderRadius),
+                    side: BorderSide(
+                        width: 1, color: Theme.of(context).colorScheme.primary),
                   ),
                   color: buttonsData[i][2] as Color,
                   child: InkWell(
+                    borderRadius:
+                        BorderRadius.circular(AppBorders.defaultBorderRadius),
+                    splashColor:
+                        Theme.of(context).colorScheme.primary.withOpacity(0.4),
+                    highlightColor:
+                        Theme.of(context).colorScheme.primary.withOpacity(0.1),
                     //splashColor: Colors.green, // splash color
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
@@ -55,15 +64,15 @@ class AddStatusActionButtons extends StatelessWidget {
                       ),
                     ),
                     child: SizedBox(
-                      width: 80,
-                      height: 80,
+                      width: 65,
+                      height: 65,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(
                             buttonsData[i][0] as IconData,
-                            size: 50.0,
+                            size: 40.0,
                             color: themeController.isDarkTheme
                                 ? Colors.white
                                 : Theme.of(context).colorScheme.primary,

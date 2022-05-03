@@ -10,7 +10,6 @@ class BooksRepository {
       final docUser =
           FirebaseFirestore.instance.collection('users').doc(user.uid);
       docUser.collection('books').doc(book.bookData.id).set(book.toJson());
-      //print('Add book ${book.bookData.toJson().toString()}');
     }
   }
 }
