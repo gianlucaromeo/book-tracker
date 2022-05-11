@@ -1,7 +1,7 @@
 import 'package:book_tracker/config/borders.dart';
 import 'package:book_tracker/features/logged_user/models/book_status/book_status.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
-import 'package:book_tracker/features/logged_user/sections/search/add_book_status_page.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/set_book_status_container.dart';
 import 'package:book_tracker/features/logged_user/sections/search/util/book_status_util.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
@@ -57,7 +57,7 @@ class AddStatusActionButtons extends StatelessWidget {
                     //splashColor: Colors.green, // splash color
                     onTap: () => Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (context) => AddBookStatusPage(
+                        builder: (context) => SetBookStatusContainer(
                           googleBookModel: googleBookModel,
                           bookStatus: buttonsData[i][3] as BookStatus,
                         ),

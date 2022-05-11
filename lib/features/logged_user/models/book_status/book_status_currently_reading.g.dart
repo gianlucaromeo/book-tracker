@@ -20,7 +20,7 @@ BookStatusCurrentlyReading _$BookStatusCurrentlyReadingFromJson(
 Map<String, dynamic> _$BookStatusCurrentlyReadingToJson(
         BookStatusCurrentlyReading instance) =>
     <String, dynamic>{
-      'dateStart': instance.dateStart?.toIso8601String(),
+      'dateStart': instance.dateStart?.toString(),
       'rating': instance.rating,
       'comment': instance.comment,
       'liked': instance.liked,

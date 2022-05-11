@@ -1,8 +1,11 @@
 import 'package:book_tracker/config/borders.dart';
 import 'package:book_tracker/config/padding.dart';
+import 'package:book_tracker/features/logged_user/models/book_status/book_status_currently_reading.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
-import 'package:book_tracker/features/logged_user/sections/search/widgets/add_status_action_buttons.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/add_status_button.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_image.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/cancel_status_button.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/set_book_status_container.dart';
 import 'package:book_tracker/theme/dark_theme_data.dart';
 import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
@@ -19,6 +22,14 @@ class SearchedBookPage extends StatefulWidget {
 }
 
 class _SearchedBookPageState extends State<SearchedBookPage> {
+  bool addStatus = false;
+
+  void toggleAddStatus() {
+    setState(() {
+      addStatus = !addStatus;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -28,9 +39,15 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
             // BACKGROUND
             Container(
               height: 250.0,
-              color: themeController.isDarkTheme
-                  ? DarkThemeData.surface
-                  : LightThemeData.primary,
+              decoration: BoxDecoration(
+                color: themeController.isDarkTheme
+                    ? DarkThemeData.surface
+                    : LightThemeData.primary,
+                borderRadius: const BorderRadius.only(
+                  bottomLeft: Radius.circular(AppBorders.defaultBorderRadius),
+                  bottomRight: Radius.circular(AppBorders.defaultBorderRadius),
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(
@@ -58,19 +75,16 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
                     child: buildBookTitleAuthorsAndImage(),
                   ),
                   TransparentDivider.h(AppPadding.defaultPadding),
-                  // PAGES, STARS, LANGUAGE
-                  buildGenericInfoContainer(),
-                  // DESCRIPTION
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(
-                        top: AppPadding.defaultPadding,
-                      ),
-                      child: buildDescription(),
-                    ),
-                  ),
-                  TransparentDivider.h(20.0),
-                  const Divider(),
+
+                  addStatus ? buildStatusForm() : buildBookInfo(),
+
+                  TransparentDivider.h(AppPadding.defaultPadding / 2),
+
+                  // ADD STATUS BUTTON
+                  addStatus
+                      ? buildCancelStatusButton()
+                      : buildAddStatusButton(),
+                  /*
                   // BUTTONS
                   Padding(
                     padding:
@@ -79,11 +93,56 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
                       googleBookModel: widget.googleBookModel,
                     ),
                   ),
+                  */
                 ],
               ),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  buildAddStatusButton() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppPadding.defaultPadding / 2),
+      child: AddStatusButton(onPressed: toggleAddStatus),
+    );
+  }
+
+  buildCancelStatusButton() {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: AppPadding.defaultPadding / 2),
+      child: CancelStatusButton(onPressed: toggleAddStatus),
+    );
+  }
+
+  buildBookInfo() {
+    return Expanded(
+      child: Column(
+        children: [
+          // PAGES, STARS, LANGUAGE
+          buildGenericInfoContainer(),
+          // DESCRIPTION
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: AppPadding.defaultPadding,
+              ),
+              child: buildDescription(),
+            ),
+          ),
+          TransparentDivider.h(20.0),
+        ],
+      ),
+    );
+  }
+
+  buildStatusForm() {
+    return Expanded(
+      child: SetBookStatusContainer(
+        googleBookModel: widget.googleBookModel,
+        bookStatus: BookStatusCurrentlyReading(),
       ),
     );
   }

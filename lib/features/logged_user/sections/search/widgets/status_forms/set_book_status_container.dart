@@ -12,17 +12,17 @@ import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
-class AddBookStatusPage extends StatefulWidget {
+class SetBookStatusContainer extends StatefulWidget {
   final GoogleBookModel googleBookModel;
   final BookStatus bookStatus;
-  const AddBookStatusPage(
+  const SetBookStatusContainer(
       {Key? key, required this.googleBookModel, required this.bookStatus})
       : super(key: key);
   @override
-  State<AddBookStatusPage> createState() => _AddBookStatusPageState();
+  State<SetBookStatusContainer> createState() => _SetBookStatusContainerState();
 }
 
-class _AddBookStatusPageState extends State<AddBookStatusPage>
+class _SetBookStatusContainerState extends State<SetBookStatusContainer>
     with SingleTickerProviderStateMixin {
   TabController? tabController;
   List<Widget> forms = List.from(
@@ -48,54 +48,46 @@ class _AddBookStatusPageState extends State<AddBookStatusPage>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        backgroundColor: themeController.isDarkTheme
-            ? DarkThemeData.surface
-            : LightThemeData.primary,
-        body: Padding(
-          padding: const EdgeInsets.all(AppPadding.defaultPadding),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // GO BACK ICON
-              buildGoBackIcon(),
-              TransparentDivider.h(AppPadding.defaultPadding),
-              // MAIN CONTAINER
-              Expanded(
-                child: Container(
-                  decoration: BoxDecoration(
-                    color: themeController.isDarkTheme
-                        ? DarkThemeData.background
-                        : Colors.white,
-                    borderRadius: BorderRadius.circular(
-                      AppBorders.defaultBorderRadius,
-                    ),
-                  ),
-                  padding: const EdgeInsets.all(AppPadding.defaultPadding / 2),
-                  child: Expanded(
-                    child: Column(
-                      children: [
-                        // IMAGE, TITLE, AUTHORS
-                        buildImageTitleAuthors(context),
-                        const Divider(height: AppPadding.defaultPadding * 2),
-                        buildTabBars(context),
-                        TransparentDivider.h(10.0),
-                        Expanded(
-                          child: TabBarView(
-                            controller: tabController,
-                            physics: const BouncingScrollPhysics(),
-                            children: forms,
-                          ),
-                        ),
-                        TransparentDivider.h(10.0),
-                        buildAddStatusButton(),
-                      ],
-                    ),
-                  ),
-                ),
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.grey.withOpacity(0.2)),
+        borderRadius: BorderRadius.circular(AppBorders.defaultBorderRadius),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(
+          AppPadding.defaultPadding,
+          AppPadding.defaultPadding / 2,
+          AppPadding.defaultPadding,
+          AppPadding.defaultPadding,
+        ),
+        child: Expanded(
+          child: Container(
+            decoration: BoxDecoration(
+              color: themeController.isDarkTheme
+                  ? DarkThemeData.background
+                  : Colors.white,
+              borderRadius: BorderRadius.circular(
+                AppBorders.defaultBorderRadius,
               ),
-            ],
+            ),
+            child: Expanded(
+              child: Column(
+                children: [
+                  buildTabBars(context),
+                  const Divider(height: 0),
+                  TransparentDivider.h(10),
+                  Expanded(
+                    child: TabBarView(
+                      controller: tabController,
+                      physics: const BouncingScrollPhysics(),
+                      children: forms,
+                    ),
+                  ),
+                  TransparentDivider.h(10.0),
+                  buildAddStatusButton(),
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -124,8 +116,8 @@ class _AddBookStatusPageState extends State<AddBookStatusPage>
             ? DarkThemeData.onPrimary
             : Colors.green.withOpacity(0.8),
         shadowColor: Colors.transparent,
-        minimumSize: const Size(double.infinity, 60.0),
-        maximumSize: const Size(double.infinity, 60.0),
+        minimumSize: const Size(double.infinity, 50.0),
+        maximumSize: const Size(double.infinity, 50.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(
             AppBorders.defaultBorderRadius,
@@ -142,14 +134,15 @@ class _AddBookStatusPageState extends State<AddBookStatusPage>
         controller: tabController,
         physics: const BouncingScrollPhysics(),
         isScrollable: true,
-        indicatorColor: Colors.transparent,
+        indicatorColor: LightThemeData.primary,
         tabs: List.from(
           BookStatusUtil.bookStatusTypes.map(
             (status) => Tab(
+              /*
               icon: Icon(
                 icons[status],
                 size: 32.0,
-              ),
+              ),*/
               text: texts[status],
             ),
           ),

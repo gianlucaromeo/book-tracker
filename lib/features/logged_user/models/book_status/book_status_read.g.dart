@@ -21,8 +21,8 @@ BookStatusRead _$BookStatusReadFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$BookStatusReadToJson(BookStatusRead instance) =>
     <String, dynamic>{
-      'dateStart': instance.dateStart?.toIso8601String(),
-      'dateEnd': instance.dateEnd?.toIso8601String(),
+      'dateStart': instance.dateStart?.toString(),
+      'dateEnd': instance.dateEnd?.toString(),
       'rating': instance.rating,
       'comment': instance.comment,
       'liked': instance.liked,

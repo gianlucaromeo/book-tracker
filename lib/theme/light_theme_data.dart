@@ -93,13 +93,10 @@ class LightThemeData {
         ),
         /* ==== TAB BAR ==== */
         tabBarTheme: TabBarTheme(
-          labelColor: primary,
-          unselectedLabelColor: surface,
-          labelStyle: const TextStyle(color: primary, fontSize: 18),
-          unselectedLabelStyle: TextStyle(
-            color: Colors.grey.withOpacity(0.3),
-            fontSize: 14,
-          ),
-        ),
+            labelColor: Colors.black,
+            unselectedLabelColor: Colors.black,
+            labelStyle:
+                const TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
+            unselectedLabelStyle: const TextStyle(fontSize: 17)),
       );
 }

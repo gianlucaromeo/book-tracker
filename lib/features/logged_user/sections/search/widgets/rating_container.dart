@@ -31,7 +31,7 @@ class _RatingsContainerState extends State<RatingsContainer> {
           'Your rating',
           style: TextStyle(
             fontSize: Theme.of(context).textTheme.titleLarge!.fontSize,
-            fontWeight: FontWeight.bold,
+            //fontWeight: FontWeight.bold,
           ),
         ),
         Row(

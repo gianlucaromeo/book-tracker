@@ -65,7 +65,7 @@ class _BookStatusCurrentlyReadingFormState
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           dateStartContainer,
-          TransparentDivider.h(AppPadding.defaultPadding * 2),
+          TransparentDivider.h(AppPadding.defaultPadding),
           ratingsContainer,
           // ! TODO Check if needed
           //TransparentDivider.h(AppPadding.defaultPadding * 2),

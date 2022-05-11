@@ -16,6 +16,6 @@ BookStatusToRead _$BookStatusToReadFromJson(Map<String, dynamic> json) =>
 
 Map<String, dynamic> _$BookStatusToReadToJson(BookStatusToRead instance) =>
     <String, dynamic>{
-      'dateStart': instance.dateStart?.toIso8601String(),
+      'dateStart': instance.dateStart?.toString(),
       'sendNotification': instance.sendNotification,
     };

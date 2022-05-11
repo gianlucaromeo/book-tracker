@@ -74,13 +74,13 @@ class _BookStatusReadFormState extends State<BookStatusReadForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               dateStartContainer,
               dateEndContainer,
             ],
           ),
-          TransparentDivider.h(AppPadding.defaultPadding * 2),
+          TransparentDivider.h(AppPadding.defaultPadding),
           ratingsContainer,
           // ! TODO Check if needed
           //TransparentDivider.h(AppPadding.defaultPadding * 2),

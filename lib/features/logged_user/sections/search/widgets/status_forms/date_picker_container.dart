@@ -1,6 +1,7 @@
 import 'package:book_tracker/config/borders.dart';
 import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/theme/dark_theme_data.dart';
+import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/gestures.dart';
@@ -46,7 +47,10 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
             ],
           ),
           child: Padding(
-            padding: const EdgeInsets.all(AppPadding.defaultPadding / 2),
+            padding: const EdgeInsets.symmetric(
+              vertical: AppPadding.defaultPadding / 2,
+              horizontal: AppPadding.defaultPadding,
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -69,13 +73,13 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
                         ? widget.selectedDateTime!
                             .toLocal()
                             .toString()
-                            .split('T')[0]
+                            .split(' ')[0]
                             .toString()
-                        : 'No date',
+                        : 'Pick a date',
                     style: TextStyle(
-                      color: Theme.of(context).textTheme.titleMedium!.color,
+                      color: LightThemeData.primary,
                       //decoration: TextDecoration.underline,
-                      fontSize: 18.0,
+                      fontSize: 16.0,
                     ),
                     recognizer: TapGestureRecognizer()..onTap = pickDate,
                   ),

@@ -35,7 +35,7 @@ Map<String, dynamic> _$GoogleBookModelVolumeInfoToJson(
       'title': instance.title,
       'authors': instance.authors,
       'publisher': instance.publisher,
-      'publishedDate': instance.publishedDate?.toIso8601String(),
+      'publishedDate': instance.publishedDate?.toString(),
       'pageCount': instance.pageCount,
       'description': instance.description,
       'categories': instance.categories,
