@@ -1,7 +1,5 @@
-import 'package:book_tracker/config/padding.dart';
-import 'package:book_tracker/features/logged_user/sections/library/widget/currently_reading_section.dart';
-import 'package:book_tracker/features/logged_user/sections/library/widget/read_section.dart';
-import 'package:book_tracker/features/logged_user/sections/library/widget/to_read_section.dart';
+import 'package:book_tracker/features/logged_user/sections/library/widget/books_read_list.dart';
+import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
 class UserSectionLibrary extends StatefulWidget {
@@ -11,28 +9,50 @@ class UserSectionLibrary extends StatefulWidget {
   _UserSectionLibraryState createState() => _UserSectionLibraryState();
 }
 
-class _UserSectionLibraryState extends State<UserSectionLibrary> {
-  final sections = const [
-    BooksCurrentlyReadingSection(),
-    BooksReadSection(),
-    BooksToReadSection(),
-  ];
+class _UserSectionLibraryState extends State<UserSectionLibrary>
+    with SingleTickerProviderStateMixin {
+  TabController? tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    tabController = TabController(
+      length: 4,
+      vsync: this,
+      initialIndex: 0,
+    );
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    tabController?.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: sections
-            .map((section) => Padding(
-                  padding:
-                      const EdgeInsets.only(bottom: AppPadding.defaultPadding),
-                  child: section,
-                ))
-            .toList(),
-      ),
+    return Column(
+      children: [
+        TabBar(
+            controller: tabController,
+            physics: const BouncingScrollPhysics(),
+            isScrollable: true,
+            tabs: List.from(
+              ['All', 'Read', 'Currently reading', 'To read'].map(
+                (title) => Tab(
+                  text: title,
+                ),
+              ),
+            )),
+        TransparentDivider.h(20),
+        Expanded(
+          child: TabBarView(
+            controller: tabController,
+            physics: const BouncingScrollPhysics(),
+            children: List.generate(4, (index) => const BooksReadList()),
+          ),
+        ),
+      ],
     );
   }
 }

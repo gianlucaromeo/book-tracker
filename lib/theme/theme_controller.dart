@@ -1,5 +1,3 @@
-import 'package:book_tracker/config/general.dart';
-import 'package:book_tracker/config/palette.dart';
 import 'package:book_tracker/theme/dark_theme_data.dart';
 import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +9,7 @@ class ThemeController with ChangeNotifier {
   static final ThemeController _instance = ThemeController._();
   static ThemeController get instance => _instance;
 
-  bool _isDarkTheme = true;
+  bool _isDarkTheme = false;
 
   bool get isDarkTheme => _isDarkTheme;
 

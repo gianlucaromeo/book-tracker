@@ -38,20 +38,30 @@ class _RatingsContainerState extends State<RatingsContainer> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             for (int i = 0; i < 5; i++)
-              IconButton(
-                icon: const Icon(
-                  Icons.star,
-                  size: 30.0,
+              SizedBox(
+                width: 24,
+                height: 24,
+                child: IconButton(
+                  padding: EdgeInsets.zero,
+                  icon: const Icon(
+                    Icons.star,
+                    size: 24,
+                  ),
+                  focusColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                  disabledColor: Colors.transparent,
+                  highlightColor: Colors.transparent,
+                  onPressed: () {
+                    setState(() {
+                      widget.setRating(i);
+                    });
+                  },
+                  color: widget.selectedRating != null &&
+                          i <= widget.selectedRating!
+                      ? Colors.orange
+                      : Colors.grey.withOpacity(0.7),
                 ),
-                onPressed: () {
-                  setState(() {
-                    widget.setRating(i);
-                  });
-                },
-                color:
-                    widget.selectedRating != null && i <= widget.selectedRating!
-                        ? Colors.orange
-                        : Colors.grey.withOpacity(0.7),
               )
           ],
         ),

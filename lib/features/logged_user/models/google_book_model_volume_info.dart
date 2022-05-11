@@ -15,7 +15,6 @@ class GoogleBookModelVolumeInfo {
   num? averageRating; // 1.0 to 5.0
   int? ratingsCount;
   ImageLinks? imageLinks;
-  String? imageUrl; // ~ 128px
   String? language; // ISO 639-1 'fr', 'en', ...
   String? mainCategory; // ! Always null (?)
 

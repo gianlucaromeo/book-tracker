@@ -1,10 +1,5 @@
-import 'dart:convert';
-
-import 'package:book_tracker/config/padding.dart';
-import 'package:book_tracker/features/logged_user/models/book_model.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
 import 'package:book_tracker/features/logged_user/repository/books_repository.dart';
-import 'package:book_tracker/features/logged_user/sections/search/util/books_search_util.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_found_tile.dart';
 import 'package:book_tracker/theme/dark_theme_data.dart';
 import 'package:book_tracker/theme/light_theme_data.dart';
@@ -12,7 +7,6 @@ import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class PopularBooksListView extends StatefulWidget {
   const PopularBooksListView({Key? key}) : super(key: key);

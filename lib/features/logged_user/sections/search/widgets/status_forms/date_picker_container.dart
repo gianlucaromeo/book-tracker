@@ -9,13 +9,16 @@ import 'package:flutter/material.dart';
 class DatePickerContainer extends StatefulWidget with ChangeNotifier {
   final String title;
   DateTime? selectedDateTime;
+  bool showClearLink = true;
 
   setDateTime(DateTime? dateTime) {
     selectedDateTime = dateTime;
     notifyListeners();
   }
 
-  DatePickerContainer({Key? key, required this.title}) : super(key: key);
+  DatePickerContainer(
+      {Key? key, required this.title, required this.showClearLink})
+      : super(key: key);
 
   @override
   State<DatePickerContainer> createState() => _DatePickerContainerState();
@@ -53,7 +56,7 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
                   widget.title,
                   maxLines: 2,
                   style: TextStyle(
-                    fontSize: 18.0,
+                    fontSize: 16.0,
                     color: themeController.isDarkTheme
                         ? Colors.grey.withOpacity(0.6)
                         : Colors.black.withOpacity(0.3),
@@ -65,14 +68,14 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
                     text: widget.selectedDateTime != null
                         ? widget.selectedDateTime!
                             .toLocal()
-                            .toIso8601String()
+                            .toString()
                             .split('T')[0]
                             .toString()
-                        : 'Pick a date',
+                        : 'No date',
                     style: TextStyle(
                       color: Theme.of(context).textTheme.titleMedium!.color,
                       //decoration: TextDecoration.underline,
-                      fontSize: 21.0,
+                      fontSize: 18.0,
                     ),
                     recognizer: TapGestureRecognizer()..onTap = pickDate,
                   ),
@@ -83,20 +86,21 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
         ),
         TransparentDivider.h(10.0),
         // CLEAR
-        RichText(
-          text: TextSpan(
-            text: 'Clear',
-            style: TextStyle(
-              color: Theme.of(context).textTheme.bodySmall!.color,
-              decoration: TextDecoration.underline,
-              fontSize: 18.0,
+        if (widget.showClearLink)
+          RichText(
+            text: TextSpan(
+              text: 'Clear',
+              style: TextStyle(
+                color: Theme.of(context).textTheme.bodySmall!.color,
+                decoration: TextDecoration.underline,
+                fontSize: 15.0,
+              ),
+              recognizer: TapGestureRecognizer()
+                ..onTap = () => setState(() {
+                      widget.setDateTime(null);
+                    }),
             ),
-            recognizer: TapGestureRecognizer()
-              ..onTap = () => setState(() {
-                    widget.setDateTime(null);
-                  }),
           ),
-        ),
       ],
     );
   }

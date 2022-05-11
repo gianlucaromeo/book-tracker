@@ -88,4 +88,30 @@ class BooksRepository {
         .collection('global_popular_books')
         .snapshots();
   }
+
+  static Stream<QuerySnapshot> globalDiscoverBooks() {
+    // RANDOM BOOKS TO ADD
+    BookSearchUtil.findNRandomBooks(bookToFind: 'dietro', n: 6)
+        .then((googleBooks) {
+      for (int i = 0; i < 3; i++) {
+        final googleBookJson = jsonDecode(googleBooks.body)['items'][i];
+        final googleBookModel = GoogleBookModel.fromJson(googleBookJson);
+        FirebaseFirestore.instance
+            .collection('global_discover_books')
+            .get()
+            .then((snap) {
+          if (snap.size < 3) {
+            FirebaseFirestore.instance
+                .collection('global_discover_books')
+                .doc(googleBookModel.id)
+                .set(googleBookModel.toJson());
+          }
+        });
+      }
+    });
+
+    return FirebaseFirestore.instance
+        .collection('global_discover_books')
+        .snapshots();
+  }
 }

@@ -29,7 +29,10 @@ class BookStatusCurrentlyReadingForm extends StatefulWidget {
 class _BookStatusCurrentlyReadingFormState
     extends State<BookStatusCurrentlyReadingForm> {
   final ratingsContainer = RatingsContainer();
-  final dateStartContainer = DatePickerContainer(title: 'Date start');
+  final dateStartContainer = DatePickerContainer(
+    title: 'Date start',
+    showClearLink: true,
+  );
   final likeDislikeIconsContainer = LikeDislikeIconsContainer();
 
   @override

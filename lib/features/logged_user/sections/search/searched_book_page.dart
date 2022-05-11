@@ -57,7 +57,7 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
                         horizontal: AppPadding.defaultPadding),
                     child: buildBookTitleAuthorsAndImage(),
                   ),
-                  TransparentDivider.h(50.0),
+                  TransparentDivider.h(AppPadding.defaultPadding),
                   // PAGES, STARS, LANGUAGE
                   buildGenericInfoContainer(),
                   // DESCRIPTION
@@ -73,7 +73,8 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
                   const Divider(),
                   // BUTTONS
                   Padding(
-                    padding: const EdgeInsets.all(AppPadding.defaultPadding),
+                    padding:
+                        const EdgeInsets.all(AppPadding.defaultPadding / 2),
                     child: AddStatusActionButtons(
                       googleBookModel: widget.googleBookModel,
                     ),
@@ -124,7 +125,7 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
             ? Border.all(color: Theme.of(context).colorScheme.surface)
             : null,
       ),
-      padding: const EdgeInsets.all(AppPadding.defaultPadding / 2),
+      padding: const EdgeInsets.all(5.0),
       child: Expanded(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,

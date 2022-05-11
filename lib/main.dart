@@ -93,7 +93,7 @@ class _BookTrackerAppState extends State<BookTrackerApp> {
       },
       initialRoute: showTutorial
           ? Routes.chooseLanguagePageRouteName
-          : Routes.authenticationPageRouteName, //
+          : Routes.authenticationPageRouteName,
       theme: themeController.currentThemeData,
       darkTheme: themeController.darkThemeData,
       themeMode: themeController.currentThemeMode,

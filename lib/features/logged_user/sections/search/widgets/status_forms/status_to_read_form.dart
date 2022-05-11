@@ -6,7 +6,9 @@ import 'package:flutter/material.dart';
 class BookStatusToReadForm extends StatefulWidget {
   DateTime? dateStart;
   bool? sendNotification;
-  BookStatusToReadForm({Key? key}) : super(key: key);
+  BookStatusToReadForm({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<BookStatusToReadForm> createState() => _BookStatusToReadFormState();
@@ -20,7 +22,10 @@ class BookStatusToReadForm extends StatefulWidget {
 }
 
 class _BookStatusToReadFormState extends State<BookStatusToReadForm> {
-  final dateStartContainer = DatePickerContainer(title: 'Date start');
+  final dateStartContainer = DatePickerContainer(
+    title: 'Date start',
+    showClearLink: true,
+  );
 
   @override
   void initState() {

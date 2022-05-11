@@ -10,8 +10,8 @@ import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class BookOfTheDayTile extends StatelessWidget {
-  const BookOfTheDayTile({Key? key}) : super(key: key);
+class BookOfTheDaySection extends StatelessWidget {
+  const BookOfTheDaySection({Key? key}) : super(key: key);
 
   _findBookOfTheDay() async {
     final book = await BookSearchUtil.findBooks('casa');

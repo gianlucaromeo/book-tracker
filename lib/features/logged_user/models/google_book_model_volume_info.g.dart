@@ -26,7 +26,6 @@ GoogleBookModelVolumeInfo _$GoogleBookModelVolumeInfoFromJson(
       ..imageLinks = json['imageLinks'] == null
           ? null
           : ImageLinks.fromJson(json['imageLinks'] as Map<String, dynamic>)
-      ..imageUrl = json['imageUrl'] as String?
       ..language = json['language'] as String?
       ..mainCategory = json['mainCategory'] as String?;
 
@@ -43,7 +42,6 @@ Map<String, dynamic> _$GoogleBookModelVolumeInfoToJson(
       'averageRating': instance.averageRating,
       'ratingsCount': instance.ratingsCount,
       'imageLinks': instance.imageLinks?.toJson(),
-      'imageUrl': instance.imageUrl,
       'language': instance.language,
       'mainCategory': instance.mainCategory,
     };
