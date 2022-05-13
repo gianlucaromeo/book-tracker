@@ -5,37 +5,32 @@ import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
 class BookStatusToReadForm extends StatefulWidget {
-  DateTime? dateStart;
-  bool? sendNotification;
-  BookStatusToReadForm({
+  final BookStatusToRead bookStatus;
+
+  const BookStatusToReadForm({
     Key? key,
+    required this.bookStatus,
   }) : super(key: key);
 
   @override
   State<BookStatusToReadForm> createState() => _BookStatusToReadFormState();
 
   BookStatusToRead getBookStatus() {
-    return BookStatusToRead(
-      dateStart: dateStart,
-      sendNotification: sendNotification,
-    );
+    return bookStatus;
   }
 }
 
 class _BookStatusToReadFormState extends State<BookStatusToReadForm> {
-  final dateStartContainer = DatePickerContainer(
-    title: 'Date start',
-    showClearLink: true,
-  );
+  late final DatePickerContainer dateStartContainer;
 
   @override
   void initState() {
     super.initState();
-    dateStartContainer.addListener(() {
-      setState(() {
-        widget.dateStart = dateStartContainer.selectedDateTime;
-      });
-    });
+    dateStartContainer = DatePickerContainer(
+      title: 'Date start',
+      showClearLink: true,
+      selectedDateTime: widget.bookStatus.dateStart,
+    );
   }
 
   @override
@@ -44,19 +39,30 @@ class _BookStatusToReadFormState extends State<BookStatusToReadForm> {
       padding: const EdgeInsets.only(left: AppPadding.defaultPadding),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          dateStartContainer,
           TransparentDivider.h(AppPadding.defaultPadding),
-          CheckboxListTile(
-            title: Text("Send me a notification"),
-            value: widget.sendNotification ?? false,
-            onChanged: (newValue) {
-              setState(() {
-                widget.sendNotification = newValue;
-              });
-            },
-            controlAffinity: ListTileControlAffinity.leading,
-          )
+          dateStartContainer,
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppPadding.defaultPadding * 2,
+              ),
+              child: CheckboxListTile(
+                title: Text(
+                  "Send me a notification",
+                  maxLines: 2,
+                ),
+                value: widget.bookStatus.sendNotification ?? false,
+                onChanged: (newValue) {
+                  setState(() {
+                    widget.bookStatus.sendNotification = newValue;
+                  });
+                },
+                controlAffinity: ListTileControlAffinity.leading,
+              ),
+            ),
+          ),
         ],
       ),
     );

@@ -52,7 +52,7 @@ class LightThemeData {
         /* ==== APP BAR THEME ==== */
         appBarTheme: AppBarTheme(
           backgroundColor: appBarBackground,
-          toolbarHeight: 80.0,
+          toolbarHeight: 50.0,
           elevation: 0.0,
           centerTitle: true,
           titleTextStyle: const TextStyle(
@@ -61,11 +61,11 @@ class LightThemeData {
           ),
           actionsIconTheme: const IconThemeData(
             color: appBarIcon,
-            size: 50.0,
+            size: 30.0,
           ),
           iconTheme: const IconThemeData(
             color: appBarIcon,
-            size: 50.0,
+            size: 30.0,
           ),
         ),
         /* ==== SCAFFOLD THEME ==== */
@@ -81,22 +81,22 @@ class LightThemeData {
           elevation: 0.0,
           type: BottomNavigationBarType.fixed,
           selectedIconTheme: IconThemeData(
-            size: 40.0,
+            size: 30.0,
             color: bottomNavBarSelectedIcon,
           ),
           unselectedIconTheme: IconThemeData(
-            size: 40.0,
+            size: 30.0,
             color: bottomNavBarUnselectedIcon,
           ),
           showSelectedLabels: false,
           showUnselectedLabels: false,
         ),
         /* ==== TAB BAR ==== */
-        tabBarTheme: TabBarTheme(
-            labelColor: Colors.black,
-            unselectedLabelColor: Colors.black,
-            labelStyle:
-                const TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
-            unselectedLabelStyle: const TextStyle(fontSize: 17)),
+        tabBarTheme: const TabBarTheme(
+          labelColor: Colors.black,
+          unselectedLabelColor: Colors.black,
+          labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
+          unselectedLabelStyle: const TextStyle(fontSize: 17),
+        ),
       );
 }

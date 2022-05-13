@@ -1,10 +1,12 @@
 import 'package:book_tracker/config/borders.dart';
 import 'package:book_tracker/config/padding.dart';
+import 'package:book_tracker/features/logged_user/models/book_status/book_status.dart';
 import 'package:book_tracker/features/logged_user/models/book_status/book_status_currently_reading.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/add_status_button.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_image.dart';
-import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/cancel_status_button.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/no_description_info.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/show_book_page_button.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/set_book_status_container.dart';
 import 'package:book_tracker/theme/dark_theme_data.dart';
 import 'package:book_tracker/theme/light_theme_data.dart';
@@ -13,16 +15,30 @@ import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
 class SearchedBookPage extends StatefulWidget {
+  final bool updateStatus;
+  BookStatus? bookStatus; // null id updateStatus is false
   final GoogleBookModel googleBookModel;
-  const SearchedBookPage({Key? key, required this.googleBookModel})
-      : super(key: key);
+
+  // ! TODO Assert updateStatus == true ? --> bookStatus != null
+  SearchedBookPage({
+    Key? key,
+    required this.googleBookModel,
+    required this.updateStatus,
+    this.bookStatus,
+  }) : super(key: key);
 
   @override
   State<SearchedBookPage> createState() => _SearchedBookPageState();
 }
 
 class _SearchedBookPageState extends State<SearchedBookPage> {
-  bool addStatus = false;
+  late bool addStatus;
+
+  @override
+  void initState() {
+    super.initState();
+    addStatus = widget.updateStatus;
+  }
 
   void toggleAddStatus() {
     setState(() {
@@ -38,7 +54,7 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
           children: [
             // BACKGROUND
             Container(
-              height: 250.0,
+              height: 185.0,
               decoration: BoxDecoration(
                 color: themeController.isDarkTheme
                     ? DarkThemeData.surface
@@ -64,10 +80,10 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
                     icon: const Icon(
                       Icons.arrow_back_outlined,
                       color: Colors.white,
-                      size: 50.0,
+                      size: 30.0,
                     ),
                   ),
-                  TransparentDivider.h(50.0),
+                  TransparentDivider.h(AppPadding.defaultPadding),
                   // TITLE, AUTHORS AND BOOK IMAGE
                   Padding(
                     padding: const EdgeInsets.symmetric(
@@ -113,7 +129,7 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
   buildCancelStatusButton() {
     return Padding(
       padding: const EdgeInsets.only(bottom: AppPadding.defaultPadding / 2),
-      child: CancelStatusButton(onPressed: toggleAddStatus),
+      child: ShowBookPageButton(onPressed: toggleAddStatus),
     );
   }
 
@@ -129,7 +145,9 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
               padding: const EdgeInsets.only(
                 top: AppPadding.defaultPadding,
               ),
-              child: buildDescription(),
+              child: widget.googleBookModel.volumeInfo!.description != null
+                  ? buildDescription()
+                  : const NoDescriptionInfo(),
             ),
           ),
           TransparentDivider.h(20.0),
@@ -142,7 +160,11 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
     return Expanded(
       child: SetBookStatusContainer(
         googleBookModel: widget.googleBookModel,
-        bookStatus: BookStatusCurrentlyReading(),
+        bookStatus: widget.updateStatus
+            ? widget.bookStatus!
+            : BookStatusCurrentlyReading(),
+        isUpdating: widget.updateStatus,
+        oldBookStatus: widget.updateStatus ? widget.bookStatus! : null,
       ),
     );
   }
@@ -164,7 +186,7 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
             ],
           ),
         ),
-        TransparentDivider.w(20.0),
+        TransparentDivider.w(AppPadding.defaultPadding / 2),
         // IMAGE
         BookImage(
           size: BookImageSize.searchedBook,

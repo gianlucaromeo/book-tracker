@@ -1,4 +1,5 @@
 import 'package:book_tracker/config/padding.dart';
+import 'package:book_tracker/features/logged_user/models/book_status/book_status_currently_reading.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
 import 'package:book_tracker/features/logged_user/sections/search/searched_book_page.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_image.dart';
@@ -45,6 +46,7 @@ class _BookFoundTileState extends State<BookFoundTile> {
                     MaterialPageRoute(
                       builder: (context) => SearchedBookPage(
                         googleBookModel: widget.googleBookModel,
+                        updateStatus: false,
                       ),
                     ),
                   ),

@@ -14,7 +14,7 @@ class RatingsContainer extends StatefulWidget with ChangeNotifier {
     notifyListeners();
   }
 
-  RatingsContainer({Key? key}) : super(key: key);
+  RatingsContainer({Key? key, this.selectedRating}) : super(key: key);
 
   @override
   State<RatingsContainer> createState() => _RatingsContainerState();
@@ -37,7 +37,7 @@ class _RatingsContainerState extends State<RatingsContainer> {
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            for (int i = 0; i < 5; i++)
+            for (int i = 1; i <= 5; i++)
               SizedBox(
                 width: 24,
                 height: 24,

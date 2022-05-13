@@ -7,59 +7,53 @@ import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
 class BookStatusReadForm extends StatefulWidget {
-  int? rating;
-  DateTime? dateStart;
-  DateTime? dateEnd;
-  bool? like;
+  final BookStatusRead bookStatus;
 
-  BookStatusReadForm({Key? key}) : super(key: key);
+  const BookStatusReadForm({Key? key, required this.bookStatus})
+      : super(key: key);
 
   @override
   State<BookStatusReadForm> createState() => _BookStatusReadFormState();
 
   BookStatusRead getBookStatus() {
-    return BookStatusRead(
-      rating: rating != null ? rating! + 1 : null,
-      dateStart: dateStart,
-      dateEnd: dateEnd,
-      liked: like,
-    );
+    return bookStatus;
   }
 }
 
 class _BookStatusReadFormState extends State<BookStatusReadForm> {
-  final ratingsContainer = RatingsContainer();
-  final dateStartContainer = DatePickerContainer(
-    title: 'Date start',
-    showClearLink: true,
-  );
-  final dateEndContainer = DatePickerContainer(
-    title: 'Date end',
-    showClearLink: true,
-  );
-  final likeDislikeIconsContainer = LikeDislikeIconsContainer();
+  late final RatingsContainer ratingsContainer;
+  late final DatePickerContainer dateStartContainer;
+  late final DatePickerContainer dateEndContainer;
 
   @override
   void initState() {
     super.initState();
+    dateStartContainer = DatePickerContainer(
+      title: 'Date start',
+      showClearLink: true,
+      selectedDateTime: widget.bookStatus.dateStart,
+    );
+    dateEndContainer = DatePickerContainer(
+      title: 'Date end',
+      showClearLink: true,
+      selectedDateTime: widget.bookStatus.dateEnd,
+    );
+    ratingsContainer = RatingsContainer(
+      selectedRating: widget.bookStatus.rating,
+    );
     ratingsContainer.addListener(() {
       setState(() {
-        widget.rating = ratingsContainer.selectedRating;
+        widget.bookStatus.rating = ratingsContainer.selectedRating!;
       });
     });
     dateStartContainer.addListener(() {
       setState(() {
-        widget.dateStart = dateStartContainer.selectedDateTime;
+        widget.bookStatus.dateStart = dateStartContainer.selectedDateTime;
       });
     });
     dateEndContainer.addListener(() {
       setState(() {
-        widget.dateEnd = dateEndContainer.selectedDateTime;
-      });
-    });
-    likeDislikeIconsContainer.addListener(() {
-      setState(() {
-        widget.like = likeDislikeIconsContainer.like;
+        widget.bookStatus.dateEnd = dateEndContainer.selectedDateTime;
       });
     });
   }

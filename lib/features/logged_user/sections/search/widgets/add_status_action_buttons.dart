@@ -60,6 +60,7 @@ class AddStatusActionButtons extends StatelessWidget {
                         builder: (context) => SetBookStatusContainer(
                           googleBookModel: googleBookModel,
                           bookStatus: buttonsData[i][3] as BookStatus,
+                          isUpdating: false,
                         ),
                       ),
                     ),

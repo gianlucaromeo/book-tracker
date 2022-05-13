@@ -1,3 +1,3 @@
 class AppPadding {
-  static const defaultPadding = 25.0;
+  static const defaultPadding = 20.0;
 }

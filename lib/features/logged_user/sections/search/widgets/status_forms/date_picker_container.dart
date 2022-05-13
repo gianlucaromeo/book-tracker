@@ -18,7 +18,10 @@ class DatePickerContainer extends StatefulWidget with ChangeNotifier {
   }
 
   DatePickerContainer(
-      {Key? key, required this.title, required this.showClearLink})
+      {Key? key,
+      required this.title,
+      required this.showClearLink,
+      this.selectedDateTime})
       : super(key: key);
 
   @override
@@ -31,8 +34,6 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
     return Column(
       children: [
         Container(
-          //height: 100.0,
-          //width: 200.0,
           decoration: BoxDecoration(
             color: themeController.isDarkTheme
                 ? DarkThemeData.surface.withOpacity(0.1)
@@ -48,7 +49,7 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
           ),
           child: Padding(
             padding: const EdgeInsets.symmetric(
-              vertical: AppPadding.defaultPadding / 2,
+              vertical: AppPadding.defaultPadding / 2 + 2,
               horizontal: AppPadding.defaultPadding,
             ),
             child: Column(
@@ -76,7 +77,7 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
                             .split(' ')[0]
                             .toString()
                         : 'Pick a date',
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: LightThemeData.primary,
                       //decoration: TextDecoration.underline,
                       fontSize: 16.0,
@@ -100,9 +101,7 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
                 fontSize: 15.0,
               ),
               recognizer: TapGestureRecognizer()
-                ..onTap = () => setState(() {
-                      widget.setDateTime(null);
-                    }),
+                ..onTap = () => setState(() => widget.setDateTime(null)),
             ),
           ),
       ],
@@ -110,14 +109,42 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
   }
 
   Future<void> pickDate() async {
+    final isDarkTheme = themeController.isDarkTheme;
     final DateTime? picked = await showDatePicker(
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: isDarkTheme
+                  ? DarkThemeData.primary
+                  : LightThemeData.primary, // header background color
+              onPrimary: isDarkTheme
+                  ? Colors.white
+                  : Colors.white, // header text color
+              surface:
+                  isDarkTheme ? Colors.black.withOpacity(0.5) : Colors.white,
+              onSurface: isDarkTheme
+                  ? DarkThemeData.primary
+                  : LightThemeData.primary, // body text color
+            ),
+            textButtonTheme: TextButtonThemeData(
+              style: TextButton.styleFrom(
+                primary: isDarkTheme
+                    ? Colors.white
+                    : LightThemeData.primary, // button text color
+              ),
+            ),
+          ),
+          child: child!,
+        );
+      },
       context: context,
       initialDate: DateTime.now().add(
         Duration(hours: 1),
       ),
-      firstDate: DateTime.now().add(Duration(hours: 1)),
+      firstDate: DateTime.now().subtract(const Duration(hours: 24 * 365 * 10)),
       lastDate: DateTime.now().add(
-        Duration(hours: 24 * 365 * 4),
+        const Duration(hours: 24 * 365 * 4),
       ),
     );
     if (picked != null && picked != widget.selectedDateTime) {

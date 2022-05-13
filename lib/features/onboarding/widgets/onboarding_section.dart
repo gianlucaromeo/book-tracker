@@ -34,7 +34,7 @@ class OnboardingSection extends StatelessWidget {
             children: [
               buildSecondaryTitle(),
               TransparentDivider.h10(),
-              buildSubtitle(context),
+              buildSubtitle(),
             ],
           ),
         ],
@@ -42,7 +42,7 @@ class OnboardingSection extends StatelessWidget {
     );
   }
 
-  Text buildSubtitle(BuildContext context) {
+  Text buildSubtitle() {
     return Text(
       model.subtitle,
       style: TextStyles.onboardingSectionSubtitle,

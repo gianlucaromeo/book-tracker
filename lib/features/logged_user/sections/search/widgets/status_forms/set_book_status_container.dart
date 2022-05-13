@@ -15,9 +15,17 @@ import 'package:flutter/material.dart';
 class SetBookStatusContainer extends StatefulWidget {
   final GoogleBookModel googleBookModel;
   final BookStatus bookStatus;
-  const SetBookStatusContainer(
-      {Key? key, required this.googleBookModel, required this.bookStatus})
-      : super(key: key);
+  final bool isUpdating;
+  BookStatus? oldBookStatus;
+  SetBookStatusContainer({
+    Key? key,
+    required this.googleBookModel,
+    required this.bookStatus,
+    required this.isUpdating,
+    this.oldBookStatus,
+  }) : super(key: key) {
+    oldBookStatus ??= bookStatus;
+  }
   @override
   State<SetBookStatusContainer> createState() => _SetBookStatusContainerState();
 }
@@ -33,11 +41,15 @@ class _SetBookStatusContainerState extends State<SetBookStatusContainer>
   @override
   void initState() {
     super.initState();
+    int initialIndex = BookStatusUtil.getIndex(widget.bookStatus);
     tabController = TabController(
       length: BookStatusUtil.bookStatusTypes.length,
       vsync: this,
-      initialIndex: BookStatusUtil.getIndex(widget.bookStatus),
+      initialIndex: initialIndex,
     );
+    final currentForm =
+        BookStatusUtil.bookStatusFormFromStatus(widget.bookStatus);
+    forms[initialIndex] = currentForm;
   }
 
   @override
@@ -75,7 +87,9 @@ class _SetBookStatusContainerState extends State<SetBookStatusContainer>
                 children: [
                   buildTabBars(context),
                   const Divider(height: 0),
-                  TransparentDivider.h(10),
+                  if (widget.isUpdating) TransparentDivider.h(10),
+                  if (widget.isUpdating) buildDeleteStatusButton(),
+                  TransparentDivider.h(AppPadding.defaultPadding),
                   Expanded(
                     child: TabBarView(
                       controller: tabController,
@@ -101,11 +115,13 @@ class _SetBookStatusContainerState extends State<SetBookStatusContainer>
         final bookStatus = BookStatusUtil.getBookStatusFromForm(forms[index]);
         BookModel bookModel =
             BookModel(bookData: widget.googleBookModel, bookStatus: bookStatus);
-        BooksRepository.addBook(bookModel);
+        widget.isUpdating
+            ? BooksRepository.updateBook(bookModel, widget.oldBookStatus!)
+            : BooksRepository.addBook(bookModel);
       },
-      child: const Text(
-        'Add Book',
-        style: TextStyle(
+      child: Text(
+        widget.isUpdating ? 'Done' : 'Add',
+        style: const TextStyle(
           color: Colors.white,
           fontSize: 23.0,
           //fontWeight: FontWeight.bold,
@@ -122,6 +138,36 @@ class _SetBookStatusContainerState extends State<SetBookStatusContainer>
           borderRadius: BorderRadius.circular(
             AppBorders.defaultBorderRadius,
           ),
+        ),
+      ),
+    );
+  }
+
+  buildDeleteStatusButton() {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: TextButton.icon(
+        onPressed: () {
+          final index = tabController!.index;
+          final bookStatus = BookStatusUtil.getBookStatusFromForm(forms[index]);
+          BookModel bookModel = BookModel(
+              bookData: widget.googleBookModel, bookStatus: bookStatus);
+          BooksRepository.deleteBookFromBookModel(bookModel);
+        },
+        label: Text(
+          '',
+          style: TextStyle(
+            color: Colors.red.withOpacity(0.8),
+            fontSize: 19.0,
+            //fontWeight: FontWeight.bold,
+          ),
+        ),
+        icon: Icon(
+          Icons.delete_outline_rounded,
+          color: themeController.isDarkTheme
+              ? Colors.white
+              : LightThemeData.primary,
+          size: 30.0,
         ),
       ),
     );

@@ -6,7 +6,6 @@ import 'package:book_tracker/features/logged_user/models/book_status/book_status
 import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/status_currently_reading_form.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/status_read_form.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/status_to_read_form.dart';
-import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 
 class BookStatusUtil {
@@ -29,9 +28,15 @@ class BookStatusUtil {
 
   /// Bind BookStatusType to its Form
   static final bookStatusForms = {
-    BookStatusType.read: BookStatusReadForm(),
-    BookStatusType.currentlyReading: BookStatusCurrentlyReadingForm(),
-    BookStatusType.toRead: BookStatusToReadForm(),
+    BookStatusType.read: BookStatusReadForm(
+      bookStatus: BookStatusRead(),
+    ),
+    BookStatusType.currentlyReading: BookStatusCurrentlyReadingForm(
+      bookStatus: BookStatusCurrentlyReading(),
+    ),
+    BookStatusType.toRead: BookStatusToReadForm(
+      bookStatus: BookStatusToRead(),
+    ),
   };
 
   static const _opacity = 0.77;
@@ -78,5 +83,25 @@ class BookStatusUtil {
       return form.getBookStatus();
     }
     return BookStatus();
+  }
+
+  static getStatusTypeNameFromStatus(BookStatus bookStatus) {
+    if (bookStatus is BookStatusToRead) {
+      return BookStatusType.toRead.name;
+    } else if (bookStatus is BookStatusCurrentlyReading) {
+      return BookStatusType.currentlyReading.name;
+    } else if (bookStatus is BookStatusRead) {
+      return BookStatusType.read.name;
+    }
+    return 'books'; // default collection name
+  }
+
+  static bookStatusFormFromStatus(BookStatus bookStatus) {
+    if (bookStatus is BookStatusRead) {
+      return BookStatusReadForm(bookStatus: bookStatus);
+    } else if (bookStatus is BookStatusCurrentlyReading) {
+      return BookStatusCurrentlyReadingForm(bookStatus: bookStatus);
+    }
+    return BookStatusToReadForm(bookStatus: bookStatus as BookStatusToRead);
   }
 }

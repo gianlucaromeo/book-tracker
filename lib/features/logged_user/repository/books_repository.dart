@@ -1,11 +1,10 @@
 import 'dart:convert';
 
 import 'package:book_tracker/features/logged_user/models/book_model.dart';
-import 'package:book_tracker/features/logged_user/models/book_status/book_status_currently_reading.dart';
-import 'package:book_tracker/features/logged_user/models/book_status/book_status_to_read.dart';
-import 'package:book_tracker/features/logged_user/models/book_status/book_status_read.dart';
+import 'package:book_tracker/features/logged_user/models/book_status/book_status.dart';
 import 'package:book_tracker/features/logged_user/models/book_status/book_status_type.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
+import 'package:book_tracker/features/logged_user/sections/search/util/book_status_util.dart';
 import 'package:book_tracker/features/logged_user/sections/search/util/books_search_util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -13,11 +12,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 typedef Json = Map<String, dynamic>;
 
 class BooksRepository {
+  static const usersCollectionPath = 'users';
+
   // BOOKS READ
   static Stream<QuerySnapshot> booksReadStream() {
     User user = FirebaseAuth.instance.currentUser!;
     return FirebaseFirestore.instance
-        .collection('users')
+        .collection(usersCollectionPath)
         .doc(user.uid)
         .collection(BookStatusType.read.name)
         .snapshots();
@@ -27,7 +28,7 @@ class BooksRepository {
   static Stream<QuerySnapshot> booksCurrentlyReadingStream() {
     User user = FirebaseAuth.instance.currentUser!;
     return FirebaseFirestore.instance
-        .collection('users')
+        .collection(usersCollectionPath)
         .doc(user.uid)
         .collection(BookStatusType.currentlyReading.name)
         .snapshots();
@@ -37,36 +38,28 @@ class BooksRepository {
   static Stream<QuerySnapshot> booksToReadStream() {
     User user = FirebaseAuth.instance.currentUser!;
     return FirebaseFirestore.instance
-        .collection('users')
+        .collection(usersCollectionPath)
         .doc(user.uid)
         .collection(BookStatusType.toRead.name)
         .snapshots();
   }
 
-  static addBook(BookModel book) {
+  static addBook(BookModel bookModel) {
     User? user = FirebaseAuth.instance.currentUser;
+
     if (user != null) {
       // Based on the BookStatus type.
-      // Use the name 'books' by default.
-      String collectionName = 'books';
-
       // Find BookStatus type to use as the name of the collection
-      final bookStatus = book.bookStatus;
-      if (bookStatus is BookStatusToRead) {
-        collectionName = BookStatusType.toRead.name;
-      } else if (bookStatus is BookStatusCurrentlyReading) {
-        collectionName = BookStatusType.currentlyReading.name;
-      } else if (bookStatus is BookStatusRead) {
-        collectionName = BookStatusType.read.name;
-      }
+      String collectionPath =
+          BookStatusUtil.getStatusTypeNameFromStatus(bookModel.bookStatus);
 
       // Add book to User's collection
       FirebaseFirestore.instance
-          .collection('users')
+          .collection(usersCollectionPath)
           .doc(user.uid)
-          .collection(collectionName)
-          .doc(book.bookData.id)
-          .set(book.toJson());
+          .collection(collectionPath)
+          .doc(bookModel.bookData.id)
+          .set(bookModel.toJson());
     }
   }
 
@@ -113,5 +106,47 @@ class BooksRepository {
     return FirebaseFirestore.instance
         .collection('global_discover_books')
         .snapshots();
+  }
+
+  static deleteBookFromCollectionName(
+      BookModel bookModel, String oldCollectionPath) {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      // Remove book data
+      FirebaseFirestore.instance
+          .collection(usersCollectionPath)
+          .doc(user.uid)
+          .collection(oldCollectionPath)
+          .doc(bookModel.bookData.id)
+          .delete();
+    }
+  }
+
+  static void updateBook(BookModel bookModel, BookStatus oldBookStatus) {
+    final String oldCollectionPath =
+        BookStatusUtil.getStatusTypeNameFromStatus(oldBookStatus);
+    final String newCollectionPath =
+        BookStatusUtil.getStatusTypeNameFromStatus(bookModel.bookStatus);
+    if (oldCollectionPath != newCollectionPath) {
+      deleteBookFromCollectionName(bookModel, oldCollectionPath);
+    }
+    // Updates if exists or adds it if not
+    addBook(bookModel);
+  }
+
+  static void deleteBookFromBookModel(BookModel bookModel) {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    if (user != null) {
+      final String collectionPath =
+          BookStatusUtil.getStatusTypeNameFromStatus(bookModel.bookStatus);
+      FirebaseFirestore.instance
+          .collection(usersCollectionPath)
+          .doc(user.uid)
+          .collection(collectionPath)
+          .doc(bookModel.bookData.id)
+          .delete();
+    }
   }
 }

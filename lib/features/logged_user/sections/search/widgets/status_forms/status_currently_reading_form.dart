@@ -1,24 +1,18 @@
 import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/logged_user/models/book_status/book_status_currently_reading.dart';
-import 'package:book_tracker/features/logged_user/sections/search/widgets/like_dislike_icons_container.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/rating_container.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/date_picker_container.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
 class BookStatusCurrentlyReadingForm extends StatefulWidget {
-  int? rating;
-  DateTime? dateStart;
-  bool? like;
+  final BookStatusCurrentlyReading bookStatus;
 
-  BookStatusCurrentlyReadingForm({Key? key}) : super(key: key);
+  BookStatusCurrentlyReadingForm({Key? key, required this.bookStatus})
+      : super(key: key);
 
   BookStatusCurrentlyReading getBookStatus() {
-    return BookStatusCurrentlyReading(
-      rating: rating != null ? rating! + 1 : null,
-      dateStart: dateStart,
-      liked: like,
-    );
+    return bookStatus;
   }
 
   @override
@@ -28,29 +22,28 @@ class BookStatusCurrentlyReadingForm extends StatefulWidget {
 
 class _BookStatusCurrentlyReadingFormState
     extends State<BookStatusCurrentlyReadingForm> {
-  final ratingsContainer = RatingsContainer();
-  final dateStartContainer = DatePickerContainer(
-    title: 'Date start',
-    showClearLink: true,
-  );
-  final likeDislikeIconsContainer = LikeDislikeIconsContainer();
+  late final RatingsContainer ratingsContainer;
+  late final DatePickerContainer dateStartContainer;
 
   @override
   void initState() {
     super.initState();
+    dateStartContainer = DatePickerContainer(
+      title: 'Date start',
+      showClearLink: true,
+      selectedDateTime: widget.bookStatus.dateStart,
+    );
+    ratingsContainer = RatingsContainer(
+      selectedRating: widget.bookStatus.rating,
+    );
     ratingsContainer.addListener(() {
       setState(() {
-        widget.rating = ratingsContainer.selectedRating;
+        widget.bookStatus.rating = ratingsContainer.selectedRating! + 1;
       });
     });
     dateStartContainer.addListener(() {
       setState(() {
-        widget.dateStart = dateStartContainer.selectedDateTime;
-      });
-    });
-    likeDislikeIconsContainer.addListener(() {
-      setState(() {
-        widget.like = likeDislikeIconsContainer.like;
+        widget.bookStatus.dateStart = dateStartContainer.selectedDateTime;
       });
     });
   }
