@@ -1,37 +1,41 @@
+import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/logged_user/models/book_model.dart';
+import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
 import 'package:book_tracker/features/logged_user/sections/search/searched_book_page.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_image.dart';
+import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
 class BookTileHeader extends StatelessWidget {
-  final BookModel bookModel;
-  const BookTileHeader({Key? key, required this.bookModel}) : super(key: key);
+  final GoogleBookModel googleBookModel;
+  const BookTileHeader({Key? key, required this.googleBookModel})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         BookImage(
-          imageUrl: bookModel.bookData.volumeInfo?.imageLinks?.thumbnail ?? '',
+          imageUrl: googleBookModel.volumeInfo?.imageLinks?.thumbnail ?? '',
           size: BookImageSize.bookFindTile,
         ),
-        TransparentDivider.w(10),
+        TransparentDivider.w(AppPadding.defaultPadding),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                bookModel.bookData.volumeInfo?.title ?? '',
+                googleBookModel.volumeInfo?.title ?? '',
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: Theme.of(context).textTheme.titleMedium!.fontSize,
                   fontWeight: FontWeight.bold,
                 ),
-                maxLines: 3,
-                overflow: TextOverflow.ellipsis,
               ),
               Text(
-                bookModel.bookData.volumeInfo?.authorsAsString ?? '',
+                googleBookModel.volumeInfo?.authorsAsString ?? '',
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
                 style: TextStyle(
@@ -39,12 +43,40 @@ class BookTileHeader extends StatelessWidget {
                   color: Theme.of(context).textTheme.bodySmall!.color,
                 ),
               ),
+              buildCategories(context),
             ],
           ),
         ),
         TransparentDivider.w(10),
       ],
     );
+  }
+
+  buildCategories(BuildContext context) {
+    final String categories = googleBookModel.volumeInfo!.categoriessAsString;
+    if (categories != '') {
+      return Padding(
+        padding: const EdgeInsets.only(top: 5.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.grey.withOpacity(0.8),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 2),
+          child: Text(
+            categories,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: Theme.of(context).textTheme.titleSmall!.fontSize,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      );
+    } else {
+      return TransparentDivider.h(0.0);
+    }
   }
 }
 
@@ -64,7 +96,13 @@ class _BookTileState extends State<BookTile> {
   void initState() {
     super.initState();
     arrowIcon = IconButton(
-      icon: const Icon(Icons.arrow_right_outlined),
+      icon: Icon(
+        Icons.keyboard_arrow_right_rounded,
+        size: 35.0,
+        color: themeController.currentThemeMode == ThemeMode.dark
+            ? Colors.white
+            : Colors.black,
+      ),
       onPressed: () => Navigator.of(context).push(
         MaterialPageRoute(
           builder: (context) => SearchedBookPage(
@@ -82,13 +120,15 @@ class _BookTileState extends State<BookTile> {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Padding(
-        padding: const EdgeInsets.all(5.0),
+        padding: const EdgeInsets.all(10.0),
         child: Column(
           children: [
             // HEADER + ICON
             Row(
               children: [
-                Expanded(child: BookTileHeader(bookModel: widget.bookModel)),
+                Expanded(
+                    child: BookTileHeader(
+                        googleBookModel: widget.bookModel.bookData)),
                 arrowIcon,
               ],
             ),

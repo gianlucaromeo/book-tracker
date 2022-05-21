@@ -11,7 +11,7 @@ class BookSearchUtil {
         'https://www.googleapis.com/books/v1/volumes?q=$bookToFind&maxResults=8&orerBy=$orderBy')); // TODO
   }
 
-  static Future<http.Response> findNRandomBooks({
+  static Future<http.Response> findNBooks({
     String bookToFind = 'il',
     int n = 4,
     OrderByType orderByType = OrderByType.relevance,

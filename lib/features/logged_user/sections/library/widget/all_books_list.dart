@@ -1,11 +1,8 @@
-import 'package:book_tracker/features/logged_user/models/book_model.dart';
 import 'package:book_tracker/features/logged_user/repository/books_repository.dart';
-import 'package:book_tracker/features/logged_user/sections/library/widget/book_tile.dart';
-import 'package:book_tracker/features/logged_user/models/book_status/book_status_to_read.dart';
 import 'package:book_tracker/features/logged_user/sections/library/widget/books_currently_reading_list.dart';
 import 'package:book_tracker/features/logged_user/sections/library/widget/books_read_list.dart';
 import 'package:book_tracker/features/logged_user/sections/library/widget/books_to_read_list.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
 class AllBooksList extends StatefulWidget {
@@ -16,29 +13,77 @@ class AllBooksList extends StatefulWidget {
 }
 
 class _AllBooksListState extends State<AllBooksList> {
+  late final List<dynamic> data;
+
+  @override
+  void initState() {
+    super.initState();
+    data = [
+      [
+        BooksRepository.booksReadLength(),
+        'Read',
+        const BooksReadList(),
+      ],
+      [
+        BooksRepository.booksCurrentlyReadingLength(),
+        'Currently Reading',
+        const BooksCurrentlyReadingList(),
+      ],
+      [
+        BooksRepository.booksToReadLength(),
+        'To read',
+        const BooksToReadList(),
+      ],
+    ];
+  }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: BouncingScrollPhysics(),
-      child: Column(
-        children: [
-          Text('Read'),
-          BooksReadList(),
-          Divider(
-            color: Colors.grey.withOpacity(0.2),
+      physics: const BouncingScrollPhysics(),
+      child: Expanded(
+        child: Column(
+          children: List.generate(
+            data.length,
+            (index) => _futureBuilder(
+              data[index][0],
+              data[index][1],
+              data[index][2],
+            ),
           ),
-          Text('Currently Reading'),
-          BooksCurrentlyReadingList(),
-          Divider(
-            color: Colors.grey.withOpacity(0.2),
-          ),
-          Text('To Read'),
-          BooksToReadList(),
-          Divider(
-            color: Colors.grey.withOpacity(0.2),
-          ),
-        ],
+        ),
       ),
+    );
+  }
+
+  FutureBuilder<int> _futureBuilder(
+      Future<int> future, String title, Widget booksList) {
+    return FutureBuilder<int>(
+      future: future,
+      builder: (BuildContext context, AsyncSnapshot<int> snap) {
+        if (snap.hasData && snap.data! > 0) {
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TransparentDivider.h(10.0),
+              Text(
+                title,
+                style: const TextStyle(
+                  fontSize: 24.0,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              TransparentDivider.h(10.0),
+              booksList,
+              Divider(
+                color: Colors.grey.withOpacity(0.2),
+              ),
+            ],
+          );
+        } else {
+          return const SizedBox(width: 0, height: 0);
+        }
+      },
     );
   }
 }

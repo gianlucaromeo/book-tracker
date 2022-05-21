@@ -3,28 +3,30 @@ import 'package:book_tracker/constants/routes.dart';
 import 'package:book_tracker/features/authentication/login_signup_common/sizes.dart';
 import 'package:book_tracker/main.dart';
 import 'package:book_tracker/theme/text_styles.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:book_tracker/util/fade_animation.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'google_sign_in_button.dart';
 
 class LoginForm extends StatefulWidget {
-  final VoidCallback onSignUpClicked;
+  //final VoidCallback? onSignUpClicked;
 
-  const LoginForm({Key? key, required this.onSignUpClicked}) : super(key: key);
+  const LoginForm({
+    Key? key,
+  }) : super(key: key);
 
   @override
   _LoginFormState createState() => _LoginFormState();
 }
 
 class _LoginFormState extends State<LoginForm> {
-  late final AppLocalizations _l10n;
+  late AppLocalizations _l10n;
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  bool _loginError = false;
 
   @override
   void dispose() {
@@ -36,39 +38,45 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     _l10n = AppLocalizations.of(context)!;
-    return Center(
-      child: SingleChildScrollView(
-        padding:
-            const EdgeInsets.symmetric(horizontal: AppPadding.defaultPadding),
+    return SingleChildScrollView(
+      padding:
+          const EdgeInsets.symmetric(horizontal: AppPadding.defaultPadding),
+      child: Expanded(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // ! ONLY FOR DEBUG
+            /*
             ElevatedButton(
               onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil(
                   Routes.chooseLanguagePageRouteName, (route) => false),
               child: const Text('Show Tutorial'),
             ),
-            // TITLE
-            buildTitle(),
-            TransparentDivider.h(20.0),
+            */
+            TransparentDivider.h(AppPadding.defaultPadding),
             // EMAIL FIELD
             buildEmailField(),
-            TransparentDivider.h10(),
+            TransparentDivider.h(AppPadding.defaultPadding),
             // PASSWORD FIELD
             buildPasswordField(),
-            TransparentDivider.h(20.0),
+            TransparentDivider.h(AppPadding.defaultPadding),
+
+            // CHECK IF LOGIN ERROR
+            if (_loginError)
+              const Text(
+                'Please check your credentials and try again.',
+                style: TextStyle(color: Colors.red, fontSize: 18.0),
+              ),
+            if (_loginError) TransparentDivider.h(AppPadding.defaultPadding),
+
             // SIGN-IN BUTTON
-            buildSignInButton(),
+            buildDoLoginButton(),
             const Divider(thickness: 1, height: 30.0),
             // GOOGLE SIGN-IN BUTTON
             const GoogleSignInButton(),
-            TransparentDivider.h(20.0),
+            TransparentDivider.h(AppPadding.defaultPadding),
             // FORGOT PASSWORD LINK
             buildForgotPasswordLink(context),
-            TransparentDivider.h(20.0),
-            // NO ACCOUNT ? SIGN-UP LINK
-            buildGoToSignUpLink(context),
           ],
         ),
       ),
@@ -82,7 +90,8 @@ class _LoginFormState extends State<LoginForm> {
         text: _l10n.loginFormNoAccount,
         children: [
           TextSpan(
-            recognizer: TapGestureRecognizer()..onTap = widget.onSignUpClicked,
+            recognizer: TapGestureRecognizer()
+              ..onTap = null, //!widget.onSignUpClicked,
             text: _l10n.loginFormSignUpText,
             // No need for this TextStyle to be inside the TextStyles class
             style: const TextStyle(
@@ -98,31 +107,40 @@ class _LoginFormState extends State<LoginForm> {
     return GestureDetector(
       child: Text(
         _l10n.loginFormForgotPasswordText,
-        style: TextStyles.loginFormForgotPasswordLink,
+        style: TextStyle(
+          decoration: TextDecoration.underline,
+          color: Colors.black.withOpacity(0.5),
+          fontSize: 20.0,
+        ),
       ),
       onTap: () =>
           Navigator.of(context).pushNamed(Routes.forgotPasswordPageRouteName),
     );
   }
 
-  ElevatedButton buildSignInButton() {
-    return ElevatedButton.icon(
-      style: ElevatedButton.styleFrom(
-        minimumSize: const Size.fromHeight(LoginSignUpFormSizes.buttonHeight),
-        shape: RoundedRectangleBorder(
-          borderRadius:
-              BorderRadius.circular(LoginSignUpFormSizes.buttonBorderRadius),
+  buildDoLoginButton() {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(LoginSignUpFormSizes.buttonBorderRadius),
+          ),
         ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppPadding.defaultPadding / 2),
+          child: Text(
+            _l10n.loginFormSignInButtonText,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 19.0,
+            ),
+          ),
+        ),
+        onPressed: _doLogin,
       ),
-      icon: const Icon(
-        Icons.lock_open,
-        size: LoginSignUpFormSizes.buttonIconSize,
-      ),
-      label: Text(
-        _l10n.loginFormSignInButtonText,
-        style: TextStyles.authFormButton,
-      ),
-      onPressed: _doSignIn,
     );
   }
 
@@ -132,6 +150,9 @@ class _LoginFormState extends State<LoginForm> {
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         labelText: _l10n.loginFormPasswordFieldLabelText,
+        focusedBorder: LoginSignUpFormSizes.border,
+        enabledBorder: LoginSignUpFormSizes.border,
+        border: LoginSignUpFormSizes.border,
       ),
       obscureText: true,
     );
@@ -143,6 +164,9 @@ class _LoginFormState extends State<LoginForm> {
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         labelText: _l10n.loginFormEmailFieldLabelText,
+        focusedBorder: LoginSignUpFormSizes.border,
+        enabledBorder: LoginSignUpFormSizes.border,
+        border: LoginSignUpFormSizes.border,
       ),
     );
   }
@@ -157,7 +181,7 @@ class _LoginFormState extends State<LoginForm> {
     );
   }
 
-  Future _doSignIn() async {
+  Future _doLogin() async {
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -172,7 +196,9 @@ class _LoginFormState extends State<LoginForm> {
         password: _passwordController.text.trim(),
       );
     } on FirebaseAuthException catch (e) {
-      print(e);
+      setState(() {
+        _loginError = true;
+      });
       //Utils.showSnackBar(e.message);
     }
 

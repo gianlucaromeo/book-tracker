@@ -22,7 +22,7 @@ class BookImage extends StatelessWidget {
     } else if (size == BookImageSize.searchedBook) {
       return const Size(100, 160);
     } else if (size == BookImageSize.trendingBook) {
-      return const Size(110, 190);
+      return const Size(110, 170);
     } else {
       return const Size(80, 140);
     }

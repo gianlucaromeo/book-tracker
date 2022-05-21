@@ -99,9 +99,9 @@
     "description": "Title of the Authentication Page"
   },
 
-  "signInWithGoogleButtonText": "Sign in with Google",
+  "signInWithGoogleButtonText": "Login with Google",
   "@signInWithGoogleButtonText": {
-    "description": "Text for the Sign-In with Google Button"
+    "description": "Text for the Login with Google Button"
   },
 
   "loginFormTitle": "Login",
@@ -119,9 +119,9 @@
     "description": "Password label text for the Password field in Login Form"
   },
 
-  "loginFormSignInButtonText": "Sign In",
+  "loginFormSignInButtonText": "Login",
   "@loginFormSignInButtonText": {
-    "description": "Text for the Sign In button in Login Form"
+    "description": "Text for the Login button in Login Form"
   },
 
   "loginFormForgotPasswordText": "Forgot Password?",

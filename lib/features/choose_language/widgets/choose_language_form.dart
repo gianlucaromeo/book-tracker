@@ -8,18 +8,20 @@ import 'package:lottie/lottie.dart';
 class ChooseLanguageForm extends StatelessWidget {
   const ChooseLanguageForm({Key? key}) : super(key: key);
 
+  static final _divider = TransparentDivider.h(20.0);
+
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         const AppTitle(),
-        TransparentDivider.h(20.0),
+        _divider,
         Lottie.asset(
           ChooseLanguageData.chooseLanguageAssetName,
           repeat: false,
         ),
-        TransparentDivider.h(20.0),
+        _divider,
         const LanguagePicker(),
       ],
     );

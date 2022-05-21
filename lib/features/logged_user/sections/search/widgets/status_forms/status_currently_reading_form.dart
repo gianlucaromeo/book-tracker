@@ -38,7 +38,7 @@ class _BookStatusCurrentlyReadingFormState
     );
     ratingsContainer.addListener(() {
       setState(() {
-        widget.bookStatus.rating = ratingsContainer.selectedRating! + 1;
+        widget.bookStatus.rating = ratingsContainer.selectedRating!;
       });
     });
     dateStartContainer.addListener(() {

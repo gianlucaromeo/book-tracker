@@ -15,12 +15,6 @@ class TextStyles {
         fontWeight: FontWeight.normal,
       );
 
-  static get chooseLanguageAppTitle => const TextStyle(
-        fontSize: 41.0,
-        fontWeight: FontWeight.bold,
-        letterSpacing: 2,
-      );
-
   static get languagePickerTitle => const TextStyle(
         fontSize: 26.0,
         fontWeight: FontWeight.w500,
@@ -31,32 +25,12 @@ class TextStyles {
         color: _detectColor(),
       );
 
-  static get languagePickerNextButton => const TextStyle(
-        fontSize: 19.0,
-      );
   /* END CHOOSE LANGUAGE PAGE */
 
   /* ONBOARDING PAGE */
-  static get onboardingSectionTitle => const TextStyle(
-        fontSize: 41.0,
-        fontWeight: FontWeight.w600,
-        letterSpacing: 1,
-      );
-
-  static get onboardingSectionSecondaryTitle => const TextStyle(
-        fontSize: 23.0,
-        fontWeight: FontWeight.w600,
-      );
 
   static get onboardingSectionSubtitle => const TextStyle(
         fontSize: 19.0,
-      );
-
-  static get onboardingLastPageButton => TextStyle(
-        fontSize: 24.0,
-        fontWeight: FontWeight.w600,
-        letterSpacing: 1,
-        color: _detectColor(),
       );
 
   static get onboardingBottomButton => const TextStyle(
@@ -87,7 +61,7 @@ class TextStyles {
       );
 
   static get authFormButton => const TextStyle(
-        fontSize: 24.0,
+        fontSize: 21.0,
       );
 
   static get loginFormForgotPasswordLink => TextStyle(
@@ -112,10 +86,6 @@ class TextStyles {
 
   static get confirmEmailSubtitle => const TextStyle(
         fontSize: 20.0,
-      );
-
-  static get confirmEmailResendEmail => const TextStyle(
-        fontSize: 24.0,
       );
 
   static get confirmEmailBackToLoginButton => const TextStyle(

@@ -1,5 +1,4 @@
 import 'package:book_tracker/constants/routes.dart';
-import 'package:book_tracker/theme/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -10,12 +9,14 @@ class NextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      child: Text(
-        l10n.chooseLanguageNext,
-        style: TextStyles.languagePickerNextButton,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
+        child: Text(
+          l10n.chooseLanguageNext,
+          style: const TextStyle(fontSize: 19.0),
+        ),
       ),
-      style: TextButton.styleFrom(
-        fixedSize: const Size.fromHeight(50.0),
+      style: ElevatedButton.styleFrom(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),

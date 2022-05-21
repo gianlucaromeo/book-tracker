@@ -44,7 +44,9 @@ class _MyAppState extends State<MyApp> {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ListenableProvider<LocaleProvider>(create: (_) => LocaleProvider()),
+        ListenableProvider<LocaleProvider>(
+          create: (_) => LocaleProvider(),
+        ),
         ListenableProvider<GoogleSignInProvider>(
           create: (_) => GoogleSignInProvider(),
         ),

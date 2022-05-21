@@ -61,11 +61,11 @@ class DarkThemeData {
           ),
           actionsIconTheme: IconThemeData(
             color: appBarIcon,
-            size: 50.0,
+            size: 30.0,
           ),
           iconTheme: IconThemeData(
             color: appBarIcon,
-            size: 50.0,
+            size: 30.0,
           ),
         ),
         /* ==== SCAFFOLD THEME ==== */

@@ -1,3 +1,5 @@
+import 'package:book_tracker/config/container.dart';
+import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/constants/routes.dart';
 import 'package:book_tracker/features/authentication/login_signup_common/sizes.dart';
 import 'package:book_tracker/main.dart';
@@ -21,7 +23,8 @@ class ForgotPasswordPage extends StatefulWidget {
 class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
-  late final AppLocalizations l10n;
+  late AppLocalizations l10n;
+  bool _resetError = false;
 
   @override
   void dispose() {
@@ -32,47 +35,54 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   @override
   Widget build(BuildContext context) {
     l10n = AppLocalizations.of(context)!;
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 80.0,
-        centerTitle: true,
-        title: Text(
-          l10n.authPageTitle,
-          style: TextStyles.authPageAppBarTitle,
+    final _divider = TransparentDivider.h(15.0);
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          toolbarHeight: AppContainer.defaultHeight,
+          /*title: Text(
+            AppLocalizations.of(context)!.forgotPasswordFormTitle,
+            style: TextStyle(
+              color: themeController.isDarkTheme ? Colors.white : Colors.black,
+              fontSize: 22,
+              letterSpacing: 1,
+            ),
+          ),*/
         ),
-        iconTheme: IconThemeData(
-          color: themeController.currentThemeMode == ThemeMode.light
-              ? Colors.black
-              : Colors.white,
-          size: 50.0,
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(LoginSignUpFormSizes.buttonBorderRadius),
-        child: Form(
-          key: formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // TITLE
-              TransparentDivider.h10(),
-              buildTitle(),
-              // SUBTITLE
-              TransparentDivider.h(10.0),
-              buildSubtitle(),
-              // EMAIL FIELD
-              TransparentDivider.h(20.0),
-              buildEmailField(),
-              // RESET PASSWORD BUTTON
-              TransparentDivider.h(20.0),
-              buildResetPasswordButton(),
-              // LOTTIE ANIMATION
-              TransparentDivider.h(20.0),
-              Expanded(
-                child:
-                    Lottie.asset('assets/authentication/forgot_password.json'),
-              ),
-            ],
+        resizeToAvoidBottomInset: false,
+        body: Padding(
+          padding: const EdgeInsets.all(AppPadding.defaultPadding),
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // TITLE
+                buildTitle(),
+                // SUBTITLE
+                _divider,
+                buildSubtitle(),
+                // EMAIL FIELD
+                _divider,
+                buildEmailField(),
+                _divider,
+                // ERROR MESSAGE ?
+                if (_resetError)
+                  const Text(
+                    'Please check your email and try again.',
+                    style: TextStyle(color: Colors.red),
+                  ),
+                if (_resetError) _divider,
+                // RESET PASSWORD BUTTON
+                buildResetPasswordButton(),
+                // LOTTIE ANIMATION
+                TransparentDivider.h(AppPadding.defaultPadding * 2),
+                Lottie.asset(
+                  'assets/authentication/forgot_password.json',
+                  height: 300,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -105,6 +115,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       textInputAction: TextInputAction.done,
       decoration: InputDecoration(
         labelText: l10n.forgotPasswordFormEmailFieldText,
+        focusedBorder: LoginSignUpFormSizes.border,
+        enabledBorder: LoginSignUpFormSizes.border,
+        border: LoginSignUpFormSizes.border,
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (email) => email != null && !EmailValidator.validate(email)
@@ -114,23 +127,29 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   }
 
   buildResetPasswordButton() {
-    return ElevatedButton.icon(
-      style: ElevatedButton.styleFrom(
-        minimumSize: const Size.fromHeight(LoginSignUpFormSizes.buttonHeight),
-        shape: RoundedRectangleBorder(
-          borderRadius:
-              BorderRadius.circular(LoginSignUpFormSizes.buttonBorderRadius),
+    return Align(
+      alignment: Alignment.centerRight,
+      child: ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(LoginSignUpFormSizes.buttonBorderRadius),
+          ),
         ),
+        icon: const Icon(
+          Icons.email_outlined,
+          size: LoginSignUpFormSizes.buttonIconSize,
+        ),
+        label: Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppPadding.defaultPadding / 2),
+          child: Text(
+            l10n.forgotPasswordFormResetButton,
+            style: TextStyles.authFormButton,
+          ),
+        ),
+        onPressed: _doResetPassword,
       ),
-      icon: const Icon(
-        Icons.email_outlined,
-        size: LoginSignUpFormSizes.buttonIconSize,
-      ),
-      label: Text(
-        l10n.forgotPasswordFormResetButton,
-        style: TextStyles.authFormButton,
-      ),
-      onPressed: _doResetPassword,
     );
   }
 
@@ -147,10 +166,12 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       await FirebaseAuth.instance.sendPasswordResetEmail(
         email: emailController.text.trim(),
       );
-      print('Password Reset Email Sent');
+      //print('Password Reset Email Sent');
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
     } on FirebaseAuthException catch (e) {
-      print(e.message);
+      setState(() {
+        _resetError = true;
+      });
       Navigator.of(context).pop();
     }
   }

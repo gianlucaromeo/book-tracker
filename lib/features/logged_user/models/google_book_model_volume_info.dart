@@ -39,4 +39,18 @@ class GoogleBookModelVolumeInfo {
     }
     return authorsToString;
   }
+
+  String get categoriessAsString {
+    String categoriesToString = '';
+    if (categories != null) {
+      for (int i = 0; i < categories!.length; i++) {
+        final currentCategory = categories![i];
+        if (i != categories!.length - 2 && i != 0) {
+          categoriesToString += ', ';
+        }
+        categoriesToString += currentCategory;
+      }
+    }
+    return categoriesToString;
+  }
 }

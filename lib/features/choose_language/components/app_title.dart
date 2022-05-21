@@ -1,8 +1,8 @@
-import 'package:book_tracker/theme/text_styles.dart';
+import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-/// Title of the App with big font size as a widget.
+/// Left-aligned title of the App with big font size.
 class AppTitle extends StatelessWidget {
   const AppTitle({Key? key}) : super(key: key);
 
@@ -12,7 +12,9 @@ class AppTitle extends StatelessWidget {
       alignment: Alignment.centerLeft,
       child: Text(
         AppLocalizations.of(context)!.chooseLanguageTitle,
-        style: TextStyles.chooseLanguageAppTitle,
+        style: Theme.of(context).textTheme.headline3!.copyWith(
+              color: themeController.isDarkTheme ? Colors.white : Colors.black,
+            ),
       ),
     );
   }

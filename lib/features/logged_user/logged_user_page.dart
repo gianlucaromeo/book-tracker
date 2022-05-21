@@ -29,7 +29,7 @@ class _UserPageState extends State<UserPage> {
     UserSectionTracker()
   ];
 
-  int _currentSectionIndex = 1;
+  int _currentSectionIndex = 2;
 
   @override
   void initState() {

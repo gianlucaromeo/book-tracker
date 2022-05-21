@@ -16,16 +16,16 @@ class OnboardingSection extends StatelessWidget {
       padding: const EdgeInsets.all(AppPadding.defaultPadding),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           // TITLE
-          Align(
-            alignment: Alignment.topLeft,
-            child: buildTitle(),
-          ),
+          buildTitle(),
+
           TransparentDivider.h10(),
           // LOTTIE ANIMATION
-          Expanded(
-            child: Lottie.asset(model.assetName),
+          Padding(
+            padding: const EdgeInsets.all(AppPadding.defaultPadding),
+            child: Lottie.asset(model.assetName, height: 220.0),
           ),
           TransparentDivider.h10(),
           // SECONDARY TITLE AND SUBTITLE
@@ -52,14 +52,21 @@ class OnboardingSection extends StatelessWidget {
   Text buildTitle() {
     return Text(
       model.title,
-      style: TextStyles.onboardingSectionTitle,
+      style: const TextStyle(
+        fontSize: 31.0,
+        fontWeight: FontWeight.w600,
+        letterSpacing: 1,
+      ),
     );
   }
 
   Text buildSecondaryTitle() {
     return Text(
       model.secondaryTitle,
-      style: TextStyles.onboardingSectionSecondaryTitle,
+      style: const TextStyle(
+        fontSize: 19.0,
+        fontWeight: FontWeight.w600,
+      ),
     );
   }
 }

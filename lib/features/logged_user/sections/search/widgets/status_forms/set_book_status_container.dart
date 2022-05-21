@@ -130,7 +130,7 @@ class _SetBookStatusContainerState extends State<SetBookStatusContainer>
       style: TextButton.styleFrom(
         backgroundColor: themeController.isDarkTheme
             ? DarkThemeData.onPrimary
-            : Colors.green.withOpacity(0.8),
+            : LightThemeData.primary,
         shadowColor: Colors.transparent,
         minimumSize: const Size(double.infinity, 50.0),
         maximumSize: const Size(double.infinity, 50.0),

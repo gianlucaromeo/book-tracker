@@ -19,7 +19,7 @@ class UserSectionHome extends StatelessWidget {
           children: [
             const BookOfTheDaySection(),
             TransparentDivider.h(AppPadding.defaultPadding),
-            DiscoverBooksSection(),
+            const DiscoverBooksSection(),
             TransparentDivider.h(AppPadding.defaultPadding),
             CuriosityTile(
               title: '130 000 000',

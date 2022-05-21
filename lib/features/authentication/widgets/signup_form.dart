@@ -12,19 +12,19 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../../main.dart';
 
 class SignUpForm extends StatefulWidget {
-  final VoidCallback onSignInClicked;
-  const SignUpForm({Key? key, required this.onSignInClicked}) : super(key: key);
+  const SignUpForm({Key? key}) : super(key: key);
 
   @override
   _SignUpFormState createState() => _SignUpFormState();
 }
 
 class _SignUpFormState extends State<SignUpForm> {
-  late final AppLocalizations _l10n;
+  late AppLocalizations _l10n;
   final formKey = GlobalKey<FormState>();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
+  bool _signUpError = false;
 
   @override
   void dispose() {
@@ -37,51 +37,52 @@ class _SignUpFormState extends State<SignUpForm> {
   @override
   Widget build(BuildContext context) {
     _l10n = AppLocalizations.of(context)!;
-    return Center(
-      child: SingleChildScrollView(
-        padding:
-            const EdgeInsets.symmetric(horizontal: AppPadding.defaultPadding),
-        child: Form(
-          key: formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              // GO TO LOGIN LINK
-              buildGoToLoginTopLink(),
-              TransparentDivider.h(15.0),
-              // FORM TITLE
-              buildTitle(),
-              TransparentDivider.h(30.0),
-              // EMAIL FIELD
-              buildEmailField(),
-              TransparentDivider.h(10.0),
-              // PASSWORD FIELD
-              buildPasswordField(
-                _passwordController,
-                _l10n.signUpFormPasswordLabelText,
-                _passwordValidator,
+    return SingleChildScrollView(
+      padding:
+          const EdgeInsets.symmetric(horizontal: AppPadding.defaultPadding),
+      child: Form(
+        key: formKey,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TransparentDivider.h(AppPadding.defaultPadding),
+            // EMAIL FIELD
+            buildEmailField(),
+            TransparentDivider.h(AppPadding.defaultPadding),
+            // PASSWORD FIELD
+            buildPasswordField(
+              _passwordController,
+              _l10n.signUpFormPasswordLabelText,
+              _passwordValidator,
+            ),
+            TransparentDivider.h(AppPadding.defaultPadding / 2),
+            if (!_signUpError)
+              Text(
+                ' Password must contain at least 6 characters.',
+                style: TextStyle(
+                  color: Colors.black.withOpacity(0.6),
+                  fontSize: 15,
+                ),
               ),
-              TransparentDivider.h(10.0),
-              // CONFIRM PASSWORD FIELD
-              buildPasswordField(
-                _confirmPasswordController,
-                _l10n.signUpFormConfirmPasswordLabelText,
-                _confirmPasswordValidator,
-              ),
-              TransparentDivider.h(18.0),
-              // SIGN UP WITH EMAIL BUTTON
-              buildSignUpButton(),
-              const Divider(
-                height: 40,
-                thickness: 1,
-              ),
-              // GOOGLE SIGN UP BUTTON
-              const GoogleSignInButton(),
-              TransparentDivider.h(22.0),
-              // GO TO LOGIN LINK
-              buildGoToLoginBottomLink(context),
-            ],
-          ),
+            if (!_signUpError)
+              TransparentDivider.h(AppPadding.defaultPadding / 2),
+            // CONFIRM PASSWORD FIELD
+            buildPasswordField(
+              _confirmPasswordController,
+              _l10n.signUpFormConfirmPasswordLabelText,
+              _confirmPasswordValidator,
+            ),
+            TransparentDivider.h(AppPadding.defaultPadding),
+            // SIGN UP WITH EMAIL BUTTON
+            buildDoSignUpButton(),
+            const Divider(
+              height: 40,
+              thickness: 1,
+            ),
+            // GOOGLE SIGN UP BUTTON
+            const GoogleSignInButton(),
+          ],
         ),
       ),
     );
@@ -90,7 +91,7 @@ class _SignUpFormState extends State<SignUpForm> {
   Align buildGoToLoginTopLink() => Align(
         alignment: Alignment.centerLeft,
         child: TextButton.icon(
-          onPressed: widget.onSignInClicked,
+          onPressed: () {}, // widget.onSignInClicked,
           icon: const Icon(Icons.arrow_back),
           label: Text(
             _l10n.signUpFormGoToLoginText,
@@ -102,15 +103,17 @@ class _SignUpFormState extends State<SignUpForm> {
   RichText buildGoToLoginBottomLink(BuildContext context) {
     return RichText(
       text: TextSpan(
-        style: TextStyles.switchAuthFormLink,
         text: _l10n.signUpFormAlreadyHaveAnAccount,
+        style: TextStyles.switchAuthFormLink,
         children: [
           TextSpan(
-            recognizer: TapGestureRecognizer()..onTap = widget.onSignInClicked,
+            recognizer: TapGestureRecognizer()
+              ..onTap = null, //! widget.onSignInClicked,
             text: _l10n.signUpFormLoginText,
-            // No need for this TextStyle to be inside the TextStyles class
-            style: const TextStyle(
+            style: TextStyle(
               decoration: TextDecoration.underline,
+              color: Colors.black.withOpacity(0.5),
+              fontSize: 20.0,
             ),
           ),
         ],
@@ -118,24 +121,30 @@ class _SignUpFormState extends State<SignUpForm> {
     );
   }
 
-  ElevatedButton buildSignUpButton() {
-    return ElevatedButton.icon(
-      style: ElevatedButton.styleFrom(
-        minimumSize: const Size.fromHeight(LoginSignUpFormSizes.buttonHeight),
-        shape: RoundedRectangleBorder(
-          borderRadius:
-              BorderRadius.circular(LoginSignUpFormSizes.buttonBorderRadius),
+  buildDoSignUpButton() {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          //minimumSize: const Size.fromHeight(LoginSignUpFormSizes.buttonHeight),
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(LoginSignUpFormSizes.buttonBorderRadius),
+          ),
         ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+              horizontal: AppPadding.defaultPadding / 2),
+          child: Text(
+            _l10n.signUpFormSignUpButtonText,
+            style: const TextStyle(
+              color: Colors.white,
+              fontSize: 19.0,
+            ),
+          ),
+        ),
+        onPressed: _doSignUp,
       ),
-      icon: const Icon(
-        Icons.arrow_right_alt,
-        size: LoginSignUpFormSizes.buttonIconSize,
-      ),
-      label: Text(
-        _l10n.signUpFormSignUpButtonText,
-        style: TextStyles.authFormButton,
-      ),
-      onPressed: _doSignUp,
     );
   }
 
@@ -145,6 +154,9 @@ class _SignUpFormState extends State<SignUpForm> {
       textInputAction: TextInputAction.next,
       decoration: InputDecoration(
         labelText: _l10n.signUpFormEmailLabelText,
+        focusedBorder: LoginSignUpFormSizes.border,
+        enabledBorder: LoginSignUpFormSizes.border,
+        border: LoginSignUpFormSizes.border,
       ),
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (email) => email != null && !EmailValidator.validate(email)
@@ -173,6 +185,9 @@ class _SignUpFormState extends State<SignUpForm> {
         textInputAction: TextInputAction.next,
         decoration: InputDecoration(
           labelText: labelText,
+          focusedBorder: LoginSignUpFormSizes.border,
+          enabledBorder: LoginSignUpFormSizes.border,
+          border: LoginSignUpFormSizes.border,
         ),
         obscureText: true,
         autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -191,7 +206,12 @@ class _SignUpFormState extends State<SignUpForm> {
 
   Future _doSignUp() async {
     final isValid = formKey.currentState!.validate();
-    if (!isValid) return;
+    if (!isValid) {
+      setState(() {
+        _signUpError = true;
+        return;
+      });
+    }
 
     showDialog(
       context: context,
@@ -208,7 +228,9 @@ class _SignUpFormState extends State<SignUpForm> {
         password: _passwordController.text.trim(),
       );
     } on FirebaseAuthException catch (e) {
-      print(e.message);
+      setState(() {
+        _signUpError = true;
+      });
     }
 
     navigatorKey.currentState!.popUntil((route) => route.isFirst);

@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:book_tracker/config/container.dart';
 import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/authentication/login_signup_common/sizes.dart';
 import 'package:book_tracker/theme/text_styles.dart';
@@ -7,6 +8,7 @@ import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../logged_user/logged_user_page.dart';
 
@@ -20,7 +22,7 @@ class VerifyEmailPage extends StatefulWidget {
 class _VerifyEmailPageState extends State<VerifyEmailPage> {
   bool isEmailVerified = false;
   bool canResendEmail = false;
-  AppLocalizations? l10n;
+  late AppLocalizations l10n;
 
   @override
   void initState() {
@@ -65,24 +67,38 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
       return const UserPage();
     }
     l10n = AppLocalizations.of(context)!;
-    return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          padding:
-              const EdgeInsets.symmetric(horizontal: AppPadding.defaultPadding),
-          child: Column(
-            children: [
-              buildTitle(),
-              TransparentDivider.h(15.0),
-              buildSubtitle(),
-              TransparentDivider.h(15.0),
-              buildResendEmailButton(),
-              const Divider(
-                height: 20.0,
-                thickness: 1,
+    return SafeArea(
+      child: Scaffold(
+        body: Container(
+          alignment: Alignment.center,
+          child: Padding(
+            padding: const EdgeInsets.all(AppPadding.defaultPadding),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  buildTitle(),
+                  TransparentDivider.h(15.0),
+                  buildSubtitle(),
+                  TransparentDivider.h(15.0),
+                  if (canResendEmail) buildResendEmailButton(),
+                  if (canResendEmail)
+                    const Divider(
+                      height: 20.0,
+                      thickness: 1,
+                    ),
+                  buildBackToLoginButton(),
+                  TransparentDivider.h(10.0),
+                  Center(
+                    child: Lottie.asset(
+                      'assets/authentication/verify_email.json',
+                      height: 300.0,
+                    ),
+                  ),
+                ],
               ),
-              buildBackToLoginButton(),
-            ],
+            ),
           ),
         ),
       ),
@@ -92,9 +108,6 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   TextButton buildBackToLoginButton() {
     return TextButton.icon(
       style: ElevatedButton.styleFrom(
-        minimumSize: const Size.fromHeight(LoginSignUpFormSizes.buttonHeight),
-        //onPrimary: Colors.white,
-        // primary: Palette.primaryLight,
         shape: RoundedRectangleBorder(
           borderRadius:
               BorderRadius.circular(LoginSignUpFormSizes.buttonBorderRadius),
@@ -105,49 +118,49 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
         size: LoginSignUpFormSizes.buttonIconSize,
       ),
       label: Text(
-        l10n!.confirmEmailFormBackToLoginButton,
+        l10n.confirmEmailFormBackToLoginButton,
         style: TextStyles.confirmEmailBackToLoginButton,
       ),
       onPressed: () => FirebaseAuth.instance.signOut(),
     );
   }
 
-  ElevatedButton buildResendEmailButton() {
-    return ElevatedButton.icon(
-      style: ElevatedButton.styleFrom(
-        minimumSize: const Size.fromHeight(70.0),
-        //onPrimary: Colors.white,
-        //primary: Palette.primaryLight,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20.0),
+  Align buildResendEmailButton() {
+    return Align(
+      alignment: Alignment.centerRight,
+      child: ElevatedButton.icon(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.circular(LoginSignUpFormSizes.buttonBorderRadius),
+          ),
         ),
+        icon: const Icon(
+          Icons.email,
+          //size: 32,
+        ),
+        label: Text(
+          l10n.confirmEmailFormResendButton,
+          style: const TextStyle(
+            fontSize: 19.0,
+          ),
+        ),
+        onPressed: canResendEmail ? sendVerificationEmail : null,
       ),
-      icon: const Icon(
-        Icons.email,
-        size: 32,
-      ),
-      label: Text(
-        l10n!.confirmEmailFormResendButton,
-        style: TextStyles.confirmEmailResendEmail,
-      ),
-      onPressed: canResendEmail ? sendVerificationEmail : null,
     );
   }
 
   Text buildSubtitle() {
     return Text(
-      l10n!.confirmEmailFormSubtitle,
+      l10n.confirmEmailFormSubtitle,
       style: TextStyles.confirmEmailSubtitle,
     );
   }
 
-  Align buildTitle() {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: Text(
-        l10n!.confirmEmailFormTitle,
-        style: TextStyles.confirmEmailTitle,
-      ),
+  Text buildTitle() {
+    return Text(
+      l10n.confirmEmailFormTitle,
+      style: TextStyles.confirmEmailTitle,
     );
   }
 }

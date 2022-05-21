@@ -39,7 +39,8 @@ class _BookFoundTileState extends State<BookFoundTile> {
                       widget.googleBookModel.volumeInfo?.imageLinks!.thumbnail,
                 ),
                 // TITLE AND AUTHORS
-                buildTitleAndAuthors(),
+                buildTitleAuthorsAndCategories(),
+
                 // GO TO BOOK ARROW ICON BUTTON
                 IconButton(
                   onPressed: () => Navigator.of(context).push(
@@ -66,7 +67,35 @@ class _BookFoundTileState extends State<BookFoundTile> {
     );
   }
 
-  Expanded buildTitleAndAuthors() {
+  buildCategories() {
+    final String categories =
+        widget.googleBookModel.volumeInfo!.categoriessAsString;
+    if (categories != '') {
+      return Padding(
+        padding: const EdgeInsets.only(top: 5.0),
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.grey.withOpacity(0.8),
+            borderRadius: BorderRadius.circular(5),
+          ),
+          padding: const EdgeInsets.symmetric(horizontal: 7.0, vertical: 2),
+          child: Text(
+            categories,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              fontSize: Theme.of(context).textTheme.titleSmall!.fontSize,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      );
+    } else {
+      return TransparentDivider.h(0.0);
+    }
+  }
+
+  Expanded buildTitleAuthorsAndCategories() {
     return Expanded(
       child: Padding(
         padding:
@@ -78,6 +107,7 @@ class _BookFoundTileState extends State<BookFoundTile> {
             buildBookTitle(),
             TransparentDivider.h(5.0),
             buildBookAuthors(),
+            buildCategories(),
           ],
         ),
       ),

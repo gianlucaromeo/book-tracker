@@ -1,8 +1,13 @@
 import 'package:book_tracker/config/borders.dart';
 import 'package:book_tracker/config/padding.dart';
+import 'package:book_tracker/features/logged_user/models/book_status/book_status_read.dart';
 import 'package:book_tracker/features/logged_user/models/book_status/book_status.dart';
 import 'package:book_tracker/features/logged_user/models/book_status/book_status_currently_reading.dart';
+import 'package:book_tracker/features/logged_user/models/book_status/book_status_to_read.dart';
+import 'package:book_tracker/features/logged_user/models/book_status/book_status_type.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
+import 'package:book_tracker/features/logged_user/repository/books_repository.dart';
+import 'package:book_tracker/features/logged_user/sections/library/widget/books_currently_reading_list.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/add_status_button.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_image.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/no_description_info.dart';
@@ -16,6 +21,7 @@ import 'package:flutter/material.dart';
 
 class SearchedBookPage extends StatefulWidget {
   final bool updateStatus;
+
   BookStatus? bookStatus; // null id updateStatus is false
   final GoogleBookModel googleBookModel;
 
@@ -32,18 +38,53 @@ class SearchedBookPage extends StatefulWidget {
 }
 
 class _SearchedBookPageState extends State<SearchedBookPage> {
-  late bool addStatus;
+  late bool updateStatus;
+  late bool bookIsInLibrary = false;
 
   @override
   void initState() {
     super.initState();
-    addStatus = widget.updateStatus;
+    updateStatus = widget.updateStatus;
   }
 
   void toggleAddStatus() {
     setState(() {
-      addStatus = !addStatus;
+      updateStatus = !updateStatus;
     });
+  }
+
+  Future<bool> _checkBookAlreadyInLibrary() async {
+    if (!updateStatus) {
+      String bookId = widget.googleBookModel.id!;
+      final bool read = await BooksRepository.bookReadExist(bookId);
+      if (read) {
+        await BooksRepository.findBookStatusJson(BookStatusType.read, bookId)
+            .then((bookModelJson) =>
+                widget.bookStatus = BookStatusRead.fromJson(bookModelJson));
+        bookIsInLibrary = true;
+      } else {
+        final bool currentlyReading =
+            await BooksRepository.bookCurrentlyReadingExist(bookId);
+        if (currentlyReading) {
+          await BooksRepository.findBookStatusJson(
+                  BookStatusType.currentlyReading, bookId)
+              .then((bookModelJson) => widget.bookStatus =
+                  BookStatusCurrentlyReading.fromJson(bookModelJson));
+          bookIsInLibrary = true;
+        } else {
+          final bool toRead = await BooksRepository.bookToReadExist(bookId);
+          if (toRead) {
+            await BooksRepository.findBookStatusJson(
+                    BookStatusType.toRead, bookId)
+                .then((bookModelJson) => widget.bookStatus =
+                    BookStatusToRead.fromJson(bookModelJson));
+            bookIsInLibrary = true;
+          }
+        }
+      }
+    }
+
+    return bookIsInLibrary;
   }
 
   @override
@@ -71,47 +112,52 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
                 right: AppPadding.defaultPadding,
                 top: AppPadding.defaultPadding,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // GO BACK ICON
-                  IconButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    icon: const Icon(
-                      Icons.arrow_back_outlined,
-                      color: Colors.white,
-                      size: 30.0,
-                    ),
-                  ),
-                  TransparentDivider.h(AppPadding.defaultPadding),
-                  // TITLE, AUTHORS AND BOOK IMAGE
-                  Padding(
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: AppPadding.defaultPadding),
-                    child: buildBookTitleAuthorsAndImage(),
-                  ),
-                  TransparentDivider.h(AppPadding.defaultPadding),
+              child: FutureBuilder<bool>(
+                  future: _checkBookAlreadyInLibrary(),
+                  builder: (context, snap) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // GO BACK ICON
+                        IconButton(
+                          onPressed: () => Navigator.of(context).pop(),
+                          icon: const Icon(
+                            Icons.arrow_back_outlined,
+                            color: Colors.white,
+                            size: 30.0,
+                          ),
+                        ),
+                        TransparentDivider.h(AppPadding.defaultPadding),
+                        // TITLE, AUTHORS AND BOOK IMAGE
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: AppPadding.defaultPadding),
+                          child: buildBookTitleAuthorsAndImage(),
+                        ),
+                        TransparentDivider.h(AppPadding.defaultPadding),
 
-                  addStatus ? buildStatusForm() : buildBookInfo(),
+                        if (bookIsInLibrary)
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 5.0),
+                            child: SizedBox.fromSize(
+                              size: const Size.fromHeight(20),
+                              child: const Text(
+                                'Already in your Library',
+                              ),
+                            ),
+                          ),
 
-                  TransparentDivider.h(AppPadding.defaultPadding / 2),
+                        updateStatus ? buildStatusForm() : buildBookInfo(),
 
-                  // ADD STATUS BUTTON
-                  addStatus
-                      ? buildCancelStatusButton()
-                      : buildAddStatusButton(),
-                  /*
-                  // BUTTONS
-                  Padding(
-                    padding:
-                        const EdgeInsets.all(AppPadding.defaultPadding / 2),
-                    child: AddStatusActionButtons(
-                      googleBookModel: widget.googleBookModel,
-                    ),
-                  ),
-                  */
-                ],
-              ),
+                        TransparentDivider.h(AppPadding.defaultPadding / 2),
+
+                        // ADD STATUS BUTTON
+                        updateStatus
+                            ? buildCancelStatusButton()
+                            : buildAddStatusButton(),
+                      ],
+                    );
+                  }),
             ),
           ],
         ),
@@ -160,11 +206,10 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
     return Expanded(
       child: SetBookStatusContainer(
         googleBookModel: widget.googleBookModel,
-        bookStatus: widget.updateStatus
-            ? widget.bookStatus!
-            : BookStatusCurrentlyReading(),
-        isUpdating: widget.updateStatus,
-        oldBookStatus: widget.updateStatus ? widget.bookStatus! : null,
+        bookStatus: widget.bookStatus ?? BookStatusCurrentlyReading(),
+        isUpdating: widget.updateStatus || bookIsInLibrary,
+        oldBookStatus:
+            widget.updateStatus || bookIsInLibrary ? widget.bookStatus! : null,
       ),
     );
   }
@@ -269,13 +314,17 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
     }
   }
 
+  /// Not considering rating for now.
   buildRatingStarsOrInfoLink() {
+    return buildBookInfoLink();
+    /*
     num? rating = widget.googleBookModel.volumeInfo?.averageRating;
     if (rating != null) {
       return buildRatingStarsIcons(rating);
     } else {
       return buildBookInfoLink();
     }
+    */
   }
 
   Padding buildBookInfoLink() {

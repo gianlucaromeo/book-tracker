@@ -1,7 +1,9 @@
+import 'package:book_tracker/config/container.dart';
 import 'package:book_tracker/config/shared_preferences.dart';
 import 'package:book_tracker/constants/routes.dart';
 import 'package:book_tracker/features/onboarding/data/sections_data.dart';
 import 'package:book_tracker/main.dart';
+import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/text_styles.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
@@ -21,8 +23,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
   final PageController _pageController = PageController();
   bool _isLastPage = false;
 
-  static const double _bottomContainerHeight = 80.0;
-
   @override
   void dispose() {
     _pageController.dispose();
@@ -40,16 +40,15 @@ class _OnboardingPageState extends State<OnboardingPage> {
         bottomSheet: _isLastPage
             ? buildLastPageButton(context)
             : buildBottomContainer(
-                _bottomContainerHeight, onboardingSections, context),
+                AppContainer.defaultHeight, onboardingSections, context),
       ),
     );
   }
 
   Container buildPageViewContainer(List<OnboardingSection> onboardingSections) {
     return Container(
-      padding: EdgeInsets.only(bottom: _bottomContainerHeight),
-      color: Theme.of(context)
-          .scaffoldBackgroundColor, // to cover some grey from last animation
+      padding: const EdgeInsets.only(bottom: AppContainer.defaultHeight),
+      color: Theme.of(context).scaffoldBackgroundColor, // For last animation
       child: PageView(
         controller: _pageController,
         onPageChanged: (index) {
@@ -122,9 +121,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      backgroundColor: Colors.transparent,
-      toolbarHeight: 80.0,
-      elevation: 0.0,
       leading: IconButton(
         onPressed: () {
           Navigator.of(context)
@@ -132,29 +128,27 @@ class _OnboardingPageState extends State<OnboardingPage> {
         },
         icon: Icon(
           Icons.arrow_back_rounded,
-          color: themeController.currentThemeMode == ThemeMode.light
-              ? Colors.black
-              : Colors.white,
-          size: 50.0,
+          color: themeController.isDarkTheme ? Colors.white : Colors.black,
         ),
-      ),
-      titleTextStyle: const TextStyle(
-        fontWeight: FontWeight.w500,
-        fontSize: 27.0,
-        letterSpacing: 1,
       ),
     );
   }
 
   Container buildLastPageButton(BuildContext context) {
     return Container(
-      color: Theme.of(context).primaryColor.withOpacity(0.2),
+      color: themeController.isDarkTheme
+          ? Colors.grey.withOpacity(0.2)
+          : LightThemeData.primary,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: TextButton(
           child: Text(
             AppLocalizations.of(context)!.letsStartOnboarding,
-            style: TextStyles.onboardingLastPageButton,
+            style: TextStyle(
+              fontSize: 24.0,
+              letterSpacing: 1,
+              color: themeController.isDarkTheme ? Colors.black : Colors.white,
+            ),
           ),
           onPressed: () {
             Navigator.of(context).pushNamedAndRemoveUntil(
@@ -165,7 +159,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
             ),
-            minimumSize: const Size.fromHeight(_bottomContainerHeight),
+            minimumSize: const Size.fromHeight(AppContainer.defaultHeight / 2),
           ),
         ),
       ),

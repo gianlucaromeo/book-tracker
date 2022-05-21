@@ -6,17 +6,18 @@ import 'package:flutter/material.dart';
 class ChooseLanguagePage extends StatelessWidget {
   const ChooseLanguagePage({Key? key}) : super(key: key);
 
+  static const _padding = AppPadding.defaultPadding;
+
   @override
   Widget build(BuildContext context) {
-    const padding = AppPadding.defaultPadding;
     return SafeArea(
       child: Scaffold(
         body: Container(
           alignment: Alignment.center,
           child: Column(
             children: [
-              buildTopContainer(padding),
-              buildChooseLanguageForm(padding),
+              buildTopContainer(),
+              buildChooseLanguageForm(),
             ],
           ),
         ),
@@ -24,19 +25,19 @@ class ChooseLanguagePage extends StatelessWidget {
     );
   }
 
-  Expanded buildChooseLanguageForm(double padding) {
-    return Expanded(
+  Expanded buildChooseLanguageForm() {
+    return const Expanded(
       child: Padding(
-        padding: EdgeInsets.fromLTRB(padding, 0.0, padding, padding),
-        child: const ChooseLanguageForm(),
+        padding: EdgeInsets.fromLTRB(_padding, 0.0, _padding, _padding),
+        child: ChooseLanguageForm(),
       ),
     );
   }
 
-  Padding buildTopContainer(double padding) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: padding),
-      child: const WelcomeTitleTopContainer(),
+  Padding buildTopContainer() {
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: _padding),
+      child: WelcomeTitleTopContainer(),
     );
   }
 }

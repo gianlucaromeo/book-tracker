@@ -1,7 +1,7 @@
-import 'package:book_tracker/features/logged_user/sections/search/widgets/popular_books_list_view.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/most_sold_books_list_view.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/search_text_field.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/searched_books_list.dart';
-import 'package:book_tracker/features/logged_user/sections/search/widgets/trending_books_list_view.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/most_popular_books_list_view.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
@@ -40,9 +40,9 @@ class _UserSectionSearchState extends State<UserSectionSearch> {
                     physics: const BouncingScrollPhysics(),
                     child: Column(
                       children: [
-                        const TrendingBooksListView(),
+                        const MostPopularBooksListView(),
                         TransparentDivider.h(40.0),
-                        const PopularBooksListView(),
+                        const MostSoldBooksListView(),
                       ],
                     ),
                   ),
