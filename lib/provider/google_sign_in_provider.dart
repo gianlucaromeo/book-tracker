@@ -3,14 +3,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class GoogleSignInProvider extends ChangeNotifier {
-
   final googleSignIn = GoogleSignIn();
   GoogleSignInAccount? _user;
 
   GoogleSignInAccount get user => _user!;
 
   Future googleLogin() async {
-
     try {
       final googleUser = await googleSignIn.signIn();
       if (googleUser == null) return;
@@ -24,17 +22,14 @@ class GoogleSignInProvider extends ChangeNotifier {
       );
 
       await FirebaseAuth.instance.signInWithCredential(credential);
-    } catch (e) {
-      print('Google Login failed. Please try again.');
-    }
+      // ignore: empty_catches
+    } catch (e) {}
 
     notifyListeners();
-
   }
 
   Future logout() async {
     await googleSignIn.disconnect();
     FirebaseAuth.instance.signOut();
   }
-
 }

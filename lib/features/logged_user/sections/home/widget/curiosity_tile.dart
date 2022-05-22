@@ -7,7 +7,8 @@ import 'package:flutter/material.dart';
 class CuriosityTile extends StatefulWidget {
   final String title;
   final String description;
-  CuriosityTile({Key? key, required this.title, required this.description})
+  const CuriosityTile(
+      {Key? key, required this.title, required this.description})
       : super(key: key);
 
   @override

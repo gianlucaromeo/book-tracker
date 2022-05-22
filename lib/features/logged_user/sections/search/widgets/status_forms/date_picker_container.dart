@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:book_tracker/config/borders.dart';
 import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/theme/dark_theme_data.dart';
@@ -140,7 +142,7 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
       },
       context: context,
       initialDate: DateTime.now().add(
-        Duration(hours: 1),
+        const Duration(hours: 1),
       ),
       firstDate: DateTime.now().subtract(const Duration(hours: 24 * 365 * 10)),
       lastDate: DateTime.now().add(

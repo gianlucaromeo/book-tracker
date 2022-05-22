@@ -1,4 +1,6 @@
 import 'package:book_tracker/constants/routes.dart';
+import 'package:book_tracker/features/onboarding/onboarding_page.dart';
+import 'package:book_tracker/util/custom_page_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -21,8 +23,8 @@ class NextButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(10.0),
         ),
       ),
-      onPressed: () =>
-          Navigator.of(context).pushNamed(Routes.onboardingPageRouteName),
+      onPressed: () => Navigator.of(context)
+          .push(CustomPageRoute(child: const OnboardingPage())),
     );
   }
 }

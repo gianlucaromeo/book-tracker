@@ -1,11 +1,13 @@
 import 'package:book_tracker/config/container.dart';
 import 'package:book_tracker/config/shared_preferences.dart';
-import 'package:book_tracker/constants/routes.dart';
+import 'package:book_tracker/features/authentication/authentication_page.dart';
+import 'package:book_tracker/features/choose_language/choose_language_page.dart';
 import 'package:book_tracker/features/onboarding/data/sections_data.dart';
 import 'package:book_tracker/main.dart';
 import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/text_styles.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
+import 'package:book_tracker/util/custom_page_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -95,10 +97,6 @@ class _OnboardingPageState extends State<OnboardingPage> {
     return SmoothPageIndicator(
       controller: _pageController,
       count: onboardingSections.length,
-      effect: const SwapEffect(
-          //dotColor: Palette.grayLight, // TODO
-          //activeDotColor: Palette.primaryLight, // TODO
-          ),
       onDotClicked: (index) => _pageController.animateToPage(
         index,
         duration: const Duration(milliseconds: 500),
@@ -123,8 +121,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
     return AppBar(
       leading: IconButton(
         onPressed: () {
-          Navigator.of(context)
-              .popAndPushNamed(Routes.chooseLanguagePageRouteName);
+          Navigator.of(context).push(
+            CustomPageRoute(
+              child: const ChooseLanguagePage(),
+            ),
+          );
         },
         icon: Icon(
           Icons.arrow_back_rounded,
@@ -151,8 +152,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
             ),
           ),
           onPressed: () {
-            Navigator.of(context).pushNamedAndRemoveUntil(
-                Routes.authenticationPageRouteName, (route) => false);
+            Navigator.of(context).pushAndRemoveUntil(
+                CustomPageRoute(child: const AuthenticationPage()),
+                (route) => false);
             prefs.setBool(SharedPrefsSettings.showTutorialPref, false);
           },
           style: TextButton.styleFrom(

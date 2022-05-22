@@ -68,7 +68,7 @@ class _UserPageState extends State<UserPage> {
       );
 
   buildAppBar(User user) => AppBar(
-        title: _currentSectionIndex == 1 ? Text('Library') : null,
+        title: _currentSectionIndex == 1 ? const Text('Library') : null,
         leading: Padding(
           padding: const EdgeInsets.only(left: AppPadding.defaultPadding - 10),
           child: IconButton(

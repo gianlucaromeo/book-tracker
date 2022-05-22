@@ -105,7 +105,6 @@ class BooksRepository {
   static Future<int> booksToReadLength() =>
       _getLibraryCollectionLength(type: BookStatusType.toRead);
 
-  // ! TODO
   static Future<bool> _bookExists(BookStatusType type, String bookId) {
     User user = FirebaseAuth.instance.currentUser!;
     return FirebaseFirestore.instance

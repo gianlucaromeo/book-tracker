@@ -5,8 +5,8 @@ import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
 
 class AddStatusButton extends StatefulWidget {
-  Function() onPressed;
-  AddStatusButton({Key? key, required this.onPressed}) : super(key: key);
+  final Function() onPressed;
+  const AddStatusButton({Key? key, required this.onPressed}) : super(key: key);
 
   @override
   State<AddStatusButton> createState() => _AddStatusButtonState();

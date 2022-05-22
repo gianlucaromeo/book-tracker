@@ -1,18 +1,19 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:book_tracker/config/borders.dart';
 import 'package:book_tracker/config/padding.dart';
-import 'package:book_tracker/features/logged_user/models/book_status/book_status_read.dart';
 import 'package:book_tracker/features/logged_user/models/book_status/book_status.dart';
 import 'package:book_tracker/features/logged_user/models/book_status/book_status_currently_reading.dart';
+import 'package:book_tracker/features/logged_user/models/book_status/book_status_read.dart';
 import 'package:book_tracker/features/logged_user/models/book_status/book_status_to_read.dart';
 import 'package:book_tracker/features/logged_user/models/book_status/book_status_type.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
 import 'package:book_tracker/features/logged_user/repository/books_repository.dart';
-import 'package:book_tracker/features/logged_user/sections/library/widget/books_currently_reading_list.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/add_status_button.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_image.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/no_description_info.dart';
-import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/show_book_page_button.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/set_book_status_container.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/show_book_page_button.dart';
 import 'package:book_tracker/theme/dark_theme_data.dart';
 import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
@@ -25,7 +26,6 @@ class SearchedBookPage extends StatefulWidget {
   BookStatus? bookStatus; // null id updateStatus is false
   final GoogleBookModel googleBookModel;
 
-  // ! TODO Assert updateStatus == true ? --> bookStatus != null
   SearchedBookPage({
     Key? key,
     required this.googleBookModel,
@@ -252,29 +252,27 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
             : null,
       ),
       padding: const EdgeInsets.all(5.0),
-      child: Expanded(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            // PAGES
-            buildGenericBookInfo(
-              widget.googleBookModel.volumeInfo?.pageCount?.toString() ?? '',
-              'Pages',
-            ),
-            TransparentDivider.w(15.0),
-            // RATING STARS or INFO LINK
-            buildRatingStarsOrInfoLink(),
-            TransparentDivider.w(15.0),
-            // LANGUAGE
-            buildGenericBookInfo(
-              widget.googleBookModel.volumeInfo?.language
-                      ?.toString()
-                      .toUpperCase() ??
-                  '',
-              'Language',
-            ),
-          ],
-        ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          // PAGES
+          buildGenericBookInfo(
+            widget.googleBookModel.volumeInfo?.pageCount?.toString() ?? '',
+            'Pages',
+          ),
+          TransparentDivider.w(15.0),
+          // RATING STARS or INFO LINK
+          buildRatingStarsOrInfoLink(),
+          TransparentDivider.w(15.0),
+          // LANGUAGE
+          buildGenericBookInfo(
+            widget.googleBookModel.volumeInfo?.language
+                    ?.toString()
+                    .toUpperCase() ??
+                '',
+            'Language',
+          ),
+        ],
       ),
     );
   }

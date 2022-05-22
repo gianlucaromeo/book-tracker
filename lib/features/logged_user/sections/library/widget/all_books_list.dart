@@ -41,15 +41,13 @@ class _AllBooksListState extends State<AllBooksList> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
-      child: Expanded(
-        child: Column(
-          children: List.generate(
-            data.length,
-            (index) => _futureBuilder(
-              data[index][0],
-              data[index][1],
-              data[index][2],
-            ),
+      child: Column(
+        children: List.generate(
+          data.length,
+          (index) => _futureBuilder(
+            data[index][0],
+            data[index][1],
+            data[index][2],
           ),
         ),
       ),

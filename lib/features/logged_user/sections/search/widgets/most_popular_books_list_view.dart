@@ -4,6 +4,7 @@ import 'package:book_tracker/features/logged_user/repository/books_repository.da
 import 'package:book_tracker/features/logged_user/repository/ibs_to_books_repository.dart';
 import 'package:book_tracker/features/logged_user/sections/search/searched_book_page.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_image.dart';
+import 'package:book_tracker/util/custom_page_route.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -38,32 +39,32 @@ class MostPopularBooksListView extends StatelessWidget {
                     GoogleBookModel bookModel =
                         GoogleBookModel.fromJson(bookToReadJson.data() as Json);
                     return InkWell(
-                      onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                          builder: (context) => SearchedBookPage(
-                              googleBookModel: bookModel,
-                              updateStatus: false))),
+                      onTap: () => Navigator.of(context).push(
+                        CustomPageRoute(
+                          child: SearchedBookPage(
+                              googleBookModel: bookModel, updateStatus: false),
+                        ),
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.symmetric(
                             horizontal: AppPadding.defaultPadding / 2),
                         child: SizedBox(
                           //height: 230.0,
                           width: 120,
-                          child: Expanded(
-                            child: Column(
-                              children: [
-                                BookImage(
-                                  imageUrl: bookModel
-                                      .volumeInfo!.imageLinks!.thumbnail,
-                                  size: BookImageSize.trendingBook,
-                                ),
-                                TransparentDivider.h(10.0),
-                                Text(
-                                  bookModel.volumeInfo!.title!,
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ],
-                            ),
+                          child: Column(
+                            children: [
+                              BookImage(
+                                imageUrl:
+                                    bookModel.volumeInfo!.imageLinks!.thumbnail,
+                                size: BookImageSize.trendingBook,
+                              ),
+                              TransparentDivider.h(10.0),
+                              Text(
+                                bookModel.volumeInfo!.title!,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ],
                           ),
                         ),
                       ),

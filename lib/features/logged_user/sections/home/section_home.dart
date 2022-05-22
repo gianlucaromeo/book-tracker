@@ -12,26 +12,24 @@ class UserSectionHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
-      child: Expanded(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const BookOfTheDaySection(),
-            TransparentDivider.h(AppPadding.defaultPadding),
-            const DiscoverBooksSection(),
-            TransparentDivider.h(AppPadding.defaultPadding),
-            CuriosityTile(
-              title: '130 000 000',
-              description: 'Books published, according to Google',
-            ),
-            TransparentDivider.h(AppPadding.defaultPadding),
-            CuriosityTile(
-              title: 'The Bible',
-              description: 'The most sold book.\n5 billions printed copies.',
-            ),
-          ],
-        ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const BookOfTheDaySection(),
+          TransparentDivider.h(AppPadding.defaultPadding),
+          const DiscoverBooksSection(),
+          TransparentDivider.h(AppPadding.defaultPadding),
+          const CuriosityTile(
+            title: '130 000 000',
+            description: 'Books published, according to Google',
+          ),
+          TransparentDivider.h(AppPadding.defaultPadding),
+          const CuriosityTile(
+            title: 'The Bible',
+            description: 'The most sold book.\n5 billions printed copies.',
+          ),
+        ],
       ),
     );
   }

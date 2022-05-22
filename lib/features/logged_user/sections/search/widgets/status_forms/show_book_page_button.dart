@@ -4,8 +4,9 @@ import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
 
 class ShowBookPageButton extends StatefulWidget {
-  Function() onPressed;
-  ShowBookPageButton({Key? key, required this.onPressed}) : super(key: key);
+  final Function() onPressed;
+  const ShowBookPageButton({Key? key, required this.onPressed})
+      : super(key: key);
 
   @override
   State<ShowBookPageButton> createState() => _ShowBookPageButtonState();

@@ -1,15 +1,12 @@
 import 'package:book_tracker/config/container.dart';
 import 'package:book_tracker/config/padding.dart';
-import 'package:book_tracker/constants/routes.dart';
 import 'package:book_tracker/features/authentication/login_signup_common/sizes.dart';
 import 'package:book_tracker/main.dart';
 import 'package:book_tracker/theme/text_styles.dart';
-import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:lottie/lottie.dart';
 
@@ -168,7 +165,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       );
       //print('Password Reset Email Sent');
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       setState(() {
         _resetError = true;
       });

@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class BookStatusCurrentlyReadingForm extends StatefulWidget {
   final BookStatusCurrentlyReading bookStatus;
 
-  BookStatusCurrentlyReadingForm({Key? key, required this.bookStatus})
+  const BookStatusCurrentlyReadingForm({Key? key, required this.bookStatus})
       : super(key: key);
 
   BookStatusCurrentlyReading getBookStatus() {
@@ -60,9 +60,6 @@ class _BookStatusCurrentlyReadingFormState
           dateStartContainer,
           TransparentDivider.h(AppPadding.defaultPadding),
           ratingsContainer,
-          // ! TODO Check if needed
-          //TransparentDivider.h(AppPadding.defaultPadding * 2),
-          //likeDislikeIconsContainer,
         ],
       ),
     );

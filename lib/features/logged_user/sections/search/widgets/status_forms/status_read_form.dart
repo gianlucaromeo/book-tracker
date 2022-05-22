@@ -1,6 +1,5 @@
 import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/logged_user/models/book_status/book_status_read.dart';
-import 'package:book_tracker/features/logged_user/sections/search/widgets/like_dislike_icons_container.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/rating_container.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/date_picker_container.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
@@ -76,9 +75,6 @@ class _BookStatusReadFormState extends State<BookStatusReadForm> {
           ),
           TransparentDivider.h(AppPadding.defaultPadding),
           ratingsContainer,
-          // ! TODO Check if needed
-          //TransparentDivider.h(AppPadding.defaultPadding * 2),
-          //likeDislikeIconsContainer,
         ],
       ),
     );

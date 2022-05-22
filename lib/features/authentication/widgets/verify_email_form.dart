@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:book_tracker/config/container.dart';
 import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/authentication/login_signup_common/sizes.dart';
 import 'package:book_tracker/theme/text_styles.dart';

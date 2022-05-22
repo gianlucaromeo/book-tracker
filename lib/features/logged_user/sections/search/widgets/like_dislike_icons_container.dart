@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';

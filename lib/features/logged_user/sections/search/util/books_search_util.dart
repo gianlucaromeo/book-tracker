@@ -8,7 +8,7 @@ class BookSearchUtil {
     String orderBy =
         orderByType == OrderByType.relevance ? 'relevance' : 'newest';
     return http.get(Uri.parse(
-        'https://www.googleapis.com/books/v1/volumes?q=$bookToFind&maxResults=8&orerBy=$orderBy')); // TODO
+        'https://www.googleapis.com/books/v1/volumes?q=$bookToFind&maxResults=8&orerBy=$orderBy'));
   }
 
   static Future<http.Response> findNBooks({
@@ -19,6 +19,6 @@ class BookSearchUtil {
     String orderBy =
         orderByType == OrderByType.relevance ? 'relevance' : 'newest';
     return http.get(Uri.parse(
-        'https://www.googleapis.com/books/v1/volumes?q=$bookToFind&maxResults=$n&orerBy=$orderBy')); // TODO
+        'https://www.googleapis.com/books/v1/volumes?q=$bookToFind&maxResults=$n&orerBy=$orderBy'));
   }
 }

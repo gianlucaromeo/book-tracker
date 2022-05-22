@@ -227,7 +227,7 @@ class _SignUpFormState extends State<SignUpForm> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       setState(() {
         _signUpError = true;
       });

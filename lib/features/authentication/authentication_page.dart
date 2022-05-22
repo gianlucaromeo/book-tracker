@@ -75,8 +75,6 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
   }
 
   bool userEmailVerified() {
-    print('CHECK EMAIL: ' +
-        (FirebaseAuth.instance.currentUser!.emailVerified ? 'OK' : "NO"));
     return FirebaseAuth.instance.currentUser!.emailVerified;
   }
 }

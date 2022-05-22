@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:book_tracker/config/borders.dart';
 import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/logged_user/models/book_model.dart';
@@ -72,36 +74,32 @@ class _SetBookStatusContainerState extends State<SetBookStatusContainer>
           AppPadding.defaultPadding,
           AppPadding.defaultPadding,
         ),
-        child: Expanded(
-          child: Container(
-            decoration: BoxDecoration(
-              color: themeController.isDarkTheme
-                  ? DarkThemeData.background
-                  : Colors.white,
-              borderRadius: BorderRadius.circular(
-                AppBorders.defaultBorderRadius,
-              ),
+        child: Container(
+          decoration: BoxDecoration(
+            color: themeController.isDarkTheme
+                ? DarkThemeData.background
+                : Colors.white,
+            borderRadius: BorderRadius.circular(
+              AppBorders.defaultBorderRadius,
             ),
-            child: Expanded(
-              child: Column(
-                children: [
-                  buildTabBars(context),
-                  const Divider(height: 0),
-                  if (widget.isUpdating) TransparentDivider.h(10),
-                  if (widget.isUpdating) buildDeleteStatusButton(),
-                  TransparentDivider.h(AppPadding.defaultPadding),
-                  Expanded(
-                    child: TabBarView(
-                      controller: tabController,
-                      physics: const BouncingScrollPhysics(),
-                      children: forms,
-                    ),
-                  ),
-                  TransparentDivider.h(10.0),
-                  buildAddStatusButton(),
-                ],
+          ),
+          child: Column(
+            children: [
+              buildTabBars(context),
+              const Divider(height: 0),
+              if (widget.isUpdating) TransparentDivider.h(10),
+              if (widget.isUpdating) buildDeleteStatusButton(),
+              TransparentDivider.h(AppPadding.defaultPadding),
+              Expanded(
+                child: TabBarView(
+                  controller: tabController,
+                  physics: const BouncingScrollPhysics(),
+                  children: forms,
+                ),
               ),
-            ),
+              TransparentDivider.h(10.0),
+              buildAddStatusButton(),
+            ],
           ),
         ),
       ),
@@ -175,24 +173,16 @@ class _SetBookStatusContainerState extends State<SetBookStatusContainer>
 
   TabBar buildTabBars(BuildContext context) {
     final texts = BookStatusUtil.getBookStatusTexts(context);
-    const icons = BookStatusUtil.bookStatusIcons;
     return TabBar(
-        controller: tabController,
-        physics: const BouncingScrollPhysics(),
-        isScrollable: true,
-        indicatorColor: LightThemeData.primary,
-        tabs: List.from(
-          BookStatusUtil.bookStatusTypes.map(
-            (status) => Tab(
-              /*
-              icon: Icon(
-                icons[status],
-                size: 32.0,
-              ),*/
-              text: texts[status],
-            ),
-          ),
-        ));
+      controller: tabController,
+      physics: const BouncingScrollPhysics(),
+      isScrollable: true,
+      indicatorColor: LightThemeData.primary,
+      tabs: List.from(
+        BookStatusUtil.bookStatusTypes
+            .map((status) => Tab(text: texts[status])),
+      ),
+    );
   }
 
   Row buildImageTitleAuthors(BuildContext context) {

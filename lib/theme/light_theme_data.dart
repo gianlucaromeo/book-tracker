@@ -96,7 +96,7 @@ class LightThemeData {
           labelColor: Colors.black,
           unselectedLabelColor: Colors.black,
           labelStyle: TextStyle(fontWeight: FontWeight.bold, fontSize: 21),
-          unselectedLabelStyle: const TextStyle(fontSize: 17),
+          unselectedLabelStyle: TextStyle(fontSize: 17),
         ),
       );
 }

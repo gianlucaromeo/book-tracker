@@ -1,12 +1,17 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:book_tracker/config/borders.dart';
 import 'package:book_tracker/config/padding.dart';
-import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
 
 class SearchTextField extends StatefulWidget with ChangeNotifier {
   String _bookToFind = '';
 
   String get bookToFind => _bookToFind;
+  set bookToFind(String newString) {
+    _bookToFind = newString;
+    notifyListeners();
+  }
 
   SearchTextField({Key? key}) : super(key: key);
 
@@ -36,8 +41,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
       controller: _textController,
       onChanged: (newText) {
         setState(() {
-          widget._bookToFind = newText;
-          widget.notifyListeners();
+          widget.bookToFind = newText;
         });
       },
       //style: TextStyles.searchBookFieldHintText,
@@ -60,8 +64,7 @@ class _SearchTextFieldState extends State<SearchTextField> {
             onPressed: () {
               _textController.clear();
               setState(() {
-                widget._bookToFind = '';
-                widget.notifyListeners();
+                widget.bookToFind = '';
               });
             },
             icon: Icon(Icons.clear_rounded, size: iconSize, color: iconColor),

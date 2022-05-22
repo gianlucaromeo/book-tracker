@@ -4,6 +4,7 @@ import 'package:book_tracker/features/logged_user/models/google_book_model.dart'
 import 'package:book_tracker/features/logged_user/sections/search/searched_book_page.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_image.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
+import 'package:book_tracker/util/custom_page_route.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
@@ -104,8 +105,8 @@ class _BookTileState extends State<BookTile> {
             : Colors.black,
       ),
       onPressed: () => Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) => SearchedBookPage(
+        CustomPageRoute(
+          child: SearchedBookPage(
             googleBookModel: widget.bookModel.bookData,
             updateStatus: true,
             bookStatus: widget.bookModel.bookStatus,

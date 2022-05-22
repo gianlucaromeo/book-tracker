@@ -49,7 +49,7 @@ class _BookStatusToReadFormState extends State<BookStatusToReadForm> {
                 horizontal: AppPadding.defaultPadding * 2,
               ),
               child: CheckboxListTile(
-                title: Text(
+                title: const Text(
                   "Send me a notification",
                   maxLines: 2,
                 ),

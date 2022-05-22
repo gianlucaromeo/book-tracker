@@ -41,44 +41,32 @@ class _LoginFormState extends State<LoginForm> {
     return SingleChildScrollView(
       padding:
           const EdgeInsets.symmetric(horizontal: AppPadding.defaultPadding),
-      child: Expanded(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // ! ONLY FOR DEBUG
-            /*
-            ElevatedButton(
-              onPressed: () => Navigator.of(context).pushNamedAndRemoveUntil(
-                  Routes.chooseLanguagePageRouteName, (route) => false),
-              child: const Text('Show Tutorial'),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          TransparentDivider.h(AppPadding.defaultPadding),
+          // EMAIL FIELD
+          buildEmailField(),
+          TransparentDivider.h(AppPadding.defaultPadding),
+          // PASSWORD FIELD
+          buildPasswordField(),
+          TransparentDivider.h(AppPadding.defaultPadding),
+          // CHECK IF LOGIN ERROR
+          if (_loginError)
+            const Text(
+              'Please check your credentials and try again.',
+              style: TextStyle(color: Colors.red, fontSize: 18.0),
             ),
-            */
-            TransparentDivider.h(AppPadding.defaultPadding),
-            // EMAIL FIELD
-            buildEmailField(),
-            TransparentDivider.h(AppPadding.defaultPadding),
-            // PASSWORD FIELD
-            buildPasswordField(),
-            TransparentDivider.h(AppPadding.defaultPadding),
-
-            // CHECK IF LOGIN ERROR
-            if (_loginError)
-              const Text(
-                'Please check your credentials and try again.',
-                style: TextStyle(color: Colors.red, fontSize: 18.0),
-              ),
-            if (_loginError) TransparentDivider.h(AppPadding.defaultPadding),
-
-            // SIGN-IN BUTTON
-            buildDoLoginButton(),
-            const Divider(thickness: 1, height: 30.0),
-            // GOOGLE SIGN-IN BUTTON
-            const GoogleSignInButton(),
-            TransparentDivider.h(AppPadding.defaultPadding),
-            // FORGOT PASSWORD LINK
-            buildForgotPasswordLink(context),
-          ],
-        ),
+          if (_loginError) TransparentDivider.h(AppPadding.defaultPadding),
+          // SIGN-IN BUTTON
+          buildDoLoginButton(),
+          const Divider(thickness: 1, height: 30.0),
+          // GOOGLE SIGN-IN BUTTON
+          const GoogleSignInButton(),
+          TransparentDivider.h(AppPadding.defaultPadding),
+          // FORGOT PASSWORD LINK
+          buildForgotPasswordLink(context),
+        ],
       ),
     );
   }
@@ -195,7 +183,7 @@ class _LoginFormState extends State<LoginForm> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       setState(() {
         _loginError = true;
       });

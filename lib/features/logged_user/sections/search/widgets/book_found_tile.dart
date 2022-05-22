@@ -1,10 +1,9 @@
 import 'package:book_tracker/config/padding.dart';
-import 'package:book_tracker/features/logged_user/models/book_status/book_status_currently_reading.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
 import 'package:book_tracker/features/logged_user/sections/search/searched_book_page.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_image.dart';
-import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
+import 'package:book_tracker/util/custom_page_route.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
@@ -44,8 +43,8 @@ class _BookFoundTileState extends State<BookFoundTile> {
                 // GO TO BOOK ARROW ICON BUTTON
                 IconButton(
                   onPressed: () => Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => SearchedBookPage(
+                    CustomPageRoute(
+                      child: SearchedBookPage(
                         googleBookModel: widget.googleBookModel,
                         updateStatus: false,
                       ),
