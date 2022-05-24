@@ -16,25 +16,27 @@ class OnboardingSection extends StatelessWidget {
       padding: const EdgeInsets.all(AppPadding.defaultPadding),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // TITLE
-          buildTitle(),
-
           TransparentDivider.h10(),
           // LOTTIE ANIMATION
-          Padding(
-            padding: const EdgeInsets.all(AppPadding.defaultPadding),
-            child: Lottie.asset(model.assetName, height: 220.0),
+          Expanded(
+            child: Lottie.asset(
+              model.assetName,
+              //height: 350,
+            ),
           ),
+          TransparentDivider.h10(),
+          // TITLE
+          buildTitle(),
           TransparentDivider.h10(),
           // SECONDARY TITLE AND SUBTITLE
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              buildSecondaryTitle(),
-              TransparentDivider.h10(),
+              //buildSecondaryTitle(),
+              //TransparentDivider.h10(),
               buildSubtitle(),
+              TransparentDivider.h10(),
             ],
           ),
         ],
@@ -52,6 +54,7 @@ class OnboardingSection extends StatelessWidget {
   Text buildTitle() {
     return Text(
       model.title,
+      maxLines: 2,
       style: const TextStyle(
         fontSize: 31.0,
         fontWeight: FontWeight.w600,
@@ -63,6 +66,7 @@ class OnboardingSection extends StatelessWidget {
   Text buildSecondaryTitle() {
     return Text(
       model.secondaryTitle,
+      maxLines: 2,
       style: const TextStyle(
         fontSize: 19.0,
         fontWeight: FontWeight.w600,

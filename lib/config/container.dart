@@ -4,13 +4,17 @@ import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
 
 class AppContainer {
+  /// Default height for Containers
   static const defaultHeight = 80.0;
-  static const Radius defaultRadius =
+
+  /// Default Radius value
+  static const Radius _defaultRadius =
       Radius.circular(AppBorders.defaultBorderRadius);
 
+  /// BorderRadius with only bottomLeft and bottomRight properties set to defaultRadius
   static const _bottomBorderRadius = BorderRadius.only(
-    bottomLeft: defaultRadius,
-    bottomRight: defaultRadius,
+    bottomLeft: _defaultRadius,
+    bottomRight: _defaultRadius,
   );
 
   /// A BoxDecoration with a:

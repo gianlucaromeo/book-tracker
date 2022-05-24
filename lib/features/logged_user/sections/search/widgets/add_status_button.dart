@@ -27,7 +27,7 @@ class _AddStatusButtonState extends State<AddStatusButton> {
       ),
       style: TextButton.styleFrom(
         backgroundColor: themeController.isDarkTheme
-            ? DarkThemeData.onPrimary
+            ? DarkThemeData.secondary
             : LightThemeData.primary,
         shadowColor: Colors.transparent,
         minimumSize: const Size(double.infinity, 50.0),

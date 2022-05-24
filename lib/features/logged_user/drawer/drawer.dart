@@ -1,12 +1,30 @@
+import 'package:book_tracker/theme/dark_theme_data.dart';
+import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
 
-class AppDrawer extends StatelessWidget {
+class AppDrawer extends StatefulWidget {
   const AppDrawer({Key? key}) : super(key: key);
+
+  @override
+  State<AppDrawer> createState() => _AppDrawerState();
+}
+
+class _AppDrawerState extends State<AppDrawer> {
+  @override
+  void initState() {
+    super.initState();
+    themeController.addListener(() {
+      setState(() {});
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Drawer(
+      backgroundColor: themeController.isDarkTheme
+          ? DarkThemeData.primary
+          : LightThemeData.background,
       child: ListView(
         // Important: Remove any padding from the ListView.
         padding: EdgeInsets.zero,

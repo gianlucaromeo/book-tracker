@@ -91,26 +91,13 @@ class BookTile extends StatefulWidget {
 }
 
 class _BookTileState extends State<BookTile> {
-  late final IconButton arrowIcon;
-
-  @override
-  void initState() {
-    super.initState();
-    arrowIcon = IconButton(
-      icon: Icon(
-        Icons.keyboard_arrow_right_rounded,
-        size: 35.0,
-        color: themeController.currentThemeMode == ThemeMode.dark
-            ? Colors.white
-            : Colors.black,
-      ),
-      onPressed: () => Navigator.of(context).push(
-        CustomPageRoute(
-          child: SearchedBookPage(
-            googleBookModel: widget.bookModel.bookData,
-            updateStatus: true,
-            bookStatus: widget.bookModel.bookStatus,
-          ),
+  _goToBookPage() {
+    Navigator.of(context).push(
+      CustomPageRoute(
+        child: SearchedBookPage(
+          googleBookModel: widget.bookModel.bookData,
+          updateStatus: true,
+          bookStatus: widget.bookModel.bookStatus,
         ),
       ),
     );
@@ -118,22 +105,33 @@ class _BookTileState extends State<BookTile> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            // HEADER + ICON
-            Row(
-              children: [
-                Expanded(
-                    child: BookTileHeader(
-                        googleBookModel: widget.bookModel.bookData)),
-                arrowIcon,
-              ],
-            ),
-          ],
+    return GestureDetector(
+      onTap: _goToBookPage,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            children: [
+              Expanded(
+                child: BookTileHeader(
+                  googleBookModel: widget.bookModel.bookData,
+                ),
+              ),
+              // GO TO BOOK ICON
+              IconButton(
+                icon: Icon(
+                  Icons.keyboard_arrow_right_rounded,
+                  size: 35.0,
+                  color:
+                      themeController.isDarkTheme ? Colors.white : Colors.black,
+                ),
+                onPressed: _goToBookPage,
+              ),
+            ],
+          ),
         ),
       ),
     );

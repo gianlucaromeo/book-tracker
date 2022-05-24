@@ -35,7 +35,9 @@ class _UserPageState extends State<UserPage> {
   void initState() {
     super.initState();
     themeController.addListener(() {
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     });
   }
 

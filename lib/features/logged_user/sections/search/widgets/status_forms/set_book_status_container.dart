@@ -89,7 +89,7 @@ class _SetBookStatusContainerState extends State<SetBookStatusContainer>
               const Divider(height: 0),
               if (widget.isUpdating) TransparentDivider.h(10),
               if (widget.isUpdating) buildDeleteStatusButton(),
-              TransparentDivider.h(AppPadding.defaultPadding),
+              TransparentDivider.h(AppPadding.defaultPadding / 2),
               Expanded(
                 child: TabBarView(
                   controller: tabController,
@@ -127,7 +127,7 @@ class _SetBookStatusContainerState extends State<SetBookStatusContainer>
       ),
       style: TextButton.styleFrom(
         backgroundColor: themeController.isDarkTheme
-            ? DarkThemeData.onPrimary
+            ? DarkThemeData.secondary
             : LightThemeData.primary,
         shadowColor: Colors.transparent,
         minimumSize: const Size(double.infinity, 50.0),

@@ -2,7 +2,7 @@ import 'package:book_tracker/config/general.dart';
 import 'package:flutter/material.dart';
 
 class DarkThemeData {
-  static Color surface = const Color.fromRGBO(0, 0, 0, 1.0);
+  static Color secondary = Color.fromRGBO(22, 22, 24, 1.0);
   static Color primary = const Color.fromRGBO(12, 12, 12, 1.0);
   static Color onPrimary = Colors.grey.withOpacity(0.4);
   static Color background = primary;
@@ -20,7 +20,7 @@ class DarkThemeData {
   static Color appBarText = Colors.white;
 
   /* BOTTOM NAVIGATION BAR */
-  static Color bottomNavBarBackground = const Color.fromRGBO(24, 24, 24, 1.0);
+  static Color bottomNavBarBackground = secondary;
   static Color bottomNavBarUnselectedIcon = Colors.grey;
   static Color bottomNavBarSelectedIcon = Colors.white;
 
@@ -44,7 +44,7 @@ class DarkThemeData {
           onSecondary: Colors.orange,
           onBackground: Colors.amber,
           secondary: Colors.blue,
-          surface: surface, // AppBar background
+          surface: secondary, // AppBar background
           primary: primary, // ElevatedButton Background, OutlinedButton text
           /* OPZIONALI */
           shadow: shadow,
@@ -52,7 +52,7 @@ class DarkThemeData {
         /* ==== APP BAR THEME ==== */
         appBarTheme: AppBarTheme(
           backgroundColor: appBarBackground,
-          toolbarHeight: 80.0,
+          toolbarHeight: 50.0,
           elevation: 0.0,
           centerTitle: true,
           titleTextStyle: TextStyle(
@@ -84,11 +84,11 @@ class DarkThemeData {
               .fixed, // Otherwise cannot edit backgroundColor
           backgroundColor: bottomNavBarBackground,
           selectedIconTheme: IconThemeData(
-            size: 40.0,
+            size: 30.0,
             color: bottomNavBarSelectedIcon,
           ),
           unselectedIconTheme: IconThemeData(
-            size: 40.0,
+            size: 30.0,
             color: bottomNavBarUnselectedIcon,
           ),
           showSelectedLabels: false,

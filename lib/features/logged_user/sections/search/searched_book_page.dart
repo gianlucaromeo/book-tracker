@@ -98,7 +98,7 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
               height: 185.0,
               decoration: BoxDecoration(
                 color: themeController.isDarkTheme
-                    ? DarkThemeData.surface
+                    ? DarkThemeData.secondary
                     : LightThemeData.primary,
                 borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(AppBorders.defaultBorderRadius),
@@ -138,11 +138,14 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
 
                         if (bookIsInLibrary)
                           Padding(
-                            padding: const EdgeInsets.only(bottom: 5.0),
+                            padding: const EdgeInsets.only(bottom: 8.0),
                             child: SizedBox.fromSize(
                               size: const Size.fromHeight(20),
-                              child: const Text(
-                                'Already in your Library',
+                              child: const Align(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  'Already in your Library',
+                                ),
                               ),
                             ),
                           ),
@@ -329,7 +332,12 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0),
       child: TextButton.icon(
-        icon: const Icon(Icons.info),
+        icon: Icon(
+          Icons.info,
+          color: themeController.isDarkTheme
+              ? Colors.white
+              : LightThemeData.primary,
+        ),
         label: Text(
           'Info',
           style: TextStyle(

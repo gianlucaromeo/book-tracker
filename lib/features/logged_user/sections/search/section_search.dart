@@ -1,7 +1,7 @@
-import 'package:book_tracker/features/logged_user/sections/search/widgets/most_sold_books_list_view.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/categories/most_sold_books_list_view.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/search_text_field.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/searched_books_list.dart';
-import 'package:book_tracker/features/logged_user/sections/search/widgets/most_popular_books_list_view.dart';
+import 'package:book_tracker/features/logged_user/sections/search/widgets/categories/most_popular_books_list_view.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
@@ -14,6 +14,7 @@ class UserSectionSearch extends StatefulWidget {
 
 class _UserSectionSearchState extends State<UserSectionSearch> {
   SearchTextField searchTextField = SearchTextField();
+  static const _padding = 10.0;
 
   @override
   void initState() {
@@ -34,7 +35,8 @@ class _UserSectionSearchState extends State<UserSectionSearch> {
         searchTextField.bookToFind.isEmpty
             ? Expanded(
                 child: Padding(
-                  padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0),
+                  padding: const EdgeInsets.fromLTRB(
+                      _padding, _padding, _padding, 0),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.vertical,
                     physics: const BouncingScrollPhysics(),

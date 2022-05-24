@@ -19,48 +19,50 @@ class BookFoundTile extends StatefulWidget {
 }
 
 class _BookFoundTileState extends State<BookFoundTile> {
+  _goToBookPage() {
+    Navigator.of(context).push(
+      CustomPageRoute(
+        child: SearchedBookPage(
+          googleBookModel: widget.googleBookModel,
+          updateStatus: false,
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
-      ),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                // BOOK IMAGE
-                BookImage(
-                  size: BookImageSize.bookFindTile,
-                  imageUrl:
-                      widget.googleBookModel.volumeInfo?.imageLinks!.thumbnail,
+    return GestureDetector(
+      onTap: _goToBookPage,
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.background,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: Row(
+            children: [
+              // BOOK IMAGE
+              BookImage(
+                size: BookImageSize.bookFindTile,
+                imageUrl:
+                    widget.googleBookModel.volumeInfo?.imageLinks!.thumbnail,
+              ),
+              // TITLE AND AUTHORS
+              buildTitleAuthorsAndCategories(),
+              // GO TO BOOK ARROW ICON BUTTON
+              IconButton(
+                onPressed: _goToBookPage,
+                icon: Icon(
+                  Icons.keyboard_arrow_right_rounded,
+                  size: 35.0,
+                  color: themeController.currentThemeMode == ThemeMode.dark
+                      ? Colors.white
+                      : Colors.black,
                 ),
-                // TITLE AND AUTHORS
-                buildTitleAuthorsAndCategories(),
-
-                // GO TO BOOK ARROW ICON BUTTON
-                IconButton(
-                  onPressed: () => Navigator.of(context).push(
-                    CustomPageRoute(
-                      child: SearchedBookPage(
-                        googleBookModel: widget.googleBookModel,
-                        updateStatus: false,
-                      ),
-                    ),
-                  ),
-                  icon: Icon(
-                    Icons.keyboard_arrow_right_rounded,
-                    size: 35.0,
-                    color: themeController.currentThemeMode == ThemeMode.dark
-                        ? Colors.white
-                        : Colors.black,
-                  ),
-                ),
-              ],
-            ),
-          ],
+              ),
+            ],
+          ),
         ),
       ),
     );

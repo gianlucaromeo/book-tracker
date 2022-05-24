@@ -38,13 +38,15 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
         Container(
           decoration: BoxDecoration(
             color: themeController.isDarkTheme
-                ? DarkThemeData.surface.withOpacity(0.1)
-                : Colors.white,
+                ? DarkThemeData.background
+                : LightThemeData.background,
             borderRadius: BorderRadius.circular(AppBorders.defaultBorderRadius),
             boxShadow: [
               BoxShadow(
-                color: Theme.of(context).shadowColor.withOpacity(0.1),
-                blurRadius: 2,
+                color: themeController.isDarkTheme
+                    ? Colors.grey.withOpacity(0.2)
+                    : Theme.of(context).shadowColor.withOpacity(0.1),
+                blurRadius: 1,
                 spreadRadius: 0,
               ),
             ],
@@ -93,7 +95,7 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
         ),
         TransparentDivider.h(10.0),
         // CLEAR
-        if (widget.showClearLink)
+        if (widget.showClearLink && widget.selectedDateTime != null)
           RichText(
             text: TextSpan(
               text: 'Clear',

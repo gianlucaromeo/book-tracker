@@ -4,6 +4,7 @@ import 'package:book_tracker/features/logged_user/sections/library/widget/books_
 import 'package:book_tracker/features/logged_user/sections/library/widget/books_read_list.dart';
 import 'package:book_tracker/features/logged_user/sections/library/widget/books_to_read_list.dart';
 import 'package:book_tracker/theme/light_theme_data.dart';
+import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
@@ -27,6 +28,12 @@ class _UserSectionLibraryState extends State<UserSectionLibrary>
   @override
   void initState() {
     super.initState();
+    themeController.addListener(() {
+      if (mounted) {
+        setState(() {});
+      }
+    });
+
     tabController = TabController(
       length: sections.length,
       vsync: this,
@@ -36,8 +43,8 @@ class _UserSectionLibraryState extends State<UserSectionLibrary>
 
   @override
   void dispose() {
-    super.dispose();
     tabController?.dispose();
+    super.dispose();
   }
 
   @override
