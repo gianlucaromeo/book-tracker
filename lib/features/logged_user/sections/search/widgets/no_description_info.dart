@@ -28,7 +28,7 @@ class NoDescriptionInfo extends StatelessWidget {
         TransparentDivider.h(AppPadding.defaultPadding),
         const Text(
           'Unfortunately, no description has been provided for this book, but you can add it to your library.',
-          maxLines: 5,
+          maxLines: 2,
         ),
       ],
     );

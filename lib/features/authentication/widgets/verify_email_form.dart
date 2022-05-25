@@ -2,7 +2,10 @@ import 'dart:async';
 
 import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/authentication/login_signup_common/sizes.dart';
+import 'package:book_tracker/theme/dark_theme_data.dart';
+import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/text_styles.dart';
+import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -107,18 +110,22 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   TextButton buildBackToLoginButton() {
     return TextButton.icon(
       style: ElevatedButton.styleFrom(
+        elevation: 0.0,
         shape: RoundedRectangleBorder(
-          borderRadius:
-              BorderRadius.circular(LoginSignUpFormSizes.buttonBorderRadius),
+          borderRadius: BorderRadius.circular(10.0),
         ),
+        primary: themeController.isDarkTheme
+            ? DarkThemeData.secondary
+            : LightThemeData.primary,
+        onPrimary: Colors.white,
+        shadowColor: Theme.of(context).colorScheme.shadow,
       ),
       icon: const Icon(
         Icons.arrow_back,
-        size: LoginSignUpFormSizes.buttonIconSize,
+        size: 19.0,
       ),
       label: Text(
         l10n.confirmEmailFormBackToLoginButton,
-        style: TextStyles.confirmEmailBackToLoginButton,
       ),
       onPressed: () => FirebaseAuth.instance.signOut(),
     );
@@ -129,10 +136,15 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
       alignment: Alignment.centerRight,
       child: ElevatedButton.icon(
         style: ElevatedButton.styleFrom(
+          elevation: 0.0,
           shape: RoundedRectangleBorder(
-            borderRadius:
-                BorderRadius.circular(LoginSignUpFormSizes.buttonBorderRadius),
+            borderRadius: BorderRadius.circular(10.0),
           ),
+          primary: themeController.isDarkTheme
+              ? DarkThemeData.secondary
+              : LightThemeData.primary,
+          onPrimary: Colors.white,
+          shadowColor: Theme.of(context).colorScheme.shadow,
         ),
         icon: const Icon(
           Icons.email,
@@ -152,7 +164,11 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
   Text buildSubtitle() {
     return Text(
       l10n.confirmEmailFormSubtitle,
-      style: TextStyles.confirmEmailSubtitle,
+      style: TextStyle(
+          fontSize: 20.0,
+          color: themeController.isDarkTheme
+              ? DarkThemeData.onPrimary
+              : Colors.black),
     );
   }
 

@@ -2,7 +2,10 @@ import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/constants/routes.dart';
 import 'package:book_tracker/features/authentication/login_signup_common/sizes.dart';
 import 'package:book_tracker/main.dart';
+import 'package:book_tracker/theme/dark_theme_data.dart';
+import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/text_styles.dart';
+import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
@@ -97,7 +100,9 @@ class _LoginFormState extends State<LoginForm> {
         _l10n.loginFormForgotPasswordText,
         style: TextStyle(
           decoration: TextDecoration.underline,
-          color: Colors.black.withOpacity(0.5),
+          color: themeController.isDarkTheme
+              ? DarkThemeData.onPrimary
+              : Colors.black.withOpacity(0.5),
           fontSize: 20.0,
         ),
       ),
@@ -115,6 +120,11 @@ class _LoginFormState extends State<LoginForm> {
             borderRadius:
                 BorderRadius.circular(LoginSignUpFormSizes.buttonBorderRadius),
           ),
+          primary: themeController.isDarkTheme
+              ? DarkThemeData.secondary
+              : LightThemeData.primary,
+          onPrimary: Colors.white,
+          shadowColor: Theme.of(context).colorScheme.shadow,
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -141,7 +151,9 @@ class _LoginFormState extends State<LoginForm> {
         focusedBorder: LoginSignUpFormSizes.border,
         enabledBorder: LoginSignUpFormSizes.border,
         border: LoginSignUpFormSizes.border,
+        floatingLabelStyle: LoginSignUpFormSizes.floatingLabelStyle,
       ),
+      cursorColor: LoginSignUpFormSizes.cursorColor,
       obscureText: true,
     );
   }
@@ -155,7 +167,9 @@ class _LoginFormState extends State<LoginForm> {
         focusedBorder: LoginSignUpFormSizes.border,
         enabledBorder: LoginSignUpFormSizes.border,
         border: LoginSignUpFormSizes.border,
+        floatingLabelStyle: LoginSignUpFormSizes.floatingLabelStyle,
       ),
+      cursorColor: LoginSignUpFormSizes.cursorColor,
     );
   }
 

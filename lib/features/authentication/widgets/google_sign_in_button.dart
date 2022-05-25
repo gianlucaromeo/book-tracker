@@ -1,5 +1,7 @@
 import 'package:book_tracker/config/borders.dart';
 import 'package:book_tracker/features/authentication/login_signup_common/sizes.dart';
+import 'package:book_tracker/theme/dark_theme_data.dart';
+import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/text_styles.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
@@ -21,17 +23,26 @@ class GoogleSignInButton extends StatelessWidget {
         borderRadius: BorderRadius.circular(
           AppBorders.defaultBorderRadius,
         ),
-        border: Border.all(color: Colors.black, width: 0.2),
+        color: Colors.transparent,
+        border: Border.all(
+          color: themeController.isDarkTheme
+              ? DarkThemeData.secondary
+              : LightThemeData.primary,
+          //width: 0.5,
+        ),
       ),
-      child: ElevatedButton.icon(
-        style: ElevatedButton.styleFrom(
-          primary: Colors.transparent,
+      child: OutlinedButton.icon(
+        style: OutlinedButton.styleFrom(
+          backgroundColor: themeController.isDarkTheme
+              ? DarkThemeData.background
+              : LightThemeData.background,
           shadowColor: Colors.transparent,
-          onPrimary: themeController.isDarkTheme ? Colors.white : Colors.black,
-          minimumSize: const Size.fromHeight(LoginSignUpFormSizes.buttonHeight),
+          minimumSize: const Size(double.infinity, 50.0),
+          maximumSize: const Size(double.infinity, 50.0),
           shape: RoundedRectangleBorder(
-            borderRadius:
-                BorderRadius.circular(LoginSignUpFormSizes.buttonBorderRadius),
+            borderRadius: BorderRadius.circular(
+              AppBorders.defaultBorderRadius,
+            ),
           ),
         ),
         icon: const FaIcon(
@@ -41,7 +52,13 @@ class GoogleSignInButton extends StatelessWidget {
         ),
         label: Text(
           '  ' + AppLocalizations.of(context)!.signInWithGoogleButtonText,
-          style: TextStyles.authFormButton,
+          style: TextStyle(
+            color: themeController.isDarkTheme
+                ? Colors.white
+                : LightThemeData.primary,
+            fontSize: 23.0,
+            //fontWeight: FontWeight.bold,
+          ),
         ),
         onPressed: () {
           final provider =

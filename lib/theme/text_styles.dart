@@ -29,14 +29,6 @@ class TextStyles {
 
   /* ONBOARDING PAGE */
 
-  static get onboardingSectionSubtitle => const TextStyle(
-        fontSize: 19.0,
-      );
-
-  static get onboardingBottomButton => const TextStyle(
-        fontSize: 16.0,
-        fontWeight: FontWeight.w600,
-      );
   /* END ONBOARDING PAGE */
 
   /* AUTHENTICATION PAGE */
@@ -75,22 +67,11 @@ class TextStyles {
         fontSize: 31.0,
       );
 
-  static get forgotPasswordSubtitle => const TextStyle(
-        fontSize: 18.0,
-      );
-
   static get confirmEmailTitle => const TextStyle(
         fontSize: 32.0,
         fontWeight: FontWeight.bold,
       );
 
-  static get confirmEmailSubtitle => const TextStyle(
-        fontSize: 20.0,
-      );
-
-  static get confirmEmailBackToLoginButton => const TextStyle(
-        fontSize: 24.0,
-      );
   /* END AUTHENTICATION PAGE */
 
   /* SEARCH PAGE */

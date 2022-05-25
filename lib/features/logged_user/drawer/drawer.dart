@@ -15,7 +15,9 @@ class _AppDrawerState extends State<AppDrawer> {
   void initState() {
     super.initState();
     themeController.addListener(() {
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     });
   }
 

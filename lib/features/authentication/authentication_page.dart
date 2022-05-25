@@ -2,6 +2,7 @@ import 'package:book_tracker/config/container.dart';
 import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/authentication/widgets/authentication_forms_container.dart';
 import 'package:book_tracker/features/authentication/widgets/verify_email_form.dart';
+import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,14 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    themeController.addListener(() {
+      setState(() {});
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: StreamBuilder<User?>(
@@ -36,7 +45,7 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
             );
           } else if (snap.hasError) {
             return const Center(
-              child: Text('Error'), // TODO add scaffold
+              child: Text('Error'), // TODO add Scaffold
             );
           } else if (snap.hasData) {
             // * VERIFY EMAIL PAGE

@@ -31,19 +31,22 @@ class LightThemeData {
   static const Color searchedBookPageBookTitle = Colors.white;
   static Color searchedBookPageBookAuthors = Colors.white.withOpacity(0.5);
 
+  /* DEFAULT COLOR -- Should not be necessary */
+  static const Color _defaultColor = primary;
+
   static get themeData => ThemeData(
         fontFamily: GeneralSettings.textStyle.fontFamily,
         colorScheme: ColorScheme(
           /* OBBLIGATORI */
           background: background, // SingleChildScrollView Background
           brightness: Brightness.light,
-          error: Colors.red,
-          onSurface: Colors.white, // AppBar title|leading|actions,
+          error: _defaultColor,
+          onSurface: _defaultColor, // AppBar title|leading|actions,
           onPrimary: onPrimary, // ElevatedButton Text,
-          onError: Colors.purple,
-          onSecondary: Colors.orange,
-          onBackground: Colors.amber,
-          secondary: Colors.blue,
+          onError: _defaultColor,
+          onSecondary: _defaultColor,
+          onBackground: _defaultColor,
+          secondary: _defaultColor,
           surface: surface, // AppBar background
           primary: primary, // ElevatedButton Background, OutlinedButton text
           /* OPZIONALI */

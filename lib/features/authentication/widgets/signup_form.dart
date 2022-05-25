@@ -1,7 +1,10 @@
 import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/authentication/login_signup_common/sizes.dart';
 import 'package:book_tracker/features/authentication/widgets/google_sign_in_button.dart';
+import 'package:book_tracker/theme/dark_theme_data.dart';
+import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/text_styles.dart';
+import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -24,7 +27,8 @@ class _SignUpFormState extends State<SignUpForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPasswordController = TextEditingController();
-  bool _signUpError = false;
+
+  // bool _passwordIsEmpty = true;
 
   @override
   void dispose() {
@@ -56,17 +60,19 @@ class _SignUpFormState extends State<SignUpForm> {
               _l10n.signUpFormPasswordLabelText,
               _passwordValidator,
             ),
-            TransparentDivider.h(AppPadding.defaultPadding / 2),
-            if (!_signUpError)
+            TransparentDivider.h(AppPadding.defaultPadding),
+            /*if (_passwordIsEmpty)
               Text(
                 ' Password must contain at least 6 characters.',
                 style: TextStyle(
-                  color: Colors.black.withOpacity(0.6),
+                  color: themeController.isDarkTheme
+                      ? DarkThemeData.onPrimary
+                      : Colors.black.withOpacity(0.6),
                   fontSize: 15,
                 ),
               ),
-            if (!_signUpError)
-              TransparentDivider.h(AppPadding.defaultPadding / 2),
+            if (_passwordIsEmpty)
+              TransparentDivider.h(AppPadding.defaultPadding),*/
             // CONFIRM PASSWORD FIELD
             buildPasswordField(
               _confirmPasswordController,
@@ -131,6 +137,11 @@ class _SignUpFormState extends State<SignUpForm> {
             borderRadius:
                 BorderRadius.circular(LoginSignUpFormSizes.buttonBorderRadius),
           ),
+          primary: themeController.isDarkTheme
+              ? DarkThemeData.secondary
+              : LightThemeData.primary,
+          onPrimary: Colors.white,
+          shadowColor: Theme.of(context).colorScheme.shadow,
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(
@@ -157,7 +168,9 @@ class _SignUpFormState extends State<SignUpForm> {
         focusedBorder: LoginSignUpFormSizes.border,
         enabledBorder: LoginSignUpFormSizes.border,
         border: LoginSignUpFormSizes.border,
+        floatingLabelStyle: LoginSignUpFormSizes.floatingLabelStyle,
       ),
+      cursorColor: LoginSignUpFormSizes.cursorColor,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (email) => email != null && !EmailValidator.validate(email)
           ? _l10n.signUpFormEmailErrorText
@@ -188,7 +201,9 @@ class _SignUpFormState extends State<SignUpForm> {
           focusedBorder: LoginSignUpFormSizes.border,
           enabledBorder: LoginSignUpFormSizes.border,
           border: LoginSignUpFormSizes.border,
+          floatingLabelStyle: LoginSignUpFormSizes.floatingLabelStyle,
         ),
+        cursorColor: LoginSignUpFormSizes.cursorColor,
         obscureText: true,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         validator: validator,
@@ -206,12 +221,6 @@ class _SignUpFormState extends State<SignUpForm> {
 
   Future _doSignUp() async {
     final isValid = formKey.currentState!.validate();
-    if (!isValid) {
-      setState(() {
-        _signUpError = true;
-        return;
-      });
-    }
 
     showDialog(
       context: context,
@@ -227,11 +236,8 @@ class _SignUpFormState extends State<SignUpForm> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-    } on FirebaseAuthException {
-      setState(() {
-        _signUpError = true;
-      });
-    }
+      // ignore: empty_catches
+    } on FirebaseAuthException {}
 
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }

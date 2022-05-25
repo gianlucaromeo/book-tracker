@@ -4,6 +4,7 @@ import 'package:book_tracker/features/authentication/authentication_page.dart';
 import 'package:book_tracker/features/choose_language/choose_language_page.dart';
 import 'package:book_tracker/features/onboarding/data/sections_data.dart';
 import 'package:book_tracker/main.dart';
+import 'package:book_tracker/theme/dark_theme_data.dart';
 import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/text_styles.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
@@ -68,6 +69,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
     return Container(
       height: _bottomContainerHeight,
       padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      decoration: AppContainer.defaultDecoration,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -87,7 +89,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
       ),
       child: Text(
         AppLocalizations.of(context)!.nextOnboarding,
-        style: TextStyles.onboardingBottomButton,
+        style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w600,
+            color: themeController.isDarkTheme ? Colors.white : Colors.black),
       ),
     );
   }
@@ -112,7 +117,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
           _pageController.jumpToPage(onboardingSections.length - 1),
       child: Text(
         AppLocalizations.of(context)!.skipOnboarding,
-        style: TextStyles.onboardingBottomButton,
+        style: TextStyle(
+            fontSize: 16.0,
+            fontWeight: FontWeight.w600,
+            color: themeController.isDarkTheme ? Colors.white : Colors.black),
       ),
     );
   }
@@ -138,17 +146,17 @@ class _OnboardingPageState extends State<OnboardingPage> {
   Container buildLastPageButton(BuildContext context) {
     return Container(
       color: themeController.isDarkTheme
-          ? Colors.grey.withOpacity(0.2)
+          ? DarkThemeData.secondary
           : LightThemeData.primary,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: TextButton(
           child: Text(
             AppLocalizations.of(context)!.letsStartOnboarding,
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 24.0,
               letterSpacing: 1,
-              color: themeController.isDarkTheme ? Colors.black : Colors.white,
+              color: Colors.white,
             ),
           ),
           onPressed: () {

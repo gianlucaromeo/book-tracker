@@ -1,4 +1,7 @@
 import 'package:book_tracker/config/borders.dart';
+import 'package:book_tracker/theme/dark_theme_data.dart';
+import 'package:book_tracker/theme/light_theme_data.dart';
+import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
 
 class LoginSignUpFormSizes {
@@ -10,7 +13,13 @@ class LoginSignUpFormSizes {
       Radius.circular(AppBorders.defaultBorderRadius),
     ),
     borderSide: BorderSide(
-      color: Colors.black.withOpacity(0.1),
+      color: themeController.isDarkTheme
+          ? DarkThemeData.shadow
+          : Colors.black.withOpacity(0.1),
     ),
   );
+  static final floatingLabelStyle = TextStyle(
+    color: themeController.isDarkTheme ? DarkThemeData.onPrimary : Colors.black,
+  );
+  static const cursorColor = LightThemeData.primary;
 }

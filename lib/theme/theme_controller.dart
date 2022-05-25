@@ -9,7 +9,7 @@ class ThemeController with ChangeNotifier {
   static final ThemeController _instance = ThemeController._();
   static ThemeController get instance => _instance;
 
-  bool _isDarkTheme = true;
+  bool _isDarkTheme = false;
 
   bool get isDarkTheme => _isDarkTheme;
 

@@ -2,7 +2,10 @@ import 'package:book_tracker/config/container.dart';
 import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/authentication/login_signup_common/sizes.dart';
 import 'package:book_tracker/main.dart';
+import 'package:book_tracker/theme/dark_theme_data.dart';
+import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/text_styles.dart';
+import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -21,7 +24,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   final formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   late AppLocalizations l10n;
-  bool _resetError = false;
 
   @override
   void dispose() {
@@ -37,14 +39,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       child: Scaffold(
         appBar: AppBar(
           toolbarHeight: AppContainer.defaultHeight,
-          /*title: Text(
-            AppLocalizations.of(context)!.forgotPasswordFormTitle,
-            style: TextStyle(
-              color: themeController.isDarkTheme ? Colors.white : Colors.black,
-              fontSize: 22,
-              letterSpacing: 1,
-            ),
-          ),*/
         ),
         resizeToAvoidBottomInset: false,
         body: Padding(
@@ -63,13 +57,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
                 _divider,
                 buildEmailField(),
                 _divider,
-                // ERROR MESSAGE ?
-                if (_resetError)
-                  const Text(
-                    'Please check your email and try again.',
-                    style: TextStyle(color: Colors.red),
-                  ),
-                if (_resetError) _divider,
                 // RESET PASSWORD BUTTON
                 buildResetPasswordButton(),
                 // LOTTIE ANIMATION
@@ -101,7 +88,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       alignment: Alignment.centerLeft,
       child: Text(
         l10n.forgotPasswordFormSubtitle,
-        style: TextStyles.forgotPasswordSubtitle,
+        style: TextStyle(
+            fontSize: 18.0,
+            color: themeController.isDarkTheme
+                ? DarkThemeData.onPrimary
+                : Colors.black),
       ),
     );
   }
@@ -115,7 +106,9 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         focusedBorder: LoginSignUpFormSizes.border,
         enabledBorder: LoginSignUpFormSizes.border,
         border: LoginSignUpFormSizes.border,
+        floatingLabelStyle: LoginSignUpFormSizes.floatingLabelStyle,
       ),
+      cursorColor: LoginSignUpFormSizes.cursorColor,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: (email) => email != null && !EmailValidator.validate(email)
           ? l10n.forgotPasswordFormEmailErrorText
@@ -132,6 +125,11 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
             borderRadius:
                 BorderRadius.circular(LoginSignUpFormSizes.buttonBorderRadius),
           ),
+          primary: themeController.isDarkTheme
+              ? DarkThemeData.secondary
+              : LightThemeData.primary,
+          onPrimary: Colors.white,
+          shadowColor: Theme.of(context).colorScheme.shadow,
         ),
         icon: const Icon(
           Icons.email_outlined,
@@ -166,9 +164,6 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
       //print('Password Reset Email Sent');
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
     } on FirebaseAuthException {
-      setState(() {
-        _resetError = true;
-      });
       Navigator.of(context).pop();
     }
   }

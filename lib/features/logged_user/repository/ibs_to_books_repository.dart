@@ -10,6 +10,7 @@ import 'ibs_urls.dart' as urls;
 
 class IBSToBooksRepository {
   static const _isbnLength = 13;
+
   static Stream<QuerySnapshot> _getStream({
     required String url,
     required int maxBooks,
@@ -29,19 +30,22 @@ class IBSToBooksRepository {
         final isbn = link.substring(link.length - _isbnLength, link.length);
 
         BookSearchUtil.findNBooks(bookToFind: isbn, n: 1).then((googleBooks) {
-          final googleBookJson = jsonDecode(googleBooks.body)['items'][0];
-          final googleBookModel = GoogleBookModel.fromJson(googleBookJson);
-          FirebaseFirestore.instance
-              .collection(collectionPath)
-              .get()
-              .then((snap) {
-            if (snap.size < maxBooks) {
-              FirebaseFirestore.instance
-                  .collection(collectionPath)
-                  .doc(googleBookModel.id)
-                  .set(googleBookModel.toJson());
-            }
-          });
+          try {
+            final googleBookJson = jsonDecode(googleBooks.body)['items'][0];
+            final googleBookModel = GoogleBookModel.fromJson(googleBookJson);
+            FirebaseFirestore.instance
+                .collection(collectionPath)
+                .get()
+                .then((snap) {
+              if (snap.size < maxBooks) {
+                FirebaseFirestore.instance
+                    .collection(collectionPath)
+                    .doc(googleBookModel.id)
+                    .set(googleBookModel.toJson());
+              }
+            });
+            // ignore: empty_catches
+          } on NoSuchMethodError {}
         });
       }
     });

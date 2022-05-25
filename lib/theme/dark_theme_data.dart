@@ -2,9 +2,9 @@ import 'package:book_tracker/config/general.dart';
 import 'package:flutter/material.dart';
 
 class DarkThemeData {
-  static Color secondary = Color.fromRGBO(22, 22, 24, 1.0);
+  static const Color secondary = Color.fromRGBO(22, 22, 24, 1.0);
   static Color primary = const Color.fromRGBO(12, 12, 12, 1.0);
-  static Color onPrimary = Colors.grey.withOpacity(0.4);
+  static Color onPrimary = Colors.white.withOpacity(0.5);
   static Color background = primary;
   static Color shadow = Colors.grey.withOpacity(0.2);
 
@@ -31,19 +31,22 @@ class DarkThemeData {
   static Color searchedBookPageBookTitle = Colors.white;
   static Color searchedBookPageBookAuthors = Colors.white.withOpacity(0.5);
 
+  /* DEFAULT COLOR -- Should not be necessary */
+  static final Color _defaultColor = primary;
+
   static get themeData => ThemeData(
         fontFamily: GeneralSettings.textStyle.fontFamily,
         colorScheme: ColorScheme(
           /* OBBLIGATORI */
           background: background, // SingleChildScrollView Background
           brightness: Brightness.dark,
-          error: Colors.red,
-          onSurface: Colors.white, // AppBar title|leading|actions,
+          error: _defaultColor,
+          onSurface: _defaultColor, // AppBar title|leading|actions,
           onPrimary: onPrimary, // ElevatedButton Text,
-          onError: Colors.purple,
-          onSecondary: Colors.orange,
-          onBackground: Colors.amber,
-          secondary: Colors.blue,
+          onError: _defaultColor,
+          onSecondary: _defaultColor,
+          onBackground: _defaultColor,
+          secondary: _defaultColor,
           surface: secondary, // AppBar background
           primary: primary, // ElevatedButton Background, OutlinedButton text
           /* OPZIONALI */
