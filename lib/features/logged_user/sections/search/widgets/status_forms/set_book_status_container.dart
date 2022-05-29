@@ -1,17 +1,18 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:book_tracker/config/borders.dart';
-import 'package:book_tracker/config/container.dart';
 import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/logged_user/models/book_model.dart';
 import 'package:book_tracker/features/logged_user/models/book_status/book_status.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
 import 'package:book_tracker/features/logged_user/repository/books_repository.dart';
+import 'package:book_tracker/features/logged_user/sections/search/searched_book_page.dart';
 import 'package:book_tracker/features/logged_user/sections/search/util/book_status_util.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_image.dart';
 import 'package:book_tracker/theme/dark_theme_data.dart';
 import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
+import 'package:book_tracker/util/custom_page_route.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -118,6 +119,7 @@ class _SetBookStatusContainerState extends State<SetBookStatusContainer>
         widget.isUpdating
             ? BooksRepository.updateBook(bookModel, widget.oldBookStatus!)
             : BooksRepository.addBook(bookModel);
+        _showBookEditedPopup();
       },
       child: Text(
         widget.isUpdating ? 'Done' : 'Add',
@@ -151,8 +153,52 @@ class _SetBookStatusContainerState extends State<SetBookStatusContainer>
           final index = tabController!.index;
           final bookStatus = BookStatusUtil.getBookStatusFromForm(forms[index]);
           BookModel bookModel = BookModel(
-              bookData: widget.googleBookModel, bookStatus: bookStatus);
-          BooksRepository.deleteBookFromBookModel(bookModel);
+            bookData: widget.googleBookModel,
+            bookStatus: bookStatus,
+          );
+          showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                    title: Text(
+                        'Do you want to delete \'${widget.googleBookModel.volumeInfo!.title}\'?'),
+                    content: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Lottie.asset(
+                          'assets/logged_user/delete.json',
+                          height: 170,
+                          width: 220,
+                        ),
+                        const Text(
+                            'If you press "DELETE", all the data regarding this book will deleted from your library.'),
+                      ],
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.of(context).pop(),
+                        child: Text(
+                          'NO, GO BACK',
+                          style: TextStyle(
+                            color: themeController.isDarkTheme
+                                ? Colors.white
+                                : LightThemeData.primary,
+                          ),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          BooksRepository.deleteBookFromBookModel(bookModel);
+                          _popPage();
+                        },
+                        child: Text('DELETE',
+                            style: TextStyle(
+                              color: themeController.isDarkTheme
+                                  ? Colors.white
+                                  : LightThemeData.primary,
+                            )),
+                      ),
+                    ],
+                  ));
         },
         label: Text(
           '',
@@ -229,6 +275,45 @@ class _SetBookStatusContainerState extends State<SetBookStatusContainer>
         color: Colors.white,
         size: 50.0,
       ),
+    );
+  }
+
+  _showBookEditedPopup() async {
+    await showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(widget.isUpdating
+            ? 'Book status updated!'
+            : 'Book added to your library!'),
+        content: Lottie.asset(
+          'assets/logged_user/success.json',
+          height: 170,
+          width: 220,
+          repeat: false,
+        ),
+        actions: [
+          TextButton(
+            onPressed: _popPage,
+            child: Text('OK',
+                style: TextStyle(
+                  color: themeController.isDarkTheme
+                      ? Colors.white
+                      : LightThemeData.primary,
+                )),
+          ),
+        ],
+      ),
+    );
+  }
+
+  _popPage() {
+    Navigator.of(context).pushAndRemoveUntil(
+      CustomPageRoute(
+          child: SearchedBookPage(
+        googleBookModel: widget.googleBookModel,
+        updateStatus: false,
+      )),
+      (route) => route.isFirst,
     );
   }
 }

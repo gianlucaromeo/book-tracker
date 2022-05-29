@@ -83,7 +83,6 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
         }
       }
     }
-
     return bookIsInLibrary;
   }
 

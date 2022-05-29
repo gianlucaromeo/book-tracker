@@ -149,6 +149,7 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
   }
 
   Future _doResetPassword() async {
+    bool isValid = formKey.currentState!.validate();
     showDialog(
       context: context,
       barrierDismissible: false,
@@ -162,8 +163,13 @@ class _ForgotPasswordPageState extends State<ForgotPasswordPage> {
         email: emailController.text.trim(),
       );
       navigatorKey.currentState!.popUntil((route) => route.isFirst);
+
       // ignore: empty_catches
     } on FirebaseAuthException {}
-    navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    if (isValid) {
+      navigatorKey.currentState!.popUntil((route) => route.isFirst);
+    } else {
+      Navigator.of(context).pop();
+    }
   }
 }
