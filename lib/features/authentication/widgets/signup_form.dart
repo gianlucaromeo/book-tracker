@@ -61,18 +61,6 @@ class _SignUpFormState extends State<SignUpForm> {
               _passwordValidator,
             ),
             TransparentDivider.h(AppPadding.defaultPadding),
-            /*if (_passwordIsEmpty)
-              Text(
-                ' Password must contain at least 6 characters.',
-                style: TextStyle(
-                  color: themeController.isDarkTheme
-                      ? DarkThemeData.onPrimary
-                      : Colors.black.withOpacity(0.6),
-                  fontSize: 15,
-                ),
-              ),
-            if (_passwordIsEmpty)
-              TransparentDivider.h(AppPadding.defaultPadding),*/
             // CONFIRM PASSWORD FIELD
             buildPasswordField(
               _confirmPasswordController,
@@ -236,8 +224,9 @@ class _SignUpFormState extends State<SignUpForm> {
         email: _emailController.text.trim(),
         password: _passwordController.text.trim(),
       );
-      // ignore: empty_catches
-    } on FirebaseAuthException {}
+    } on FirebaseAuthException {
+      setState(() {});
+    }
 
     navigatorKey.currentState!.popUntil((route) => route.isFirst);
   }

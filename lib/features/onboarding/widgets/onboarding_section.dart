@@ -1,7 +1,6 @@
 import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/onboarding/models/onboarding_section_model.dart';
 import 'package:book_tracker/theme/dark_theme_data.dart';
-import 'package:book_tracker/theme/text_styles.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +53,7 @@ class OnboardingSection extends StatelessWidget {
           fontWeight: FontWeight.w600,
           color: themeController.isDarkTheme
               ? DarkThemeData.onPrimary
-              : Colors.black),
+              : Colors.black.withOpacity(0.5)),
     );
   }
 

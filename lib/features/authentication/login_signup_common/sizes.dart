@@ -8,18 +8,20 @@ class LoginSignUpFormSizes {
   static const buttonHeight = 50.0;
   static const buttonBorderRadius = 10.0;
   static const buttonIconSize = 25.0;
-  static final border = OutlineInputBorder(
-    borderRadius: const BorderRadius.all(
-      Radius.circular(AppBorders.defaultBorderRadius),
-    ),
-    borderSide: BorderSide(
-      color: themeController.isDarkTheme
-          ? DarkThemeData.shadow
-          : Colors.black.withOpacity(0.1),
-    ),
-  );
-  static final floatingLabelStyle = TextStyle(
-    color: themeController.isDarkTheme ? DarkThemeData.onPrimary : Colors.black,
-  );
-  static const cursorColor = LightThemeData.primary;
+  static get border => OutlineInputBorder(
+        borderRadius: const BorderRadius.all(
+          Radius.circular(AppBorders.defaultBorderRadius),
+        ),
+        borderSide: BorderSide(
+          color: themeController.isDarkTheme
+              ? DarkThemeData.shadow
+              : Colors.black.withOpacity(0.1),
+        ),
+      );
+  static get floatingLabelStyle => TextStyle(
+        color: themeController.isDarkTheme
+            ? DarkThemeData.onPrimary
+            : Colors.black,
+      );
+  static get cursorColor => LightThemeData.primary;
 }

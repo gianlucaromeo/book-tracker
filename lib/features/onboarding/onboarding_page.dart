@@ -6,7 +6,6 @@ import 'package:book_tracker/features/onboarding/data/sections_data.dart';
 import 'package:book_tracker/main.dart';
 import 'package:book_tracker/theme/dark_theme_data.dart';
 import 'package:book_tracker/theme/light_theme_data.dart';
-import 'package:book_tracker/theme/text_styles.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/custom_page_route.dart';
 import 'package:flutter/material.dart';
@@ -89,10 +88,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
       ),
       child: Text(
         AppLocalizations.of(context)!.nextOnboarding,
-        style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.w600,
-            color: themeController.isDarkTheme ? Colors.white : Colors.black),
+        style: const TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -107,6 +107,9 @@ class _OnboardingPageState extends State<OnboardingPage> {
         duration: const Duration(milliseconds: 500),
         curve: Curves.easeIn,
       ),
+      effect: const JumpingDotEffect(
+        activeDotColor: Colors.white,
+      ),
     );
   }
 
@@ -117,10 +120,11 @@ class _OnboardingPageState extends State<OnboardingPage> {
           _pageController.jumpToPage(onboardingSections.length - 1),
       child: Text(
         AppLocalizations.of(context)!.skipOnboarding,
-        style: TextStyle(
-            fontSize: 16.0,
-            fontWeight: FontWeight.w600,
-            color: themeController.isDarkTheme ? Colors.white : Colors.black),
+        style: const TextStyle(
+          fontSize: 16.0,
+          fontWeight: FontWeight.w600,
+          color: Colors.white,
+        ),
       ),
     );
   }
@@ -149,7 +153,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
           ? DarkThemeData.secondary
           : LightThemeData.primary,
       child: Padding(
-        padding: const EdgeInsets.all(10.0),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0),
         child: TextButton(
           child: Text(
             AppLocalizations.of(context)!.letsStartOnboarding,
@@ -169,7 +173,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20.0),
             ),
-            minimumSize: const Size.fromHeight(AppContainer.defaultHeight / 2),
+            minimumSize: const Size.fromHeight(AppContainer.defaultHeight),
           ),
         ),
       ),

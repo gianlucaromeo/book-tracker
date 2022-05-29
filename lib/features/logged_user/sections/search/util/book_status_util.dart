@@ -39,15 +39,6 @@ class BookStatusUtil {
     ),
   };
 
-  static const _opacity = 0.77;
-
-  /// Bind BookStatusType to its Color
-  static final bookStatusColors = {
-    BookStatusType.read: Colors.green.withOpacity(_opacity),
-    BookStatusType.currentlyReading: Colors.orange.withOpacity(_opacity),
-    BookStatusType.toRead: Colors.pink.withOpacity(_opacity),
-  };
-
   /// Bind BookStatusType to its BookStatus
   static final bookStatusFromType = {
     BookStatusType.read: BookStatusRead(),

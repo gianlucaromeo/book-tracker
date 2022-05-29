@@ -127,6 +127,7 @@ flutter:
     - assets/authentication/forgot_password.json
     - assets/authentication/verify_email.json
     - assets/logged_user/no_description_error.json
+    - assets/logged_user/success.json
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

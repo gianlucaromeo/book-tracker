@@ -21,14 +21,14 @@ class AppContainer {
   /// A BoxDecoration with a:
   /// - LightThemeData.primary color, if Ligth Theme;
   /// - Colors.transparent color, if Dark Theme.
-  static final defaultDecoration = BoxDecoration(
-    color: themeController.isDarkTheme
-        ? DarkThemeData.secondary
-        : LightThemeData.primary,
-  );
+  static get defaultDecoration => BoxDecoration(
+        color: themeController.isDarkTheme
+            ? DarkThemeData.secondary
+            : LightThemeData.primary,
+      );
 
   /// An extended version of the [AppContainer.defaultDecoration],
   /// with bottomLeft and bottomRight Border Radius.
-  static final defaultDecorationWithBottomRadius =
+  static get defaultDecorationWithBottomRadius =>
       defaultDecoration.copyWith(borderRadius: _bottomBorderRadius);
 }

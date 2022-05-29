@@ -5,7 +5,6 @@ class BottomNavBarData {
     Icons.home_outlined, // HOME
     Icons.book_outlined, // LIBRARY
     Icons.search_outlined, // SEARCH
-    Icons.bar_chart_outlined, // TRACKER
   ];
 
   static List<BottomNavigationBarItem> get items => List.generate(

@@ -1,7 +1,6 @@
 import 'package:book_tracker/config/borders.dart';
 import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/theme/light_theme_data.dart';
-import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 
