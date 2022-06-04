@@ -18,6 +18,17 @@ class UserSectionHome extends StatelessWidget {
         children: [
           const BookOfTheDaySection(),
           TransparentDivider.h(AppPadding.defaultPadding),
+          const CuriosityTile(
+            title: 'The Bible',
+            description: 'The most sold book (5 billions printed copies).',
+          ),
+          TransparentDivider.h(AppPadding.defaultPadding),
+          const CuriosityTile(
+            title: 'Remembrance of Things Past',
+            description:
+                'The longest book in the world.\n9\'609\'000 characters, including spaces.',
+          ),
+          TransparentDivider.h(AppPadding.defaultPadding),
           const DiscoverBooksSection(),
           TransparentDivider.h(AppPadding.defaultPadding),
           const CuriosityTile(
@@ -26,9 +37,17 @@ class UserSectionHome extends StatelessWidget {
           ),
           TransparentDivider.h(AppPadding.defaultPadding),
           const CuriosityTile(
-            title: 'The Bible',
-            description: 'The most sold book.\n5 billions printed copies.',
+            title: 'The Codex Leicester',
+            description:
+                'The most expensive book in the world.\nSold for 30.8 million dollars in 1994.',
           ),
+          TransparentDivider.h(AppPadding.defaultPadding),
+          const CuriosityTile(
+            title: 'Did you know that...',
+            description:
+                '...if you read 20 minutes a day, you would have read 1.8 million words in a year!',
+          ),
+          TransparentDivider.h(AppPadding.defaultPadding),
         ],
       ),
     );

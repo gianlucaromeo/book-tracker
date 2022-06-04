@@ -18,7 +18,8 @@ class BookTileHeader extends StatelessWidget {
     return Row(
       children: [
         BookImage(
-          imageUrl: googleBookModel.volumeInfo?.imageLinks?.thumbnail ?? '',
+          imageUrl: googleBookModel.volumeInfo?.imageLinks?.thumbnail ??
+              BookImage.noImageUrl,
           size: BookImageSize.bookFindTile,
         ),
         TransparentDivider.w(AppPadding.defaultPadding),

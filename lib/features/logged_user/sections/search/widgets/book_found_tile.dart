@@ -46,7 +46,8 @@ class _BookFoundTileState extends State<BookFoundTile> {
               BookImage(
                 size: BookImageSize.bookFindTile,
                 imageUrl:
-                    widget.googleBookModel.volumeInfo?.imageLinks!.thumbnail,
+                    widget.googleBookModel.volumeInfo?.imageLinks?.thumbnail ??
+                        BookImage.noImageUrl,
               ),
               // TITLE AND AUTHORS
               buildTitleAuthorsAndCategories(),

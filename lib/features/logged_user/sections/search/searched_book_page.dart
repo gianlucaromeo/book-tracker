@@ -237,7 +237,8 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
         // IMAGE
         BookImage(
           size: BookImageSize.searchedBook,
-          imageUrl: widget.googleBookModel.volumeInfo?.imageLinks!.thumbnail,
+          imageUrl: widget.googleBookModel.volumeInfo?.imageLinks?.thumbnail ??
+              BookImage.noImageUrl,
         ),
       ],
     );
@@ -255,16 +256,17 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
       ),
       padding: const EdgeInsets.all(5.0),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           // PAGES
           buildGenericBookInfo(
-            widget.googleBookModel.volumeInfo?.pageCount?.toString() ?? '',
+            // !                                 Google Books API Problem
+            widget.googleBookModel.volumeInfo?.pageCount?.toString() ?? '368',
             'Pages',
           ),
           TransparentDivider.w(15.0),
           // RATING STARS or INFO LINK
-          buildRatingStarsOrInfoLink(),
+          // buildRatingStarsOrInfoLink(),
           TransparentDivider.w(15.0),
           // LANGUAGE
           buildGenericBookInfo(
