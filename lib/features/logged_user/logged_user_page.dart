@@ -8,6 +8,7 @@ import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../provider/google_sign_in_provider.dart';
 
@@ -20,8 +21,8 @@ class UserPage extends StatefulWidget {
 
 class _UserPageState extends State<UserPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
-  final List<Widget> userSections = const [
+  late AppLocalizations l10n;
+  final List<Widget> userSections = [
     UserSectionHome(),
     UserSectionLibrary(),
     UserSectionSearch(),
@@ -68,7 +69,9 @@ class _UserPageState extends State<UserPage> {
       );
 
   buildAppBar(User user) => AppBar(
-        title: _currentSectionIndex == 1 ? const Text('Library') : null,
+        title: _currentSectionIndex == 1
+            ? Text(AppLocalizations.of(context)!.librarySectionTitle)
+            : null,
         leading: Padding(
           padding: const EdgeInsets.only(left: AppPadding.defaultPadding - 10),
           child: IconButton(

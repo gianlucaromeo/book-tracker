@@ -4,23 +4,26 @@
   "english": "Inglese",
   "italian": "Italiano",
   "chooseLanguage": "Seleziona una lingua",
-  "chooseLanguageWelcome": "Benvenuto",
+  "chooseLanguageWelcome": "Benvenuto/a",
   "chooseLanguageTitle": "Book Tracker",
   "chooseLanguageNext": "Continua",
+
   "onboardingTitle1": "Tieni traccia delle tue letture.",
-  "onboardingSecondaryTitle1": "Cerca qualsiasi libro",
-  "onboardingSubtitle1": "Già letto?\nLo stai leggendo proprio ora?..",
+  "onboardingSecondaryTitle1": "Cerca qualsiasi libro!",
+
   "onboardingTitle2": "Controlla le tue statistiche",
   "onboardingSecondaryTitle2": "Il modo più semplice per tenere traccia dei tuoi libri.",
-  "onboardingSubtitle2": "Filtra per mesi, settimane, autori e molto molto altro!",
-  "onboardingTitle3": "Iniziamo?",
-  "onboardingSecondaryTitle3": "Potrai riguardare questo tutorial in qualsiasi momento.",
-  "onboardingSubtitle3": "Inizia subito!",
+
+  "onboardingTitle3": "Sei pronto?",
+  "onboardingSecondaryTitle3": "BookTracker ti sta aspettando!",
+
   "skipOnboarding": "SALTA",
   "nextOnboarding": "PROSSIMO",
   "letsStartOnboarding": "Iniziamo!",
+
   "authPageTitle": "Autenticazione",
   "signInWithGoogleButtonText": "Accedi tramite Google",
+
   "loginFormTitle": "Login",
   "loginFormSignInButtonText": "Accedi",
   "loginFormEmailFieldLabelText": "Email",
@@ -28,6 +31,7 @@
   "loginFormForgotPasswordText": "Hai dimenticato la password?",
   "loginFormNoAccount": "Non hai ancora un account? ",
   "loginFormSignUpText": "Registrati!",
+
   "signUpFormGoToLoginText": "Login",
   "signUpFormTitle": "Registrati",
   "signUpFormEmailLabelText": "Email",
@@ -39,17 +43,37 @@
   "signUpFormSignUpButtonText": "Registrati",
   "signUpFormAlreadyHaveAnAccount": "Hai già un account? ",
   "signUpFormLoginText": "Accedi!",
+
   "forgotPasswordFormTitle": "Imposta nuova password",
   "forgotPasswordFormSubtitle": "Una email verrà spedita al tuo indirizzo.",
   "forgotPasswordFormEmailFieldText": "Email",
   "forgotPasswordFormEmailErrorText": "Email non valida.",
   "forgotPasswordFormResetButton": "Recupera password",
+
   "confirmEmailFormTitle": "Verifica",
   "confirmEmailFormSubtitle": "Un email di conferma è stata inviata al tuo indirizzo di posta elettronica.",
   "confirmEmailFormResendButton": "Invia di nuovo",
   "confirmEmailFormBackToLoginButton": "Torna al Login",
-  "bottomNavBarItemLabelHome": "Home",
-  "bottomNavBarItemLabelMyBooks": "Libreria",
-  "bottomNavBarItemLabelSearch": "Cerca",
-  "bottomNavBarItemLabelTracker": "Tracker"
+  
+  "librarySectionTitle": "I miei libri",
+
+  "curiosity_TheBible_title": "La Bibbia",
+  "curiosity_TheBible_description": "Il libro più venduto (5 miliardi di copie).",
+
+  "curiosity_RemembranceOfThingsPast_title": "Remembrance of Things Past",
+  "curiosity_RemembranceOfThingsPast_description": "Il libro più lungo al mondo.\n9 609 000 caratteri, spazi inclusi.",
+
+  "curiosity_BooksPublished_title": "130 000 000",
+  "curiosity_BooksPublished_description": "Libri pubblicati, secondo Google.",
+
+  "curiosity_TheCodexLeicester_title": "The Codex Leicester",
+  "curiosity_TheCodexLeicester_description": "Il libro più costoso al mondo.\nVenduto per 30.8 milioni di dollari nel 1994",
+
+  "curiosity_DidYouKnowThat_title": "Sapevi che...",
+  "curiosity_DidYouKnowThat_description": "...se leggi 20 minuti al giorno, avrai letto 1.8 milioni di parole in un anno!",
+
+  "bookOfTheDaySectionTitle": "Libro del giorno",
+
+  "discoverSectionTitle": "Da scoprire"
+
 }

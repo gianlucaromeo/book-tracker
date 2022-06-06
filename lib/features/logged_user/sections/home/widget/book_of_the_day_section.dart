@@ -7,12 +7,14 @@ import 'package:book_tracker/features/logged_user/sections/search/widgets/book_f
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookOfTheDaySection extends StatelessWidget {
-  const BookOfTheDaySection({Key? key}) : super(key: key);
-
+  BookOfTheDaySection({Key? key}) : super(key: key);
+  late AppLocalizations l10n;
   @override
   Widget build(BuildContext context) {
+    l10n = AppLocalizations.of(context)!;
     return Container(
       padding: const EdgeInsets.all(AppPadding.defaultPadding),
       decoration: BoxDecoration(
@@ -28,7 +30,7 @@ class BookOfTheDaySection extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    'Book of the day',
+                    l10n.bookOfTheDaySectionTitle,
                     style: Theme.of(context).textTheme.headline4!.copyWith(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).textTheme.titleLarge!.color),

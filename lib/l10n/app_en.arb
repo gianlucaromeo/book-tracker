@@ -34,50 +34,36 @@
     "description": "The text of the next-button "
   },
 
-  "onboardingTitle1": "Keep track of your books.",
+
+  "onboardingTitle1": "Keep track of your books",
   "@onboardingTitle1": {
     "description": "The main title for the first Onboarding Section"
   },
-
-  "onboardingSecondaryTitle1": "Find any book",
+  "onboardingSecondaryTitle1": "Find any book!",
   "@onboardingSecondaryTitle1": {
     "description": "The secondary title for the first Onboarding Section"
   },
 
-  "onboardingSubtitle1": "Have you read it yet?\nAre you currently reading it?\n... Just pick an option!",
-  "@onboardingSubtitle1": {
-    "description": "The subtitle for the first Onboarding Section"
-  },
 
   "onboardingTitle2": "Check your status",
   "@onboardingTitle2": {
     "description": "The main title for the second Onboarding Section"
   },
-
-  "onboardingSecondaryTitle2": "The easiest way to keep track of your readings",
+  "onboardingSecondaryTitle2": "The easiest way to keep track of your readings.",
   "@onboardingSecondaryTitle2": {
     "description": "The secondary title for the second Onboarding Section"
   },
 
-  "onboardingSubtitle2": "Filter by weeks, months, authors and many many more!",
-  "@onboardingSubtitle2": {
-    "description": "The subtitle for the second Onboarding Section"
-  },
 
   "onboardingTitle3": "Ready to start?",
   "@onboardingTitle3": {
     "description": "The main title for the third Onboarding Section"
   },
-
-  "onboardingSecondaryTitle3": "You can always watch this tutorial from your Settings.",
+  "onboardingSecondaryTitle3": "BookTracker is waiting for you!",
   "@onboardingSecondaryTitle3": {
     "description": "The secondary title for the third Onboarding Section"
   },
 
-  "onboardingSubtitle3": "Let's go!",
-  "@onboardingSubtitle3": {
-    "description": "The subtitle for the third Onboarding Section"
-  },
 
   "skipOnboarding": "SKIP",
   "@skipOnboarding": {
@@ -239,25 +225,73 @@
     "description": "Confirm Email Form Back to Login Button"
   },
 
-  "bottomNavBarItemLabelHome": "Home",
-  "@bottomNavBarItemLabelHome": {
-    "description": "The label for the Bottom Nav Bar Item HOME"
+  "librarySectionTitle": "My Books",
+  "@librarySectionTitle": {
+    "description": "Title for the Library Section"
   },
 
-  "bottomNavBarItemLabelMyBooks": "My Books",
-  "@bottomNavBarItemLabelMyBooks": {
-    "description": "The label for the Bottom Nav Bar Item MY BOOKS"
+  "curiosity_TheBible_title": "The Bible",
+  "@curiosity_TheBible_title": {
+    "description": "Title for the curiosity tile The Bible"
   },
 
-  "bottomNavBarItemLabelSearch": "Search",
-  "@bottomNavBarItemLabelSearch": {
-    "description": "The label for the Bottom Nav Bar Item SEARCH"
+  "curiosity_TheBible_description": "The most sold book (5 billions printed copies).",
+  "@curiosity_TheBible_description": {
+    "description": "Description for the curiosity tile The Bible"
   },
 
-  "bottomNavBarItemLabelTracker": "Tracker",
-  "@bottomNavBarItemLabelTracker": {
-    "description": "The label for the Bottom Nav Bar Item TRACKER"
+  "curiosity_RemembranceOfThingsPast_title": "Remembrance of Things Past",
+  "@curiosity_RemembranceOfThingsPast_title": {
+    "description": "Title for the curiosity tile Remembrance of Things Past"
   },
+
+  "curiosity_RemembranceOfThingsPast_description": "The longest book in the world.\n9 609 000 characters, including spaces.",
+  "@curiosity_RemembranceOfThingsPast_description": {
+    "description": "Description for the curiosity tile Remembrance of Things Past"
+  },
+
+  "curiosity_BooksPublished_title": "130 000 000",
+  "@curiosity_BooksPublished_title": {
+    "description": "Title for the curiosity tile Books Published"
+  },
+
+  "curiosity_BooksPublished_description": "Books published, according to Google.",
+  "@curiosity_BooksPublished_description": {
+    "description": "Description for the curiosity tile Books Published"
+  },
+
+  "curiosity_TheCodexLeicester_title": "The Codex Leicester",
+  "@curiosity_TheCodexLeicester_title": {
+    "description": "Title for the curiosity tile The Code Leicester"
+  },
+
+  "curiosity_TheCodexLeicester_description": "The most expensive book in the world.\nSold for 30.8 million dollars in 1994.",
+  "@curiosity_TheCodexLeicester_description": {
+    "description": "Description for the curiosity tile The Codex Leicester"
+  },
+
+
+  "curiosity_DidYouKnowThat_title": "Did you know that...",
+  "@curiosity_DidYouKnowThat_title": {
+    "description": "Title for the curiosity tile Did you know that..."
+  },
+
+  "curiosity_DidYouKnowThat_description": "...if you read 20 minutes a day, you would have read 1.8 million words in a year!",
+  "@curiosity_DidYouKnowThat_description": {
+    "description": "Description for the curiosity tile Did you know that..."
+  },
+
+  "bookOfTheDaySectionTitle": "Book of the day",
+  "@bookOfTheDaySectionTitle": {
+    "description": "Title for the section Book Of The Day"
+  },
+
+  "discoverSectionTitle": "Discover",
+  "@discoverSectionTitle": {
+    "description": "Title for the section Discover"
+  },
+
+
 
   "hello": "Hello {username}",
   "@hello": {

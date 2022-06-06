@@ -6,6 +6,7 @@ import 'package:book_tracker/features/logged_user/sections/search/widgets/book_f
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DiscoverBooksSection extends StatefulWidget {
   const DiscoverBooksSection({Key? key}) : super(key: key);
@@ -15,13 +16,16 @@ class DiscoverBooksSection extends StatefulWidget {
 }
 
 class _DiscoverBooksSectionState extends State<DiscoverBooksSection> {
+  late AppLocalizations l10n;
+
   @override
   Widget build(BuildContext context) {
+    l10n = AppLocalizations.of(context)!;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Discover',
+          l10n.discoverSectionTitle,
           style: Theme.of(context).textTheme.headline6!.copyWith(
                 fontSize: 31,
                 fontWeight: FontWeight.bold,

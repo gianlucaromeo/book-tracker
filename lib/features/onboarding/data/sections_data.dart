@@ -18,19 +18,16 @@ class OnboardingSectionsData {
       [
         l10n.onboardingTitle1,
         l10n.onboardingSecondaryTitle1,
-        l10n.onboardingSubtitle1,
       ],
       // Section 2
       [
         l10n.onboardingTitle2,
         l10n.onboardingSecondaryTitle2,
-        l10n.onboardingSubtitle2,
       ],
       // Section 3
       [
         l10n.onboardingTitle3,
         l10n.onboardingSecondaryTitle3,
-        l10n.onboardingSubtitle3,
       ],
     ];
 
@@ -39,8 +36,7 @@ class OnboardingSectionsData {
       (index) => OnboardingSection(
         model: OnboardingSectionModel(
           title: data[index][0],
-          subtitle: data[index][1],
-          secondaryTitle: data[index][2],
+          secondaryTitle: data[index][1],
           assetName: _assetsNames[index],
         ),
       ),

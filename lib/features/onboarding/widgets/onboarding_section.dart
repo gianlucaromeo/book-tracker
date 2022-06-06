@@ -19,41 +19,14 @@ class OnboardingSection extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           TransparentDivider.h10(),
-          // LOTTIE ANIMATION
-          Expanded(
-            child: Lottie.asset(
-              model.assetName,
-              //height: 350,
-            ),
-          ),
+          Expanded(child: Lottie.asset(model.assetName)),
           TransparentDivider.h10(),
-          // TITLE
           buildTitle(),
           TransparentDivider.h10(),
-          // SECONDARY TITLE AND SUBTITLE
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              //buildSecondaryTitle(),
-              //TransparentDivider.h10(),
-              buildSubtitle(),
-              TransparentDivider.h10(),
-            ],
-          ),
+          buildSecondaryTitle(),
+          TransparentDivider.h10(),
         ],
       ),
-    );
-  }
-
-  Text buildSubtitle() {
-    return Text(
-      model.subtitle,
-      style: TextStyle(
-          fontSize: 19.0,
-          fontWeight: FontWeight.w600,
-          color: themeController.isDarkTheme
-              ? DarkThemeData.onPrimary
-              : Colors.black.withOpacity(0.5)),
     );
   }
 
@@ -74,11 +47,12 @@ class OnboardingSection extends StatelessWidget {
       model.secondaryTitle,
       maxLines: 2,
       style: TextStyle(
-          fontSize: 19.0,
-          fontWeight: FontWeight.w600,
-          color: themeController.isDarkTheme
-              ? DarkThemeData.onPrimary
-              : Colors.black),
+        fontSize: 19.0,
+        fontWeight: FontWeight.w600,
+        color: themeController.isDarkTheme
+            ? DarkThemeData.onPrimary
+            : Colors.black.withOpacity(0.5),
+      ),
     );
   }
 }

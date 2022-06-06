@@ -4,48 +4,48 @@ import 'package:book_tracker/features/logged_user/sections/home/widget/curiosity
 import 'package:book_tracker/features/logged_user/sections/home/widget/discover_books_section.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class UserSectionHome extends StatelessWidget {
-  const UserSectionHome({Key? key}) : super(key: key);
+  UserSectionHome({Key? key}) : super(key: key);
+  late AppLocalizations l10n;
 
   @override
   Widget build(BuildContext context) {
+    l10n = AppLocalizations.of(context)!;
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const BookOfTheDaySection(),
+          BookOfTheDaySection(),
           TransparentDivider.h(AppPadding.defaultPadding),
-          const CuriosityTile(
-            title: 'The Bible',
-            description: 'The most sold book (5 billions printed copies).',
+          CuriosityTile(
+            title: l10n.curiosity_TheBible_title,
+            description: l10n.curiosity_TheBible_description,
           ),
           TransparentDivider.h(AppPadding.defaultPadding),
-          const CuriosityTile(
-            title: 'Remembrance of Things Past',
-            description:
-                'The longest book in the world.\n9\'609\'000 characters, including spaces.',
+          CuriosityTile(
+            title: l10n.curiosity_RemembranceOfThingsPast_title,
+            description: l10n.curiosity_RemembranceOfThingsPast_description,
           ),
           TransparentDivider.h(AppPadding.defaultPadding),
           const DiscoverBooksSection(),
           TransparentDivider.h(AppPadding.defaultPadding),
-          const CuriosityTile(
-            title: '130 000 000',
-            description: 'Books published, according to Google',
+          CuriosityTile(
+            title: l10n.curiosity_BooksPublished_title,
+            description: l10n.curiosity_BooksPublished_description,
           ),
           TransparentDivider.h(AppPadding.defaultPadding),
-          const CuriosityTile(
-            title: 'The Codex Leicester',
-            description:
-                'The most expensive book in the world.\nSold for 30.8 million dollars in 1994.',
+          CuriosityTile(
+            title: l10n.curiosity_TheCodexLeicester_title,
+            description: l10n.curiosity_TheCodexLeicester_description,
           ),
           TransparentDivider.h(AppPadding.defaultPadding),
-          const CuriosityTile(
-            title: 'Did you know that...',
-            description:
-                '...if you read 20 minutes a day, you would have read 1.8 million words in a year!',
+          CuriosityTile(
+            title: l10n.curiosity_DidYouKnowThat_title,
+            description: l10n.curiosity_DidYouKnowThat_description,
           ),
           TransparentDivider.h(AppPadding.defaultPadding),
         ],
