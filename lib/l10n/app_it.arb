@@ -1,5 +1,8 @@
 {
   "language": "Italiano",
+  "languageEnglish": "Inglese",
+  "languageItalian": "Italiano",
+  "languageTitle": "Lingua",
   "hello": "Ciao {username}",
   "english": "Inglese",
   "italian": "Italiano",
@@ -31,6 +34,7 @@
   "loginFormForgotPasswordText": "Hai dimenticato la password?",
   "loginFormNoAccount": "Non hai ancora un account? ",
   "loginFormSignUpText": "Registrati!",
+  "loginFormCredentialsError": "Controlla le tue credenziali e prova di nuovo",
 
   "signUpFormGoToLoginText": "Login",
   "signUpFormTitle": "Registrati",
@@ -73,7 +77,55 @@
   "curiosity_DidYouKnowThat_description": "...se leggi 20 minuti al giorno, avrai letto 1.8 milioni di parole in un anno!",
 
   "bookOfTheDaySectionTitle": "Libro del giorno",
+  "discoverSectionTitle": "Da scoprire",
 
-  "discoverSectionTitle": "Da scoprire"
+  "allBooksTitle": "Tutti",
+  "readBooksTitle": "Letti",
+  "readBooksStatusTitle": "Letto",
+  "currentlyReadingBooksTitle": "In lettura",
+  "currentlyReadingBooksStatusTitle": "In Lettura",
+  "toReadBooksTitle": "Da Leggere",
+  "toReadBooksStatusTitle": "Da Leggere",
+  "booksSectionEmpty": "Nessun libro.",
+
+  "searchedBookPageAlreadyInYourLibraryInfo": "Già nella tua libreria",
+  "searchedBookPageGenericInfoPagesTitle": "Pagine",
+  "searchedBookPageGenericInfoLanguageTitle": "Lingua",
+
+  "datePickerContainerDateStart": "Data inizio",
+  "datePickerContainerDateEnd": "Data fine",
+  "datePickerContainerPickDateTitle": "Aggiungi",
+  "datePickerContainerClear": "Rimuovi",
+  "ratingContainerTitle": "Il tuo giudizio",
+
+  "addBookStatusAction": "Aggiungi",
+  "editBookStatusAction": "Fatto",
+
+  "deleteBookStatusTitle": "Sei sicuro/a di voler rimuovere {bookName} dalla tua libreria?",
+  "deleteBookStatusInfo": "Premendo su ELIMINA tutti i dati relativi allo stato di questo libro verranno rimossi dalla tua libreria.",
+  "deleteBookStatusNoAction": "NO, ANNULLA",
+  "deleteBookStatusYesAction": "ELIMINA",
+
+  "bookStatusUpdatedTitle": "Lo stato del libro è stato aggiornato!",
+  "bookStatusAddedTitle": "Il libro è stato aggiunto alla tua libreria!",
+
+  "searchedBookDescriptionTitle": "Descrizione",
+  "searchedBookNoDescriptionTitle": "Nessuna descrizione",
+  "searchedBookNoDescriptionInfo": "Purtroppo non è presente una descrizione per questo libro, ma puoi comunque aggiungerlo alla tua libreria!",
+  
+  "searchedBookPageShowBookButtonText": "Torna al libro",
+  "searchedBookPageAddBookButtonText": "Aggiungi Libro",
+
+  "searchPagePopularBooksSectionTitle": "Popolari",
+  "searchPageMostSoldBooksSectionTitle": "I più venduti quest'anno",
+  "searchPageSearchFieldHintText": "Cerca un libro...",
+  "searchPageNoItemsInfo": "Oops. Nessun libro trovato.",
+
+  "drawerHeaderDeleteAccountTitle": "Elimina account",
+  "drawerHeaderDeleteAccountPopupTitle": "Sei sicuro/a di voler eliminare il tuo account? Tutti i tuoi dati verranno eliminati per sempre.",
+  "drawerHeaderDeleteAccountNoAction": "NO",
+  "drawerHeaderDeleteAccountYesAction": "SI, ELIMINA",
+  "drawerDarkThemeTitle": "Tema scuro",
+  "drawerLogoutTitle": "Esci"
 
 }

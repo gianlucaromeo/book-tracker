@@ -56,9 +56,9 @@ class _LoginFormState extends State<LoginForm> {
           TransparentDivider.h(AppPadding.defaultPadding),
           // CHECK IF LOGIN ERROR
           if (_loginError)
-            const Text(
-              'Please check your credentials and try again.',
-              style: TextStyle(color: Colors.red, fontSize: 18.0),
+            Text(
+              AppLocalizations.of(context)!.loginFormCredentialsError,
+              style: const TextStyle(color: Colors.red, fontSize: 18.0),
             ),
           if (_loginError) TransparentDivider.h(AppPadding.defaultPadding),
           // SIGN-IN BUTTON

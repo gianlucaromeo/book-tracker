@@ -57,7 +57,8 @@ class _UserSectionLibraryState extends State<UserSectionLibrary>
           isScrollable: true,
           indicatorColor: LightThemeData.primary,
           tabs: List.from(
-            LibraryData.librarySections.map((title) => Tab(text: title)),
+            LibraryData.getLibrarySections(context)
+                .map((title) => Tab(text: title)),
           ),
         ),
         TransparentDivider.h(20),

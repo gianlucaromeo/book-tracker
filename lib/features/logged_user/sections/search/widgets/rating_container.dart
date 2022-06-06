@@ -1,6 +1,7 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class RatingsContainer extends StatefulWidget with ChangeNotifier {
   int? selectedRating;
@@ -30,7 +31,7 @@ class _RatingsContainerState extends State<RatingsContainer> {
       children: [
         // TEXT
         Text(
-          'Your rating',
+          AppLocalizations.of(context)!.ratingContainerTitle,
           style: TextStyle(
             fontSize: Theme.of(context).textTheme.titleLarge!.fontSize,
             //fontWeight: FontWeight.bold,

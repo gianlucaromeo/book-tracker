@@ -3,6 +3,7 @@ import 'package:book_tracker/theme/dark_theme_data.dart';
 import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AddStatusButton extends StatefulWidget {
   final Function() onPressed;
@@ -17,12 +18,11 @@ class _AddStatusButtonState extends State<AddStatusButton> {
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: widget.onPressed,
-      child: const Text(
-        'Add Book',
-        style: TextStyle(
+      child: Text(
+        AppLocalizations.of(context)!.searchedBookPageAddBookButtonText,
+        style: const TextStyle(
           color: Colors.white,
           fontSize: 23.0,
-          //fontWeight: FontWeight.bold,
         ),
       ),
       style: TextButton.styleFrom(

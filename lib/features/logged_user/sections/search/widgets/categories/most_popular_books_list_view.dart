@@ -8,6 +8,7 @@ import 'package:book_tracker/util/custom_page_route.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MostPopularBooksListView extends StatelessWidget {
   const MostPopularBooksListView({Key? key}) : super(key: key);
@@ -18,7 +19,7 @@ class MostPopularBooksListView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Popular',
+          AppLocalizations.of(context)!.searchPagePopularBooksSectionTitle,
           style: TextStyle(
             fontSize: Theme.of(context).textTheme.headlineSmall!.fontSize,
             fontWeight: FontWeight.bold,

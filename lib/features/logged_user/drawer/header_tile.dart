@@ -5,6 +5,8 @@ import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppDrawerHeader extends StatefulWidget {
   const AppDrawerHeader({Key? key}) : super(key: key);
@@ -14,8 +16,11 @@ class AppDrawerHeader extends StatefulWidget {
 }
 
 class _AppDrawerHeaderState extends State<AppDrawerHeader> {
+  late AppLocalizations l10n;
+
   @override
   Widget build(BuildContext context) {
+    l10n = AppLocalizations.of(context)!;
     bool isDarkTheme = themeController.isDarkTheme;
     final _divider = TransparentDivider.h(5.0);
     return DrawerHeader(
@@ -47,7 +52,7 @@ class _AppDrawerHeaderState extends State<AppDrawerHeader> {
               ),
               onPressed: _showDeleteAccountDialog,
               label: Text(
-                'Delete account',
+                AppLocalizations.of(context)!.drawerHeaderDeleteAccountTitle,
                 style: TextStyle(
                   color: isDarkTheme
                       ? DarkThemeData.onPrimary
@@ -65,8 +70,8 @@ class _AppDrawerHeaderState extends State<AppDrawerHeader> {
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text(
-          'Are you sure you want to delete your account?\nYour data will be delete permanently.',
+        title: Text(
+          l10n.drawerHeaderDeleteAccountPopupTitle,
         ),
         content: Lottie.asset(
           'assets/logged_user/delete.json',
@@ -78,7 +83,7 @@ class _AppDrawerHeaderState extends State<AppDrawerHeader> {
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
             child: Text(
-              'NO',
+              l10n.drawerHeaderDeleteAccountNoAction,
               style: TextStyle(
                 color: themeController.isDarkTheme
                     ? Colors.white
@@ -92,7 +97,7 @@ class _AppDrawerHeaderState extends State<AppDrawerHeader> {
               Navigator.of(context).pop();
             },
             child: Text(
-              'YES, DELETE',
+              l10n.drawerHeaderDeleteAccountYesAction,
               style: TextStyle(
                 color: themeController.isDarkTheme
                     ? Colors.white

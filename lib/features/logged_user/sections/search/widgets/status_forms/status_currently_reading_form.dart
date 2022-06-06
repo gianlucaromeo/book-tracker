@@ -4,6 +4,7 @@ import 'package:book_tracker/features/logged_user/sections/search/widgets/rating
 import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/date_picker_container.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookStatusCurrentlyReadingForm extends StatefulWidget {
   final BookStatusCurrentlyReading bookStatus;
@@ -22,14 +23,13 @@ class BookStatusCurrentlyReadingForm extends StatefulWidget {
 
 class _BookStatusCurrentlyReadingFormState
     extends State<BookStatusCurrentlyReadingForm> {
-  late final RatingsContainer ratingsContainer;
-  late final DatePickerContainer dateStartContainer;
+  late RatingsContainer ratingsContainer;
+  late DatePickerContainer dateStartContainer;
+  late AppLocalizations l10n;
 
-  @override
-  void initState() {
-    super.initState();
+  _init() {
     dateStartContainer = DatePickerContainer(
-      title: 'Date start',
+      title: l10n.datePickerContainerDateStart,
       showClearLink: true,
       selectedDateTime: widget.bookStatus.dateStart,
     );
@@ -50,6 +50,8 @@ class _BookStatusCurrentlyReadingFormState
 
   @override
   Widget build(BuildContext context) {
+    l10n = AppLocalizations.of(context)!;
+    _init();
     return Padding(
       padding:
           const EdgeInsets.symmetric(horizontal: AppPadding.defaultPadding),

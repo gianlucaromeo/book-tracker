@@ -4,6 +4,7 @@ import 'package:book_tracker/features/logged_user/sections/search/widgets/rating
 import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/date_picker_container.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookStatusReadForm extends StatefulWidget {
   final BookStatusRead bookStatus;
@@ -20,25 +21,24 @@ class BookStatusReadForm extends StatefulWidget {
 }
 
 class _BookStatusReadFormState extends State<BookStatusReadForm> {
-  late final RatingsContainer ratingsContainer;
-  late final DatePickerContainer dateStartContainer;
-  late final DatePickerContainer dateEndContainer;
+  late RatingsContainer ratingsContainer;
+  late DatePickerContainer dateStartContainer;
+  late DatePickerContainer dateEndContainer;
+  late AppLocalizations l10n;
 
-  @override
-  void initState() {
-    super.initState();
+  _init() {
+    ratingsContainer = RatingsContainer(
+      selectedRating: widget.bookStatus.rating,
+    );
     dateStartContainer = DatePickerContainer(
-      title: 'Date start',
+      title: l10n.datePickerContainerDateStart,
       showClearLink: true,
       selectedDateTime: widget.bookStatus.dateStart,
     );
     dateEndContainer = DatePickerContainer(
-      title: 'Date end',
+      title: l10n.datePickerContainerDateEnd,
       showClearLink: true,
       selectedDateTime: widget.bookStatus.dateEnd,
-    );
-    ratingsContainer = RatingsContainer(
-      selectedRating: widget.bookStatus.rating,
     );
     ratingsContainer.addListener(() {
       setState(() {
@@ -59,6 +59,8 @@ class _BookStatusReadFormState extends State<BookStatusReadForm> {
 
   @override
   Widget build(BuildContext context) {
+    l10n = AppLocalizations.of(context)!;
+    _init();
     return Padding(
       padding:
           const EdgeInsets.symmetric(horizontal: AppPadding.defaultPadding),

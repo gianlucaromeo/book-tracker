@@ -2,6 +2,7 @@ import 'package:book_tracker/provider/locale_provider.dart';
 import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ChangeLanguageTile extends StatefulWidget {
   const ChangeLanguageTile({Key? key}) : super(key: key);
@@ -11,18 +12,20 @@ class ChangeLanguageTile extends StatefulWidget {
 }
 
 class _ChangeLanguageTileState extends State<ChangeLanguageTile> {
+  late AppLocalizations l10n;
   @override
   Widget build(BuildContext context) {
     final localeProvider = Provider.of<LocaleProvider>(context);
     final currentLanguageName = localeProvider.getCurrentLanguageName(context);
     bool englishIsSelected = currentLanguageName == 'English';
+    l10n = AppLocalizations.of(context)!;
     return ListTile(
       title: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // TITLE
-          const Text(
-            'Language',
+          Text(
+            l10n.languageTitle,
             style: TextStyle(fontSize: 19.0),
           ),
           // LANGUAGE CHOICES
@@ -31,7 +34,7 @@ class _ChangeLanguageTileState extends State<ChangeLanguageTile> {
               TextButton(
                 onPressed: () => localeProvider.setLocale(const Locale('en')),
                 child: Text(
-                  'English',
+                  l10n.languageEnglish,
                   style: TextStyle(
                     color: LightThemeData.primary
                         .withOpacity(englishIsSelected ? 1.0 : 0.5),
@@ -44,7 +47,7 @@ class _ChangeLanguageTileState extends State<ChangeLanguageTile> {
               TextButton(
                 onPressed: () => localeProvider.setLocale(const Locale('it')),
                 child: Text(
-                  'Italian',
+                  l10n.languageItalian,
                   style: TextStyle(
                     color: LightThemeData.primary
                         .withOpacity(!englishIsSelected ? 1.0 : 0.5),

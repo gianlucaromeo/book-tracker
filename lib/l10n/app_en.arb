@@ -4,6 +4,21 @@
     "description": "The default language"
   },
 
+  "languageEnglish": "English",
+  "@languageEnglish": {
+    "description": "English"
+  },
+
+  "languageItalian": "Italian",
+  "@languageItalian": {
+    "description": "Italian"
+  },
+
+  "languageTitle": "Language",
+  "@languageTitle": {
+    "description": "Language"
+  },
+
   "english": "English",
   "@english": {
     "description": "The name of the language English"
@@ -123,6 +138,11 @@
   "loginFormSignUpText": "Sign Up",
   "@loginFormSignUpText": {
     "description": "Sign Up link in Login Form"
+  },
+
+  "loginFormCredentialsError": "Please check your credential and try again",
+  "@loginFormCredentialsError": {
+    "description": "Please check your credential and try again"
   },
 
   "signUpFormGoToLoginText": "Login",
@@ -291,7 +311,205 @@
     "description": "Title for the section Discover"
   },
 
+  "allBooksTitle": "All",
+  "@allBooksTitle": {
+    "description": "All"
+  },
 
+  "readBooksTitle": "Read",
+  "@readBooksTitle": {
+    "description": "Read"
+  },
+
+  "readBooksStatusTitle": "Read",
+  "@readBooksStatusTitle": {
+    "description": "Read"
+  },
+
+  "currentlyReadingBooksTitle": "Currently Reading",
+  "@currentlyReadingBooksTitle": {
+    "description": "Currently Reading"
+  },
+
+  "currentlyReadingBooksStatusTitle": "Currently Reading",
+  "@currentlyReadingBooksStatusTitle": {
+    "description": "Currently Reading"
+  },
+
+  "toReadBooksTitle": "To Read",
+  "@toReadBooksTitle": {
+    "description": "To Read"
+  },
+
+  "toReadBooksStatusTitle": "To Read",
+  "@toReadBooksStatusTitle": {
+    "description": "To Read"
+  },
+
+  "booksSectionEmpty": "No books.",
+  "@booksSectionEmpty": {
+    "description": "No books"
+  },
+
+  "searchedBookPageAlreadyInYourLibraryInfo": "Already in your library",
+  "@searchedBookPageAlreadyInYourLibraryInfo": {
+    "description": "Already in your library"
+  },
+
+  "searchedBookPageGenericInfoPagesTitle": "Pages",
+  "@searchedBookPageGenericInfoPagesTitle": {
+    "description": "Pages"
+  },
+
+  "searchedBookPageGenericInfoLanguageTitle": "Language",
+  "@searchedBookPageGenericInfoLanguageTitle": {
+    "description": "Language"
+  },
+
+  "datePickerContainerDateStart": "Date Start",
+  "@datePickerContainerDateStart": {
+    "description": "Date Start"
+  },
+
+  "datePickerContainerDateEnd": "Date Start",
+  "@datePickerContainerDateEnd": {
+    "description": "Date End"
+  },
+
+  "datePickerContainerPickDateTitle": "Pick a date",
+  "@datePickerContainerPickDateTitle": {
+    "description": "Pick a date"
+  },
+
+  "datePickerContainerClear": "Clear",
+  "@datePickerContainerClear": {
+    "description": "Clear"
+  },
+
+  "ratingContainerTitle": "Your rating",
+  "@ratingContainerTitle": {
+    "description": "Your rating"
+  },
+  
+  "addBookStatusAction": "Add",
+  "@addBookStatusAction": {
+    "description": "Add"
+  },
+
+  "editBookStatusAction": "Done",
+  "@editBookStatusAction": {
+    "description": "Done"
+  },
+
+  "deleteBookStatusTitle": "Do you want to delete {bookName}?",
+  "@deleteBookStatusTitle": {
+    "description": "Do you want to delete bookName?",
+    "placeholders": {
+      "bookName": {
+        "type": "String"
+      }
+    }
+  },
+
+  "deleteBookStatusInfo": "If you press DELETE, all the data regarding this book will deleted from your library.",
+  "@deleteBookStatusInfo": {
+    "description": "If you press DELETE, all the data regarding this book will deleted from your library."
+  },
+
+  "deleteBookStatusNoAction": "NO, GO BACK",
+  "@deleteBookStatusNoAction": {
+    "description": "NO, GO BACK"
+  },
+
+  "deleteBookStatusYesAction": "DELETE",
+  "@deleteBookStatusYesAction": {
+    "description": "DELETE"
+  },
+
+  "bookStatusUpdatedTitle": "Book Status updated!",
+  "@bookStatusUpdatedTitle": {
+    "description": "Book Status updated!"
+  },
+
+  "bookStatusAddedTitle": "Book added to your library!",
+  "@bookStatusAddedTitle": {
+    "description": "Book added to your library!"
+  },
+
+  "searchedBookDescriptionTitle": "Description",
+  "@searchedBookDescriptionTitle": {
+    "description": "Description"
+  },
+
+  "searchedBookNoDescriptionTitle": "No description",
+  "@searchedBookNoDescriptionTitle": {
+    "description": "No description"
+  },
+
+  "searchedBookNoDescriptionInfo": "Unfortunately, no description has been provided for this book, but you can add it to your library.",
+  "@searchedBookNoDescriptionInfo": {
+    "description": "Unfortunately, no description has been provided for this book, but you can add it to your library."
+  },
+
+  "searchedBookPageShowBookButtonText": "Show Book",
+  "@searchedBookPageShowBookButtonText": {
+    "description": "Show Book"
+  },
+
+  "searchedBookPageAddBookButtonText": "Show Book",
+  "@searchedBookPageAddBookButtonText": {
+    "description": "Add Book"
+  },
+
+  "searchPagePopularBooksSectionTitle": "Popular",
+  "@searchPagePopularBooksSectionTitle": {
+    "description": "Popular"
+  },
+
+  "searchPageMostSoldBooksSectionTitle": "Most sold this year",
+  "@searchPageMostSoldBooksSectionTitle": {
+    "description": "Most sold this year"
+  },
+
+  "searchPageSearchFieldHintText": "Search...",
+  "@searchPageSearchFieldHintText": {
+    "description": "Search..."
+  },
+
+  "searchPageNoItemsInfo": "Oops! No books found.",
+  "@searchPageNoItemsInfo": {
+    "description": "Oops! No items."
+  },
+
+  "drawerHeaderDeleteAccountTitle": "Delete account",
+  "@drawerHeaderDeleteAccountTitle": {
+    "description": "Delete account"
+  },
+
+  "drawerHeaderDeleteAccountPopupTitle": "Are you sure you want to delete your account? Your data will be deleted forever.",
+  "@drawerHeaderDeleteAccountPopupTitle": {
+    "description": "Are you sure you want to delete your account? Your data will be delete permanently."
+  },
+
+  "drawerHeaderDeleteAccountNoAction": "NO",
+  "@drawerHeaderDeleteAccountNoAction": {
+    "description": "NO"
+  },
+
+  "drawerHeaderDeleteAccountYesAction": "YES, DELETE",
+  "@drawerHeaderDeleteAccountYesAction": {
+    "description": "YES, DELETE"
+  },
+
+  "drawerDarkThemeTitle": "Dark Theme",
+  "@drawerDarkThemeTitle": {
+    "description": "Dark Theme"
+  },
+
+  "drawerLogoutTitle": "Logout",
+  "@drawerLogoutTitle": { 
+    "description": "Logout"
+  },
 
   "hello": "Hello {username}",
   "@hello": {

@@ -8,6 +8,7 @@ import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class MostSoldBooksListView extends StatefulWidget {
   const MostSoldBooksListView({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class _MostSoldBooksListViewState extends State<MostSoldBooksListView> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Most sold this year',
+          AppLocalizations.of(context)!.searchPageMostSoldBooksSectionTitle,
           style: TextStyle(
             fontSize: Theme.of(context).textTheme.headlineSmall!.fontSize,
             fontWeight: FontWeight.bold,

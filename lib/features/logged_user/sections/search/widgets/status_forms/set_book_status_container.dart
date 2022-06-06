@@ -16,6 +16,7 @@ import 'package:book_tracker/util/custom_page_route.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SetBookStatusContainer extends StatefulWidget {
   final GoogleBookModel googleBookModel;
@@ -42,6 +43,7 @@ class _SetBookStatusContainerState extends State<SetBookStatusContainer>
     BookStatusUtil.bookStatusTypes
         .map((status) => BookStatusUtil.bookStatusForms[status]!),
   );
+  late AppLocalizations l10n;
 
   @override
   void initState() {
@@ -65,6 +67,7 @@ class _SetBookStatusContainerState extends State<SetBookStatusContainer>
 
   @override
   Widget build(BuildContext context) {
+    l10n = AppLocalizations.of(context)!;
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey.withOpacity(0.2)),
@@ -122,7 +125,9 @@ class _SetBookStatusContainerState extends State<SetBookStatusContainer>
         _showBookEditedPopup();
       },
       child: Text(
-        widget.isUpdating ? 'Done' : 'Add',
+        widget.isUpdating
+            ? l10n.editBookStatusAction
+            : l10n.addBookStatusAction,
         style: const TextStyle(
           color: Colors.white,
           fontSize: 23.0,
@@ -157,48 +162,52 @@ class _SetBookStatusContainerState extends State<SetBookStatusContainer>
             bookStatus: bookStatus,
           );
           showDialog(
-              context: context,
-              builder: (context) => AlertDialog(
-                    title: Text(
-                        'Do you want to delete \'${widget.googleBookModel.volumeInfo!.title}\'?'),
-                    content: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Lottie.asset(
-                          'assets/logged_user/delete.json',
-                          height: 170,
-                          width: 220,
-                        ),
-                        const Text(
-                            'If you press "DELETE", all the data regarding this book will deleted from your library.'),
-                      ],
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text(
+                l10n.deleteBookStatusTitle(
+                    widget.googleBookModel.volumeInfo!.title ?? ''),
+              ),
+              content: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Lottie.asset(
+                    'assets/logged_user/delete.json',
+                    height: 170,
+                    width: 220,
+                  ),
+                  Text(l10n.deleteBookStatusInfo),
+                ],
+              ),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text(
+                    l10n.deleteBookStatusNoAction,
+                    style: TextStyle(
+                      color: themeController.isDarkTheme
+                          ? Colors.white
+                          : LightThemeData.primary,
                     ),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.of(context).pop(),
-                        child: Text(
-                          'NO, GO BACK',
-                          style: TextStyle(
-                            color: themeController.isDarkTheme
-                                ? Colors.white
-                                : LightThemeData.primary,
-                          ),
-                        ),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          BooksRepository.deleteBookFromBookModel(bookModel);
-                          _popPage();
-                        },
-                        child: Text('DELETE',
-                            style: TextStyle(
-                              color: themeController.isDarkTheme
-                                  ? Colors.white
-                                  : LightThemeData.primary,
-                            )),
-                      ),
-                    ],
-                  ));
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    BooksRepository.deleteBookFromBookModel(bookModel);
+                    _popPage();
+                  },
+                  child: Text(
+                    l10n.deleteBookStatusYesAction,
+                    style: TextStyle(
+                      color: themeController.isDarkTheme
+                          ? Colors.white
+                          : LightThemeData.primary,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
         },
         label: Text(
           '',
@@ -282,9 +291,11 @@ class _SetBookStatusContainerState extends State<SetBookStatusContainer>
     await showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text(widget.isUpdating
-            ? 'Book status updated!'
-            : 'Book added to your library!'),
+        title: Text(
+          widget.isUpdating
+              ? l10n.bookStatusUpdatedTitle
+              : l10n.bookStatusAddedTitle,
+        ),
         content: Lottie.asset(
           'assets/logged_user/success.json',
           height: 170,
@@ -294,12 +305,14 @@ class _SetBookStatusContainerState extends State<SetBookStatusContainer>
         actions: [
           TextButton(
             onPressed: _popPage,
-            child: Text('OK',
-                style: TextStyle(
-                  color: themeController.isDarkTheme
-                      ? Colors.white
-                      : LightThemeData.primary,
-                )),
+            child: Text(
+              'OK',
+              style: TextStyle(
+                color: themeController.isDarkTheme
+                    ? Colors.white
+                    : LightThemeData.primary,
+              ),
+            ),
           ),
         ],
       ),

@@ -3,6 +3,7 @@ import 'package:book_tracker/theme/dark_theme_data.dart';
 import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ShowBookPageButton extends StatefulWidget {
   final Function() onPressed;
@@ -32,7 +33,7 @@ class _ShowBookPageButtonState extends State<ShowBookPageButton> {
       child: OutlinedButton(
         onPressed: widget.onPressed,
         child: Text(
-          'Show book',
+          AppLocalizations.of(context)!.searchedBookPageShowBookButtonText,
           style: TextStyle(
             color: themeController.isDarkTheme
                 ? Colors.white

@@ -2,7 +2,9 @@
 
 import 'package:book_tracker/config/borders.dart';
 import 'package:book_tracker/config/padding.dart';
+import 'package:book_tracker/features/authentication/login_signup_common/sizes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchTextField extends StatefulWidget with ChangeNotifier {
   String _bookToFind = '';
@@ -44,13 +46,15 @@ class _SearchTextFieldState extends State<SearchTextField> {
           widget.bookToFind = newText;
         });
       },
+      cursorColor: LoginSignUpFormSizes.cursorColor,
       //style: TextStyles.searchBookFieldHintText,
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.all(AppPadding.defaultPadding),
-        hintText: 'Search...',
+        hintText: AppLocalizations.of(context)!.searchPageSearchFieldHintText,
         enabledBorder: _border,
         focusedBorder: _border,
         border: _border,
+
         /* ========= PREFIX / SUFFIX ICONS ========= */
         prefixIcon: Padding(
           padding: const EdgeInsets.all(AppPadding.defaultPadding / 2),

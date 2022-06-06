@@ -19,6 +19,7 @@ import 'package:book_tracker/theme/light_theme_data.dart';
 import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchedBookPage extends StatefulWidget {
   final bool updateStatus;
@@ -40,6 +41,7 @@ class SearchedBookPage extends StatefulWidget {
 class _SearchedBookPageState extends State<SearchedBookPage> {
   late bool updateStatus;
   late bool bookIsInLibrary = false;
+  late AppLocalizations l10n;
 
   @override
   void initState() {
@@ -88,6 +90,7 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
 
   @override
   Widget build(BuildContext context) {
+    l10n = AppLocalizations.of(context)!;
     return SafeArea(
       child: Scaffold(
         body: Stack(
@@ -140,10 +143,10 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
                             padding: const EdgeInsets.only(bottom: 8.0),
                             child: SizedBox.fromSize(
                               size: const Size.fromHeight(20),
-                              child: const Align(
+                              child: Align(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  'Already in your Library',
+                                  l10n.searchedBookPageAlreadyInYourLibraryInfo,
                                 ),
                               ),
                             ),
@@ -195,7 +198,7 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
               ),
               child: widget.googleBookModel.volumeInfo!.description != null
                   ? buildDescription()
-                  : const NoDescriptionInfo(),
+                  : NoDescriptionInfo(),
             ),
           ),
           TransparentDivider.h(20.0),
@@ -262,7 +265,7 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
           buildGenericBookInfo(
             // !                                 Google Books API Problem
             widget.googleBookModel.volumeInfo?.pageCount?.toString() ?? '368',
-            'Pages',
+            l10n.searchedBookPageGenericInfoPagesTitle,
           ),
           TransparentDivider.w(15.0),
           // RATING STARS or INFO LINK
@@ -274,7 +277,7 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
                     ?.toString()
                     .toUpperCase() ??
                 '',
-            'Language',
+            l10n.searchedBookPageGenericInfoLanguageTitle,
           ),
         ],
       ),
@@ -288,7 +291,10 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Description', style: Theme.of(context).textTheme.headlineSmall),
+          Text(
+            l10n.searchedBookDescriptionTitle,
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
           TransparentDivider.h(15.0),
           Expanded(
             child: SingleChildScrollView(
@@ -310,9 +316,7 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
         ],
       );
     } else {
-      return const Text(
-        "No Description",
-      );
+      return Text(l10n.searchedBookNoDescriptionTitle);
     }
   }
 

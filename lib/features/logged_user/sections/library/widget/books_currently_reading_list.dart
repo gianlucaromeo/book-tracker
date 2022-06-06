@@ -45,7 +45,7 @@ class _BooksCurrentlyReadingListState extends State<BooksCurrentlyReadingList> {
                     );
                   }).toList(),
                 )
-              : const NoBooksAnimation();
+              : NoBooksAnimation();
         } else {
           return const Center(child: CircularProgressIndicator());
         }

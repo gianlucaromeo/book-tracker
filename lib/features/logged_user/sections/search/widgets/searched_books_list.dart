@@ -1,10 +1,14 @@
 import 'dart:convert';
 
+import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/logged_user/models/google_book_model.dart';
 import 'package:book_tracker/features/logged_user/sections/search/util/books_search_util.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/book_found_tile.dart';
+import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:lottie/lottie.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchedBooksList extends StatelessWidget {
   final String bookToFind;
@@ -34,7 +38,24 @@ class SearchedBooksList extends StatelessWidget {
                 } else {
                   Map<String, dynamic> books = jsonDecode(snapshot.data!.body);
                   if (books['items'] == null) {
-                    return const Text('No Items');
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        TransparentDivider.h(AppPadding.defaultPadding),
+                        Text(
+                          AppLocalizations.of(context)!.searchPageNoItemsInfo,
+                          style: Theme.of(context).textTheme.headline5,
+                        ),
+                        TransparentDivider.w(double.infinity),
+                        TransparentDivider.h(AppPadding.defaultPadding),
+                        Lottie.asset(
+                          'assets/logged_user/no_items_error.json',
+                          height: 250,
+                        ),
+                        TransparentDivider.h(AppPadding.defaultPadding),
+                      ],
+                    );
                   } else {
                     return ListView.builder(
                       itemCount: books['items'].length,

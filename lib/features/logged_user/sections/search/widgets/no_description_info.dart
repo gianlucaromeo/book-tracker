@@ -2,12 +2,14 @@ import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class NoDescriptionInfo extends StatelessWidget {
-  const NoDescriptionInfo({Key? key}) : super(key: key);
-
+  NoDescriptionInfo({Key? key}) : super(key: key);
+  late AppLocalizations l10n;
   @override
   Widget build(BuildContext context) {
+    l10n = AppLocalizations.of(context)!;
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -18,16 +20,16 @@ class NoDescriptionInfo extends StatelessWidget {
           width: 220,
         ),
         TransparentDivider.h(AppPadding.defaultPadding / 2),
-        const Text(
-          'No description',
+        Text(
+          l10n.searchedBookNoDescriptionTitle,
           maxLines: 2,
-          style: TextStyle(
+          style: const TextStyle(
             fontSize: 23.0,
           ),
         ),
         TransparentDivider.h(AppPadding.defaultPadding),
-        const Text(
-          'Unfortunately, no description has been provided for this book, but you can add it to your library.',
+        Text(
+          l10n.searchedBookNoDescriptionInfo,
           maxLines: 2,
         ),
       ],

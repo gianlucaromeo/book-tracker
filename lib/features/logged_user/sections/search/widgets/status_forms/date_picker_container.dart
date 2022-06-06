@@ -8,6 +8,7 @@ import 'package:book_tracker/theme/theme_controller.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class DatePickerContainer extends StatefulWidget with ChangeNotifier {
   final String title;
@@ -31,8 +32,11 @@ class DatePickerContainer extends StatefulWidget with ChangeNotifier {
 }
 
 class _DatePickerContainerState extends State<DatePickerContainer> {
+  late AppLocalizations l10n;
+
   @override
   Widget build(BuildContext context) {
+    l10n = AppLocalizations.of(context)!;
     return Column(
       children: [
         Container(
@@ -80,7 +84,7 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
                             .toString()
                             .split(' ')[0]
                             .toString()
-                        : 'Pick a date',
+                        : l10n.datePickerContainerPickDateTitle,
                     style: const TextStyle(
                       color: LightThemeData.primary,
                       //decoration: TextDecoration.underline,
@@ -98,7 +102,7 @@ class _DatePickerContainerState extends State<DatePickerContainer> {
         if (widget.showClearLink && widget.selectedDateTime != null)
           RichText(
             text: TextSpan(
-              text: 'Clear',
+              text: l10n.datePickerContainerClear,
               style: TextStyle(
                 color: Theme.of(context).textTheme.bodySmall!.color,
                 decoration: TextDecoration.underline,

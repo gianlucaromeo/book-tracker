@@ -7,6 +7,7 @@ import 'package:book_tracker/features/logged_user/sections/search/widgets/status
 import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/status_read_form.dart';
 import 'package:book_tracker/features/logged_user/sections/search/widgets/status_forms/status_to_read_form.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BookStatusUtil {
   /// List of all the BookStatusTypes
@@ -27,17 +28,17 @@ class BookStatusUtil {
   };
 
   /// Bind BookStatusType to its Form
-  static final bookStatusForms = {
-    BookStatusType.read: BookStatusReadForm(
-      bookStatus: BookStatusRead(),
-    ),
-    BookStatusType.currentlyReading: BookStatusCurrentlyReadingForm(
-      bookStatus: BookStatusCurrentlyReading(),
-    ),
-    BookStatusType.toRead: BookStatusToReadForm(
-      bookStatus: BookStatusToRead(),
-    ),
-  };
+  static get bookStatusForms => {
+        BookStatusType.read: BookStatusReadForm(
+          bookStatus: BookStatusRead(),
+        ),
+        BookStatusType.currentlyReading: BookStatusCurrentlyReadingForm(
+          bookStatus: BookStatusCurrentlyReading(),
+        ),
+        BookStatusType.toRead: BookStatusToReadForm(
+          bookStatus: BookStatusToRead(),
+        ),
+      };
 
   /// Bind BookStatusType to its BookStatus
   static final bookStatusFromType = {
@@ -48,11 +49,11 @@ class BookStatusUtil {
 
   /// Bind BookStatusType to a String
   static Map<BookStatusType, String> getBookStatusTexts(BuildContext context) {
-    // ! TODO : Change with L10N
+    AppLocalizations l10n = AppLocalizations.of(context)!;
     return {
-      BookStatusType.read: 'Read',
-      BookStatusType.currentlyReading: 'Currently reading',
-      BookStatusType.toRead: 'To read',
+      BookStatusType.read: l10n.readBooksStatusTitle,
+      BookStatusType.currentlyReading: l10n.currentlyReadingBooksStatusTitle,
+      BookStatusType.toRead: l10n.toReadBooksStatusTitle,
     };
   }
 

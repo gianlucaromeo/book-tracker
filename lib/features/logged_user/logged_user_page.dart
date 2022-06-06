@@ -28,7 +28,7 @@ class _UserPageState extends State<UserPage> {
     UserSectionSearch(),
   ];
 
-  int _currentSectionIndex = 0;
+  int _currentSectionIndex = 1;
 
   @override
   void initState() {

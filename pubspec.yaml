@@ -121,7 +121,7 @@ flutter:
     - assets/introduction/different-languages.json
     - assets/introduction/world.json
     - assets/onboarding/onboarding_charts.json
-    - assets/onboarding/onboarding_search_books.json # TODO
+    - assets/onboarding/onboarding_search_books.json
     - assets/onboarding/onboarding_first.json
     - assets/onboarding/onboarding3.json
     - assets/authentication/forgot_password.json
@@ -130,6 +130,8 @@ flutter:
     - assets/logged_user/success.json
     - assets/logged_user/delete.json
     - assets/logged_user/no_books.json
+    - assets/logged_user/book_status_to_read.json
+    - assets/logged_user/no_items_error.json
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

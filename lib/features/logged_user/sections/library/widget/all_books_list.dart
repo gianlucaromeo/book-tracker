@@ -5,6 +5,7 @@ import 'package:book_tracker/features/logged_user/sections/library/widget/books_
 import 'package:book_tracker/features/logged_user/sections/library/widget/books_to_read_list.dart';
 import 'package:book_tracker/util/transparent_divider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AllBooksList extends StatefulWidget {
   const AllBooksList({Key? key}) : super(key: key);
@@ -14,31 +15,29 @@ class AllBooksList extends StatefulWidget {
 }
 
 class _AllBooksListState extends State<AllBooksList> {
-  late final List<dynamic> data;
+  late List<dynamic> data;
+  late AppLocalizations l10n;
+
   @override
-  void initState() {
-    super.initState();
+  Widget build(BuildContext context) {
+    l10n = AppLocalizations.of(context)!;
     data = [
       [
         BooksRepository.booksReadLength(),
-        'Read',
+        l10n.readBooksTitle,
         const BooksReadList(),
       ],
       [
         BooksRepository.booksCurrentlyReadingLength(),
-        'Currently Reading',
+        l10n.currentlyReadingBooksTitle,
         const BooksCurrentlyReadingList(),
       ],
       [
         BooksRepository.booksToReadLength(),
-        'To read',
+        l10n.toReadBooksTitle,
         const BooksToReadList(),
       ],
     ];
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
