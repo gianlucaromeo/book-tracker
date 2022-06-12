@@ -49,15 +49,16 @@ class _BookStatusToReadFormState extends State<BookStatusToReadForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          TransparentDivider.h(8.0),
+          TransparentDivider.h(4.0),
 
           dateStartContainer,
-          TransparentDivider.h(8.0),
-          Lottie.asset(
-            'assets/logged_user/book_status_to_read.json',
-            height: 100,
+          TransparentDivider.h(4.0),
+          Expanded(
+            child: Lottie.asset(
+              'assets/logged_user/book_status_to_read.json',
+            ),
           ),
-          TransparentDivider.h(8.0),
+          TransparentDivider.h(4.0),
           //_buildSendNotificationCheckbox(),
         ],
       ),

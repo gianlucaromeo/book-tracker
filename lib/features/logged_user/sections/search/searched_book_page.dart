@@ -1,5 +1,6 @@
 // ignore_for_file: must_be_immutable
 
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:book_tracker/config/borders.dart';
 import 'package:book_tracker/config/padding.dart';
 import 'package:book_tracker/features/logged_user/models/book_status/book_status.dart';
@@ -238,10 +239,14 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
         ),
         TransparentDivider.w(AppPadding.defaultPadding / 2),
         // IMAGE
-        BookImage(
-          size: BookImageSize.searchedBook,
-          imageUrl: widget.googleBookModel.volumeInfo?.imageLinks?.thumbnail ??
-              BookImage.noImageUrl,
+        Hero(
+          tag: "${widget.googleBookModel.id}_image",
+          child: BookImage(
+            size: BookImageSize.searchedBook,
+            imageUrl:
+                widget.googleBookModel.volumeInfo?.imageLinks?.thumbnail ??
+                    BookImage.noImageUrl,
+          ),
         ),
       ],
     );
@@ -393,7 +398,7 @@ class _SearchedBookPageState extends State<SearchedBookPage> {
     );
   }
 
-  Text buildBookTitle() {
+  buildBookTitle() {
     return Text(
       widget.googleBookModel.volumeInfo?.title ?? 'No Title',
       maxLines: 2,

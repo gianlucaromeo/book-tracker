@@ -43,11 +43,14 @@ class _BookFoundTileState extends State<BookFoundTile> {
           child: Row(
             children: [
               // BOOK IMAGE
-              BookImage(
-                size: BookImageSize.bookFindTile,
-                imageUrl:
-                    widget.googleBookModel.volumeInfo?.imageLinks?.thumbnail ??
-                        BookImage.noImageUrl,
+              Hero(
+                tag: "${widget.googleBookModel.id}_image",
+                child: BookImage(
+                  size: BookImageSize.bookFindTile,
+                  imageUrl: widget
+                          .googleBookModel.volumeInfo?.imageLinks?.thumbnail ??
+                      BookImage.noImageUrl,
+                ),
               ),
               // TITLE AND AUTHORS
               buildTitleAuthorsAndCategories(),
@@ -128,7 +131,7 @@ class _BookFoundTileState extends State<BookFoundTile> {
     );
   }
 
-  Text buildBookTitle() {
+  buildBookTitle() {
     return Text(
       widget.googleBookModel.volumeInfo?.title ?? 'No title',
       maxLines: 2,

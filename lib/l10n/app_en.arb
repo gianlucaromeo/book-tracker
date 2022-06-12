@@ -456,7 +456,7 @@
     "description": "Show Book"
   },
 
-  "searchedBookPageAddBookButtonText": "Show Book",
+  "searchedBookPageAddBookButtonText": "Add Book",
   "@searchedBookPageAddBookButtonText": {
     "description": "Add Book"
   },

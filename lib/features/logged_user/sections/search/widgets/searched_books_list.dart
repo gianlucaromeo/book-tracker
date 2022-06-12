@@ -27,7 +27,7 @@ class SearchedBooksList extends StatelessWidget {
               case ConnectionState.none:
                 return const Center(
                   child: Text(
-                    'Please check your connection and try again',
+                    'Connection Error',
                   ),
                 );
               case ConnectionState.waiting:
