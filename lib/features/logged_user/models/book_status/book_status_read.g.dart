@@ -1,10 +1,4 @@
-// GENERATED CODE - DO NOT MODIFY BY HAND
-
 part of 'book_status_read.dart';
-
-// **************************************************************************
-// JsonSerializableGenerator
-// **************************************************************************
 
 BookStatusRead _$BookStatusReadFromJson(Map<String, dynamic> json) =>
     BookStatusRead(

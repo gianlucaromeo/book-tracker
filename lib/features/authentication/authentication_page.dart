@@ -45,10 +45,9 @@ class _AuthenticationPageState extends State<AuthenticationPage> {
             );
           } else if (snap.hasError) {
             return const Center(
-              child: Text('Error'), // TODO add Scaffold
+              child: Scaffold(body: Center(child: Text('Error'))),
             );
           } else if (snap.hasData) {
-            // * VERIFY EMAIL PAGE
             return const VerifyEmailPage();
           } else {
             // * LOGIN OR SIGN-UP PAGE

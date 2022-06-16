@@ -10,7 +10,6 @@ class ThemeController with ChangeNotifier {
   static ThemeController get instance => _instance;
 
   bool _isDarkTheme = false;
-
   bool get isDarkTheme => _isDarkTheme;
 
   ThemeMode get currentThemeMode =>
@@ -21,8 +20,8 @@ class ThemeController with ChangeNotifier {
     notifyListeners();
   }
 
-  ThemeData get lightThemeData => LightThemeData.themeData; // _lightThemeData;
-  ThemeData get darkThemeData => DarkThemeData.themeData; //_darkThemeData;
+  ThemeData get lightThemeData => LightThemeData.themeData;
+  ThemeData get darkThemeData => DarkThemeData.themeData;
   ThemeData get currentThemeData =>
       _isDarkTheme ? darkThemeData : lightThemeData;
 }
